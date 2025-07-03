@@ -1,1 +1,1 @@
-# FleetDM-Postman-API-Collection
+# fleetdm-api-postman-collection
