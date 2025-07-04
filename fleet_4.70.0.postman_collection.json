@@ -1,0 +1,1171 @@
+{
+  "info": {
+    "_postman_id": "bd99fadf-c2f7-4bb6-86f6-d1faa1dca96b",
+    "name": "FleetDM Full API Collection v4.70.0",
+    "description": "Comprehensive Postman collection for FleetDM v4.70.0, grouped by API documentation sections. Each endpoint is included with example requests, variables, and descriptions.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "item": [
+    {
+      "name": "Authentication",
+      "description": "Endpoints for user authentication, password management, and SSO.",
+      "item": [
+        {
+          "name": "Login",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json", "type": "text" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{email}}\",\n  \"password\": \"{{password}}\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/login",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "login" ]
+            }
+          },
+          "response": [],
+          "description": "Authenticate and retrieve an API token."
+        },
+        {
+          "name": "Log out",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/logout",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "logout" ]
+            }
+          },
+          "response": [],
+          "description": "Log out the authenticated user."
+        },
+        {
+          "name": "Forgot password",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json", "type": "text" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"email\": \"{{email}}\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/forgot_password",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "forgot_password" ]
+            }
+          },
+          "response": [],
+          "description": "Send a password reset email."
+        },
+        {
+          "name": "Change password",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+              { "key": "Content-Type", "value": "application/json", "type": "text" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"old_password\": \"{{old_password}}\",\n  \"new_password\": \"{{new_password}}\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/change_password",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "change_password" ]
+            }
+          },
+          "response": [],
+          "description": "Change the password for the authenticated user."
+        },
+        {
+          "name": "Reset password",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json", "type": "text" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"new_password\": \"{{new_password}}\",\n  \"new_password_confirmation\": \"{{new_password_confirmation}}\",\n  \"password_reset_token\": \"{{password_reset_token}}\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/reset_password",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "reset_password" ]
+            }
+          },
+          "response": [],
+          "description": "Reset a user's password using a reset token."
+        },
+        {
+          "name": "Me",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/me",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "me" ]
+            }
+          },
+          "response": [],
+          "description": "Get the authenticated user's information."
+        },
+        {
+            "name": "Perform required password reset",
+            "request": {
+              "method": "POST",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+                { "key": "Content-Type", "value": "application/json", "type": "text" }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"new_password\": \"{{new_password}}\"\n}",
+                "options": { "raw": { "language": "json" } }
+              },
+              "url": {
+                "raw": "{{baseUrl}}/api/v1/fleet/perform_required_password_reset",
+                "host": [ "{{baseUrl}}" ],
+                "path": [ "api", "v1", "fleet", "perform_required_password_reset" ]
+              }
+            },
+            "response": [],
+            "description": "Reset the password of the authenticated user when required."
+        },
+        {
+          "name": "SSO config",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/sso",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "sso" ]
+            }
+          },
+          "response": [],
+          "description": "Get the current SSO configuration."
+        },
+        {
+          "name": "Initiate SSO",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json", "type": "text" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"relay_url\": \"/hosts/manage\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/sso",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "sso" ]
+            }
+          },
+          "response": [],
+          "description": "Initiate SSO login."
+        },
+        {
+          "name": "SSO callback",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Content-Type", "value": "application/json", "type": "text" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"SAMLResponse\": \"<SAML response from IdP>\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/sso/callback",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "sso", "callback" ]
+            }
+          },
+          "response": [],
+          "description": "SSO callback endpoint for identity provider assertions."
+        }
+      ]
+    },
+    {
+      "name": "Activities",
+      "description": "Endpoints for retrieving Fleet activity logs (audit logs).",
+      "item": [
+        {
+          "name": "List activities",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/activities",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "activities" ],
+              "query": [
+                { "key": "page", "value": "0", "description": "Page number of the results to fetch." },
+                { "key": "per_page", "value": "10", "description": "Results per page." },
+                { "key": "order_key", "value": "created_at", "description": "Order results by this key." },
+                { "key": "order_direction", "value": "desc", "description": "Order direction (asc or desc)." }
+              ]
+            }
+          },
+          "response": [],
+          "description": "Returns a list of activities (audit logs) performed in Fleet. Supports pagination and ordering."
+        }
+      ]
+    },
+    {
+      "name": "File carving",
+      "description": "Endpoints for osquery file carving operations.",
+      "item": [
+        {
+          "name": "List carves",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/carves",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "carves" ],
+              "query": [
+                { "key": "page", "value": "0", "description": "Page number of the results to fetch." },
+                { "key": "per_page", "value": "10", "description": "Results per page." },
+                { "key": "order_key", "value": "created_at", "description": "Order results by this key." },
+                { "key": "order_direction", "value": "desc", "description": "Order direction (asc or desc)." }
+              ]
+            }
+          },
+          "response": [],
+          "description": "Retrieve a list of non-expired carves. Supports pagination and ordering."
+        },
+        {
+          "name": "Get carve",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/carves/{{carve_id}}",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "carves", "{{carve_id}}" ]
+            }
+          },
+          "response": [],
+          "description": "Retrieve details for a specific carve by ID."
+        },
+        {
+          "name": "Get carve block",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/carves/{{carve_id}}/block/{{block_id}}",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "carves", "{{carve_id}}", "block", "{{block_id}}" ]
+            }
+          },
+          "response": [],
+          "description": "Retrieve a specific block of a carve by carve ID and block ID."
+        }
+      ]
+    },
+    {
+      "name": "Fleet configuration",
+      "description": "Endpoints for retrieving and modifying Fleet server configuration, enroll secrets, and version info.",
+      "item": [
+        {
+          "name": "Get certificate",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/config/certificate",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "config", "certificate" ]
+            }
+          },
+          "response": [],
+          "description": "Returns the Fleet certificate."
+        },
+        {
+          "name": "Get configuration",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/config",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "config" ]
+            }
+          },
+          "response": [],
+          "description": "Returns all information about the Fleet's configuration."
+        },
+        {
+          "name": "Modify configuration",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+              { "key": "Content-Type", "value": "application/json", "type": "text" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"server_settings\": {\n    \"server_url\": \"{{baseUrl}}\"\n  }\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/config",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "config" ]
+            }
+          },
+          "response": [],
+          "description": "Modifies the Fleet's configuration with the supplied information."
+        },
+        {
+          "name": "Get global enroll secrets",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/spec/enroll_secret",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "spec", "enroll_secret" ]
+            }
+          },
+          "response": [],
+          "description": "Returns the valid global enroll secrets."
+        },
+        {
+          "name": "Modify global enroll secrets",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+              { "key": "Content-Type", "value": "application/json", "type": "text" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"spec\": {\n    \"secrets\": [\n      {\n        \"secret\": \"<your_new_secret>\"\n      }\n    ]\n  }\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/spec/enroll_secret",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "spec", "enroll_secret" ]
+            }
+          },
+          "response": [],
+          "description": "Replaces all existing global enroll secrets."
+        },
+        {
+          "name": "Get team enroll secrets",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/teams/{{team_id}}/secrets",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "teams", "{{team_id}}", "secrets" ]
+            }
+          },
+          "response": [],
+          "description": "Returns the valid team enroll secrets."
+        },
+        {
+          "name": "Modify team enroll secrets",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+              { "key": "Content-Type", "value": "application/json", "type": "text" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"secrets\": [\n    {\n      \"secret\": \"<your_new_secret>\"\n    }\n  ]\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/teams/{{team_id}}/secrets",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "teams", "{{team_id}}", "secrets" ]
+            }
+          },
+          "response": [],
+          "description": "Replaces all existing team enroll secrets."
+        },
+        {
+          "name": "Version",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/version",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "version" ]
+            }
+          },
+          "response": [],
+          "description": "Get version and build information from the Fleet server."
+        }
+      ]
+    },
+    {
+      "name": "Hosts",
+      "description": "Endpoints for listing, retrieving, and managing hosts in Fleet.",
+      "item": [
+        {
+          "name": "List hosts",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/hosts",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "hosts" ]
+            }
+          },
+          "response": [],
+          "description": "List all hosts. Supports filtering and pagination."
+        },
+        {
+          "name": "Count hosts",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/hosts/count",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "hosts", "count" ]
+            }
+          },
+          "response": [],
+          "description": "Get the total count of hosts."
+        },
+        {
+          "name": "Get hosts summary",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/hosts/summary",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "hosts", "summary" ]
+            }
+          },
+          "response": [],
+          "description": "Get a summary of all hosts."
+        },
+        {
+          "name": "Get host by ID",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/hosts/{{host_id}}",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}" ]
+            }
+          },
+          "response": [],
+          "description": "Get details for a specific host by ID."
+        },
+        {
+          "name": "Get host by identifier",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/hosts/identifier/{{identifier}}",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "hosts", "identifier", "{{identifier}}" ]
+            }
+          },
+          "response": [],
+          "description": "Get a host by its identifier (e.g., uuid, hostname, hardware_serial, etc.)."
+        },
+        {
+          "name": "Get host by device token",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/hosts/device_token/{{device_token}}",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "hosts", "device_token", "{{device_token}}" ]
+            }
+          },
+          "response": [],
+          "description": "Get a host by its device token."
+        },
+        {
+          "name": "Delete host",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/hosts/{{host_id}}",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}" ]
+            }
+          },
+          "response": [],
+          "description": "Delete a host by ID."
+        },
+        {
+          "name": "Refetch host",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/hosts/{{host_id}}/refetch",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}", "refetch" ]
+            }
+          },
+          "response": [],
+          "description": "Refetch a host's details from the agent."
+        },
+        {
+          "name": "Transfer hosts to a team",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+              { "key": "Content-Type", "value": "application/json", "type": "text" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"host_ids\": [{{host_id}}],\n  \"team_id\": {{team_id}}\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/hosts/transfer",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "hosts", "transfer" ]
+            }
+          },
+          "response": [],
+          "description": "Transfer hosts to a team by host IDs."
+        },
+        {
+          "name": "Transfer hosts to a team by filter",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+              { "key": "Content-Type", "value": "application/json", "type": "text" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"filters\": {\n    \"status\": \"online\"\n  },\n  \"team_id\": {{team_id}}\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/hosts/transfer_by_filter",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "hosts", "transfer_by_filter" ]
+            }
+          },
+          "response": [],
+          "description": "Transfer hosts to a team by filter."
+        },
+        {
+          "name": "Turn off MDM for a host",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/hosts/{{host_id}}/disable_mdm",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}", "disable_mdm" ]
+            }
+          },
+          "response": [],
+          "description": "Turn off MDM for a specific host."
+        },
+        {
+          "name": "Batch-delete hosts",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+              { "key": "Content-Type", "value": "application/json", "type": "text" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "// Option 1: Delete by IDs\n{\n  \"ids\": [{{host_id}}]\n}\n\n// Option 2: Delete by filter\n{\n  \"filters\": {\n    \"query\": \"search keywords\",\n    \"status\": \"offline\",\n    \"label_id\": 1,\n    \"team_id\": 2\n  }\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/hosts/delete",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "hosts", "delete" ]
+            }
+          },
+          "response": [],
+          "description": "Batch-delete hosts by IDs or by filter. The request body can include either 'ids' (an array of host IDs) or 'filters' (an object specifying filter criteria). Accepted filters: query (string), status (new, online, offline, mia, missing), label_id (number), team_id (number)."
+        },
+        {
+          "name": "Update custom human-device mapping",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+              { "key": "Content-Type", "value": "application/json", "type": "text" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"mapping\": {\n    \"user\": \"example@domain.com\"\n  }\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/hosts/{{host_id}}/device_mapping",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}", "device_mapping" ]
+            }
+          },
+          "response": [],
+          "description": "Update custom human-device mapping for a host."
+        },
+        {
+          "name": "Get host's device health report",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/hosts/{{host_id}}/device_health",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}", "device_health" ]
+            }
+          },
+          "response": [],
+          "description": "Get a host's device health report."
+        },
+        {
+          "name": "Get host's mobile device management (MDM) information",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/hosts/{{host_id}}/mdm",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}", "mdm" ]
+            }
+          },
+          "response": [],
+          "description": "Get a host's MDM information."
+        },
+        {
+          "name": "Get mobile device management (MDM) summary",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/hosts/mdm/summary",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "hosts", "mdm", "summary" ]
+            }
+          },
+          "response": [],
+          "description": "Get a summary of mobile device management (MDM) for all hosts."
+        },
+        {
+          "name": "Get host's mobile device management (MDM) and Munki information",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/hosts/{{host_id}}/mdm_munki",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}", "mdm_munki" ]
+            }
+          },
+          "response": [],
+          "description": "Get a host's MDM and Munki information."
+        },
+        {
+          "name": "Get aggregated host's mobile device management (MDM) and Munki information",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/hosts/mdm_munki/aggregate",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "hosts", "mdm_munki", "aggregate" ]
+            }
+          },
+          "response": [],
+          "description": "Get aggregated MDM and Munki information for all hosts."
+        },
+        {
+          "name": "Resend host's configuration profile",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/hosts/{{host_id}}/resend_profile",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}", "resend_profile" ]
+            }
+          },
+          "response": [],
+          "description": "Resend a host's configuration profile."
+        },
+        {
+          "name": "Get host's software",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/hosts/{{host_id}}/software",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}", "software" ]
+            }
+          },
+          "response": [],
+          "description": "Get a host's installed software."
+        },
+        {
+          "name": "Get hosts report in CSV",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/hosts/report",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "hosts", "report" ]
+            }
+          },
+          "response": [],
+          "description": "Get a CSV report of all hosts."
+        },
+        {
+          "name": "Get host's disk encryption key",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/hosts/{{host_id}}/disk_encryption_key",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}", "disk_encryption_key" ]
+            }
+          },
+          "response": [],
+          "description": "Get a host's disk encryption key."
+        },
+        {
+          "name": "Get host's certificates",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/hosts/{{host_id}}/certificates",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}", "certificates" ]
+            }
+          },
+          "response": [],
+          "description": "Get a host's certificates."
+        },
+        {
+          "name": "Lock host",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/hosts/{{host_id}}/lock",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}", "lock" ]
+            }
+          },
+          "response": [],
+          "description": "Lock a host."
+        },
+        {
+          "name": "Unlock host",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/hosts/{{host_id}}/unlock",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}", "unlock" ]
+            }
+          },
+          "response": [],
+          "description": "Unlock a host."
+        },
+        {
+          "name": "Wipe host",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/hosts/{{host_id}}/wipe",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}", "wipe" ]
+            }
+          },
+          "response": [],
+          "description": "Wipe a host."
+        },
+        {
+          "name": "Get host's past activity",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/hosts/{{host_id}}/past_activity",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}", "past_activity" ]
+            }
+          },
+          "response": [],
+          "description": "Get a host's past activity."
+        },
+        {
+          "name": "Get host's upcoming activity",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/hosts/{{host_id}}/upcoming_activity",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}", "upcoming_activity" ]
+            }
+          },
+          "response": [],
+          "description": "Get a host's upcoming activity."
+        },
+        {
+          "name": "Cancel host's upcoming activity",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/hosts/{{host_id}}/cancel_upcoming_activity",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}", "cancel_upcoming_activity" ]
+            }
+          },
+          "response": [],
+          "description": "Cancel a host's upcoming activity."
+        },
+        {
+          "name": "Add labels to host",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+              { "key": "Content-Type", "value": "application/json", "type": "text" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"labels\": [{{label_id}}]\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/hosts/{{host_id}}/labels",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}", "labels" ]
+            }
+          },
+          "response": [],
+          "description": "Add labels to a host."
+        },
+        {
+          "name": "Remove labels from host",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+              { "key": "Content-Type", "value": "application/json", "type": "text" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"labels\": [{{label_id}}]\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/hosts/{{host_id}}/labels",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}", "labels" ]
+            }
+          },
+          "response": [],
+          "description": "Remove labels from a host."
+        },
+        {
+          "name": "Live query one host (ad-hoc)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+              { "key": "Content-Type", "value": "application/json", "type": "text" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"host_id\": {{host_id}},\n  \"query\": \"SELECT * FROM osquery_info;\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/queries/run",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "queries", "run" ]
+            }
+          },
+          "response": [],
+          "description": "Run a live query on a single host by host ID."
+        },
+        {
+          "name": "Live query host by identifier (ad-hoc)",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+              { "key": "Content-Type", "value": "application/json", "type": "text" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"identifier\": \"{{identifier}}\",\n  \"query\": \"SELECT * FROM osquery_info;\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/queries/run_by_identifier",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "queries", "run_by_identifier" ]
+            }
+          },
+          "response": [],
+          "description": "Run a live query on a host by identifier (e.g., uuid, hostname, etc.)."
+        }
+      ]
+    },
+    {
+      "name": "Labels",
+      "description": "Endpoints for managing labels in Fleet.",
+      "item": [
+        {
+          "name": "List labels",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/labels",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "labels" ]
+            }
+          },
+          "response": [],
+          "description": "List all labels."
+        },
+        {
+          "name": "Get label",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/labels/{{label_id}}",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "labels", "{{label_id}}" ]
+            }
+          },
+          "response": [],
+          "description": "Get a label by ID."
+        },
+        {
+          "name": "Create label",
+          "request": {
+            "method": "POST",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+              { "key": "Content-Type", "value": "application/json", "type": "text" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"New Label\",\n  \"description\": \"Description of the label\",\n  \"query\": \"SELECT 1 FROM osquery_info;\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/labels",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "labels" ]
+            }
+          },
+          "response": [],
+          "description": "Create a new label."
+        },
+        {
+          "name": "Modify label",
+          "request": {
+            "method": "PATCH",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+              { "key": "Content-Type", "value": "application/json", "type": "text" }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Updated Label\",\n  \"description\": \"Updated description\"\n}",
+              "options": { "raw": { "language": "json" } }
+            },
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/labels/{{label_id}}",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "labels", "{{label_id}}" ]
+            }
+          },
+          "response": [],
+          "description": "Modify a label by ID."
+        },
+        {
+          "name": "Delete label",
+          "request": {
+            "method": "DELETE",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/labels/{{label_id}}",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "labels", "{{label_id}}" ]
+            }
+          },
+          "response": [],
+          "description": "Delete a label by ID."
+        },
+        {
+          "name": "Get labels summary",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/labels/summary",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "labels", "summary" ]
+            }
+          },
+          "response": [],
+          "description": "Get a summary of all labels."
+        },
+        {
+          "name": "List hosts in a label",
+          "request": {
+            "method": "GET",
+            "header": [
+              { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+            ],
+            "url": {
+              "raw": "{{baseUrl}}/api/v1/fleet/labels/{{label_id}}/hosts",
+              "host": [ "{{baseUrl}}" ],
+              "path": [ "api", "v1", "fleet", "labels", "{{label_id}}", "hosts" ]
+            }
+          },
+          "response": [],
+          "description": "List all hosts in a label by label ID."
+        }
+      ]
+    }
+  ],
+  "variable": [
+    { "key": "baseUrl", "value": "https://your-fleet-instance.com" },
+    { "key": "token", "value": "" },
+    { "key": "email", "value": "" },
+    { "key": "password", "value": "" }
+  ]
+}
