@@ -28,8 +28,41 @@
                 "path": [ "api", "v1", "fleet", "login" ]
               }
             },
-            "response": [],
-            "description": "Authenticate and retrieve an API token."
+            "response": [
+              {
+                "name": "Default response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{\n  \"user\": {\n    \"created_at\": \"2020-11-13T22:57:12Z\",\n    \"updated_at\": \"2020-11-13T22:57:12Z\",\n    \"id\": 1,\n    \"name\": \"Jane Doe\",\n    \"email\": \"[email protected]\",\n    \"enabled\": true,\n    \"force_password_reset\": false,\n    \"gravatar_url\": \"\",\n    \"sso_enabled\": false,\n    \"mfa_enabled\": false,\n    \"global_role\": \"admin\",\n    \"teams\": []\n  },\n  \"token\": \"{your token}\"\n}"
+              },
+              {
+                "name": "Authentication failed (401)",
+                "originalRequest": {},
+                "status": "Unauthorized",
+                "code": 401,
+                "_postman_previewlanguage": "json",
+                "body": "{\n  \"message\": \"Authentication failed\",\n  \"errors\": [\n    {\n      \"name\": \"base\",\n      \"reason\": \"Authentication failed\"\n    }\n  ],\n  \"uuid\": \"1272014b-902b-4b36-bcdb-75fde5eac1fc\"\n}"
+              },
+              {
+                "name": "MFA Required (202)",
+                "originalRequest": {},
+                "status": "Accepted",
+                "code": 202,
+                "_postman_previewlanguage": "json",
+                "body": "{\n  \"message\": \"We sent an email to you. Please click the magic link in the email to sign in.\"\n}"
+              },
+              {
+                "name": "Too many requests (429)",
+                "originalRequest": {},
+                "status": "Too Many Requests",
+                "code": 429,
+                "_postman_previewlanguage": "json",
+                "body": "{\n  \"message\": \"limit exceeded, retry after: Ns\",\n  \"errors\": [\n    {\n      \"name\": \"base\",\n      \"reason\": \"limit exceeded, retry after: Ns\"\n    }\n  ]\n}"
+              }
+            ],
+            "description": "Authenticate and retrieve an API token.\n\n**Parameters:**\n- email (string, required): The user's email.\n- password (string, required): The user's plain text password."
           },
           {
             "name": "Log out",
@@ -221,19 +254,28 @@
                 { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
               ],
               "url": {
-                "raw": "{{baseUrl}}/api/v1/fleet/activities",
+                "raw": "{{baseUrl}}/api/v1/fleet/activities?page={{page}}&per_page={{per_page}}&order_key={{order_key}}&order_direction={{order_direction}}",
                 "host": [ "{{baseUrl}}" ],
                 "path": [ "api", "v1", "fleet", "activities" ],
                 "query": [
-                  { "key": "page", "value": "0", "description": "Page number of the results to fetch." },
-                  { "key": "per_page", "value": "10", "description": "Results per page." },
-                  { "key": "order_key", "value": "created_at", "description": "Order results by this key." },
-                  { "key": "order_direction", "value": "desc", "description": "Order direction (asc or desc)." }
+                  { "key": "page", "value": "{{page}}", "description": "Page number of the results to fetch.", "disabled": true },
+                  { "key": "per_page", "value": "{{per_page}}", "description": "Results per page.", "disabled": true },
+                  { "key": "order_key", "value": "{{order_key}}", "description": "What to order results by. Can be any column in the activities table.", "disabled": true },
+                  { "key": "order_direction", "value": "{{order_direction}}", "description": "The direction of the order given the order key. Options: 'asc', 'desc'. Requires order_key.", "disabled": true }
                 ]
               }
             },
-            "response": [],
-            "description": "Returns a list of activities (audit logs) performed in Fleet. Supports pagination and ordering."
+            "response": [
+              {
+                "name": "Default response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{\n  \"activities\": [\n    {\n      \"created_at\": \"2023-07-27T14:35:08Z\",\n      \"id\": 25,\n      \"actor_full_name\": \"Anna Chao\",\n      \"actor_id\": 3,\n      \"actor_gravatar\": \"\",\n      \"actor_email\": \"\",\n      \"type\": \"installed_software\",\n      \"fleet_initiated\": false,\n      \"details\": {\n        \"status\": \"installed\",\n        \"host_id\": 1272,\n        \"host_display_name\": \"MacBook Pro\",\n        \"policy_id\": null,\n        \"policy_name\": null,\n        \"install_uuid\": \"23c18ea1-8cd7-4af4-a1d8-f2666993a66b\",\n        \"self_service\": false,\n        \"software_title\": \"zoom.us.app\",\n        \"software_package\": \"ZoomInstallerIT.pkg\"\n        }\n    },\n    {\n      \"created_at\": \"2021-07-29T14:40:27Z\",\n      \"id\": 21,\n      \"actor_full_name\": \"name\",\n      \"actor_id\": 1,\n      \"actor_gravatar\": \"\",\n      \"actor_email\": \"[email protected]\",\n      \"type\": \"created_team\",\n      \"fleet_initiated\": false,\n      \"details\": {\n        \"team_id\": 2,\n        \"team_name\": \"Apples\"\n      }\n    },\n    {\n      \"created_at\": \"2023-07-27T14:35:08Z\",\n      \"id\": 25,\n      \"type\": \"installed_software\",\n      \"fleet_initiated\": true,\n      \"details\": {\n        \"status\": \"installed\",\n        \"host_id\": 1272,\n        \"host_display_name\": \"MacBook Pro\",\n        \"policy_id\": 24,\n        \"policy_name\": \"[Install software] Zoom\",\n        \"install_uuid\": \"077970ab-0ed6-4573-9cdc-ca9ef9015283\",\n        \"self_service\": false,\n        \"software_title\": \"zoom.us.app\",\n        \"software_package\": \"ZoomInstallerIT.pkg\"\n        }\n    }\n  ],\n  \"meta\": {\n    \"has_next_results\": false,\n    \"has_previous_results\": false\n  }\n}"
+              }
+            ],
+            "description": "Returns a list of activities (audit logs) performed in Fleet.\n\n**Parameters:**\n- page (integer, optional): Page number of the results to fetch.\n- per_page (integer, optional): Results per page.\n- order_key (string, optional): What to order results by.\n- order_direction (string, optional): The direction of the order given the order key. Options: 'asc', 'desc'. Requires order_key."
           }
         ]
       },
@@ -249,19 +291,30 @@
                 { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
               ],
               "url": {
-                "raw": "{{baseUrl}}/api/v1/fleet/carves",
+                "raw": "{{baseUrl}}/api/v1/fleet/carves?page={{page}}&per_page={{per_page}}&order_key={{order_key}}&order_direction={{order_direction}}&after={{after}}&expired={{expired}}",
                 "host": [ "{{baseUrl}}" ],
                 "path": [ "api", "v1", "fleet", "carves" ],
                 "query": [
-                  { "key": "page", "value": "0", "description": "Page number of the results to fetch." },
-                  { "key": "per_page", "value": "10", "description": "Results per page." },
-                  { "key": "order_key", "value": "created_at", "description": "Order results by this key." },
-                  { "key": "order_direction", "value": "desc", "description": "Order direction (asc or desc)." }
+                  { "key": "page", "value": "{{page}}", "description": "Page number of the results to fetch.", "disabled": true },
+                  { "key": "per_page", "value": "{{per_page}}", "description": "Results per page.", "disabled": true },
+                  { "key": "order_key", "value": "{{order_key}}", "description": "What to order results by. Can be any field listed in the results array.", "disabled": true },
+                  { "key": "order_direction", "value": "{{order_direction}}", "description": "The direction of the order given the order key.\nValid options: 'asc', 'desc'. Requires order_key.", "disabled": true },
+                  { "key": "after", "value": "{{after}}", "description": "The value to get results after. Needs order_key defined.", "disabled": true },
+                  { "key": "expired", "value": "{{expired}}", "description": "Include expired carves (default: false)", "disabled": true }
                 ]
               }
             },
-            "response": [],
-            "description": "Retrieve a list of non-expired carves. Supports pagination and ordering."
+            "response": [
+              {
+                "name": "Default response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{\n  \"carves\": [\n    {\n      \"id\": 1,\n      \"created_at\": \"2021-02-23T22:52:01Z\",\n      \"host_id\": 7,\n      \"name\": \"macbook-pro.local-2021-02-23T22:52:01Z-fleet_distributed_query_30\",\n      \"block_count\": 1,\n      \"block_size\": 2000000,\n      \"carve_size\": 2048,\n      \"carve_id\": \"c6958b5f-4c10-4dc8-bc10-60aad5b20dc8\",\n      \"request_id\": \"fleet_distributed_query_30\",\n      \"session_id\": \"065a1dc3-40ad-441c-afff-80c2ad7dac28\",\n      \"expired\": false,\n      \"max_block\": 0\n    },\n    {\n      \"id\": 2,\n      \"created_at\": \"2021-02-23T22:53:03Z\",\n      \"host_id\": 7,\n      \"name\": \"macbook-pro.local-2021-02-23T22:53:03Z-fleet_distributed_query_31\",\n      \"block_count\": 2,\n      \"block_size\": 2000000,\n      \"carve_size\": 3400704,\n      \"carve_id\": \"2b9170b9-4e11-4569-a97c-2f18d18bec7a\",\n      \"request_id\": \"fleet_distributed_query_31\",\n      \"session_id\": \"f73922ed-40a4-4e98-a50a-ccda9d3eb755\",\n      \"expired\": false,\n      \"max_block\": 1,\n      \"error\": \"S3 multipart carve upload: EntityTooSmall: Your proposed upload is smaller than the minimum allowed object size\"\n    }\n  ]\n}"
+              }
+            ],
+            "description": "Retrieve a list of non-expired carves.\n\n**Parameters:**\n- page (integer, optional): Page number of the results to fetch.\n- per_page (integer, optional): Results per page.\n- order_key (string, optional): What to order results by.\n- order_direction (string, optional): The direction of the order given the order key.\n- after (string, optional): The value to get results after.\n- expired (boolean, optional): Include expired carves (default: false)."
           },
           {
             "name": "Get carve",
@@ -271,13 +324,22 @@
                 { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
               ],
               "url": {
-                "raw": "{{baseUrl}}/api/v1/fleet/carves/{{carve_id}}",
+                "raw": "{{baseUrl}}/api/v1/fleet/carves/{{id}}",
                 "host": [ "{{baseUrl}}" ],
-                "path": [ "api", "v1", "fleet", "carves", "{{carve_id}}" ]
+                "path": [ "api", "v1", "fleet", "carves", "{{id}}" ]
               }
             },
-            "response": [],
-            "description": "Retrieve details for a specific carve by ID."
+            "response": [
+              {
+                "name": "Default response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{\n  \"carve\": {\n    \"id\": 1,\n    \"created_at\": \"2021-02-23T22:52:01Z\",\n    \"host_id\": 7,\n    \"name\": \"macbook-pro.local-2021-02-23T22:52:01Z-fleet_distributed_query_30\",\n    \"block_count\": 1,\n    \"block_size\": 2000000,\n    \"carve_size\": 2048,\n    \"carve_id\": \"c6958b5f-4c10-4dc8-bc10-60aad5b20dc8\",\n    \"request_id\": \"fleet_distributed_query_30\",\n    \"session_id\": \"065a1dc3-40ad-441c-afff-80c2ad7dac28\",\n    \"expired\": false,\n    \"max_block\": 0\n  }\n}"
+              }
+            ],
+            "description": "Retrieve details for a specific carve by ID.\n\n**Parameters:**\n- id (integer, required): The desired carve's ID."
           },
           {
             "name": "Get carve block",
@@ -287,13 +349,22 @@
                 { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
               ],
               "url": {
-                "raw": "{{baseUrl}}/api/v1/fleet/carves/{{carve_id}}/block/{{block_id}}",
+                "raw": "{{baseUrl}}/api/v1/fleet/carves/{{id}}/block/{{block_id}}",
                 "host": [ "{{baseUrl}}" ],
-                "path": [ "api", "v1", "fleet", "carves", "{{carve_id}}", "block", "{{block_id}}" ]
+                "path": [ "api", "v1", "fleet", "carves", "{{id}}", "block", "{{block_id}}" ]
               }
             },
-            "response": [],
-            "description": "Retrieve a specific block of a carve by carve ID and block ID."
+            "response": [
+              {
+                "name": "Default response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{\n    \"data\": \"aG9zdHMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA...\"\n}"
+              }
+            ],
+            "description": "Retrieve a specific block of a carve by carve ID and block ID.\n\n**Parameters:**\n- id (integer, required): The desired carve's ID.\n- block_id (integer, required): The desired carve block's ID."
           }
         ]
       },
@@ -314,7 +385,16 @@
                 "path": [ "api", "v1", "fleet", "config", "certificate" ]
               }
             },
-            "response": [],
+            "response": [
+              {
+                "name": "Default response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{\n  \"certificate_chain\": \"<certificate_chain>\"\n}"
+              }
+            ],
             "description": "Returns the Fleet certificate."
           },
           {
@@ -330,8 +410,17 @@
                 "path": [ "api", "v1", "fleet", "config" ]
               }
             },
-            "response": [],
-            "description": "Returns all information about the Fleet's configuration."
+            "response": [
+              {
+                "name": "Default response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{\n  \"org_info\": {\n    \"org_name\": \"fleet\",\n    \"org_logo_url\": \"\",\n    \"contact_url\": \"https://fleetdm.com/company/contact\"\n  },\n  \"server_settings\": {\n    \"server_url\": \"https://instance.fleet.com\",\n    \"enable_analytics\": true,\n    \"live_query_disabled\": false,\n    \"query_reports_disabled\": false,\n    \"ai_features_disabled\": false\n  },\n  \"smtp_settings\": {\n    \"enable_smtp\": false,\n    \"configured\": false,\n    \"sender_address\": \"\",\n    \"server\": \"\",\n    \"port\": 587,\n    \"authentication_type\": \"authtype_username_password\",\n    \"user_name\": \"\",\n    \"password\": \"********\",\n    \"enable_ssl_tls\": true,\n    \"authentication_method\": \"authmethod_plain\",\n    \"domain\": \"\",\n    \"verify_ssl_certs\": true,\n    \"enable_start_tls\": true\n  },\n  \"sso_settings\": {\n    \"entity_id\": \"\",\n    \"issuer_uri\": \"\",\n    \"idp_image_url\": \"\",\n    \"metadata\": \"\",\n    \"metadata_url\": \"\",\n    \"idp_name\": \"\",\n    \"enable_sso\": false,\n    \"enable_sso_idp_login\": false,\n    \"enable_jit_provisioning\": false\n  },\n  \"conditional_access\": {\n    \"microsoft_entra_tenant_id\": \"<TENANT ID>\",\n    \"microsoft_entra_connection_configured\": true\n  },\n  \"host_expiry_settings\": {\n    \"host_expiry_enabled\": false,\n    \"host_expiry_window\": 0\n  },\n  \"activity_expiry_settings\": {\n    \"activity_expiry_enabled\": false,\n    \"activity_expiry_window\": 0\n  },\n  \"features\": {\n    \"enable_host_users\": true,\n    \"enable_software_inventory\": true,\n    \"additional_queries\": null\n  },\n  \"mdm\": {\n    \"android_enabled_and_configured\": true,\n    \"windows_enabled_and_configured\": true,\n    \"enable_disk_encryption\": true,\n    \"macos_updates\": {\n      \"minimum_version\": \"12.3.1\",\n      \"deadline\": \"2022-01-01\"\n    },\n    \"ios_updates\": {\n      \"minimum_version\": \"17.0.1\",\n      \"deadline\": \"2024-08-01\"\n    },\n    \"ipados_updates\": {\n      \"minimum_version\": \"17.0.1\",\n      \"deadline\": \"2024-08-01\"\n    },\n    \"windows_updates\": {\n      \"deadline_days\": 5,\n      \"grace_period_days\": 1\n    },\n    \"macos_settings\": {\n      \"custom_settings\": [\n        {\n          \"path\": \"path/to/profile1.mobileconfig\",\n          \"labels\": [\"Label 1\", \"Label 2\"]\n        }\n      ]\n    },\n    \"windows_settings\": {\n      \"custom_settings\": [\n        {\n         \"path\": \"path/to/profile2.xml\",\n         \"labels\": [\"Label 3\", \"Label 4\"]\n        }\n      ],\n    },\n    \"scripts\": [\"path/to/script.sh\"],\n    \"end_user_authentication\": {\n      \"entity_id\": \"\",\n      \"metadata\": \"\",\n      \"metadata_url\": \"\",\n      \"idp_name\": \"\"\n    },\n    \"macos_migration\": {\n      \"enable\": false,\n      \"mode\": \"voluntary\",\n      \"webhook_url\": \"https://webhook.example.com\"\n    },\n    \"macos_setup\": {\n      \"bootstrap_package\": \"\",\n      \"enable_end_user_authentication\": false,\n      \"macos_setup_assistant\": \"path/to/config.json\",\n      \"enable_release_device_manually\": false,\n      \"manual_agent_install\": false\n    },\n    \"client_url\": \"https://instance.fleet.com\"\n  },\n  \"agent_options\": {\n    \"spec\": {\n      \"config\": {\n        \"options\": {\n          \"pack_delimiter\": \"/\",\n          \"logger_tls_period\": 10,\n          \"distributed_plugin\": \"tls\",\n          \"disable_distributed\": false,\n          \"logger_tls_endpoint\": \"/api/v1/osquery/log\",\n          \"distributed_interval\": 10,\n          \"distributed_tls_max_attempts\": 3\n        },\n        \"decorators\": {\n          \"load\": [\n            \"SELECT uuid AS host_uuid FROM system_info;\",\n            \"SELECT hostname AS hostname FROM system_info\"\n          ]\n        }\n      },\n      \"overrides\": {},\n      \"command_line_flags\": {}\n    }\n  },\n  \"license\": {\n    \"tier\": \"premium\",\n    \"organization\": \"fleet\",\n    \"device_count\": 500000,\n    \"managed_cloud\": false,\n    \"expiration\": \"2031-10-16T00:00:00Z\",\n    \"note\": \"\"\n  },\n  \"logging\": {\n    \"debug\": false,\n    \"json\": false,\n    \"result\": {\n      \"plugin\": \"firehose\",\n      \"config\": {\n        \"region\": \"us-east-1\",\n        \"status_stream\": \"\",\n        \"result_stream\": \"result-topic\"\n      }\n    },\n    \"status\": {\n      \"plugin\": \"filesystem\",\n      \"config\": {\n        \"status_log_file\": \"foo_status\",\n        \"result_log_file\": \"\",\n        \"enable_log_rotation\": false,\n        \"enable_log_compression\": false\n      }\n    }\n  },\n  \"vulnerability_settings\": {\n    \"databases_path\": \"\"\n  },\n  \"gitops\": {\n    \"gitops_mode_enabled\": false,\n    \"repository_url\": \"\",\n  },\n  \"webhook_settings\": {\n    \"host_status_webhook\": {\n      \"enable_host_status_webhook\": true,\n      \"destination_url\": \"https://server.com\",\n      \"host_percentage\": 5,\n      \"days_count\": 7\n    },\n    \"failing_policies_webhook\":{\n      \"enable_failing_policies_webhook\":true,\n      \"destination_url\": \"https://server.com\",\n      \"policy_ids\": [1, 2, 3],\n      \"host_batch_size\": 1000\n    },\n    \"vulnerabilities_webhook\":{\n      \"enable_vulnerabilities_webhook\":true,\n      \"destination_url\": \"https://server.com\",\n      \"host_batch_size\": 1000\n    },\n    \"activities_webhook\":{\n      \"enable_activities_webhook\":true,\n      \"destination_url\": \"https://server.com\"\n    }\n  },\n  \"integrations\": {\n    \"google_calendar\": [\n      {\n        \"domain\": \"example.com\",\n        \"api_key_json\": {\n           \"type\": \"service_account\",\n           \"project_id\": \"fleet-in-your-calendar\",\n           \"private_key_id\": \"<private key id>\",\n           \"private_key\": \"-----BEGIN PRIVATE KEY-----\\n<private key>\\n-----END PRIVATE KEY-----\\n\",\n           \"client_email\": \"fleet-calendar-events@fleet-in-your-calendar.iam.gserviceaccount.com\",\n           \"client_id\": \"<client id>\",\n           \"auth_uri\": \"https://accounts.google.com/o/oauth2/auth\",\n           \"token_uri\": \"https://oauth2.googleapis.com/token\",\n           \"auth_provider_x509_cert_url\": \"https://www.googleapis.com/oauth2/v1/certs\",\n           \"client_x509_cert_url\": \"https://www.googleapis.com/robot/v1/metadata/x509/fleet-calendar-events%40fleet-in-your-calendar.iam.gserviceaccount.com\",\n           \"universe_domain\": \"googleapis.com\"\n         }\n      }\n    ],\n    \"jira\": [],\n    \"digicert\": [\n      {\n        \"name\": \"DIGICERT_WIFI\",\n        \"url\": \"https://one.digicert.com\",\n        \"api_token\": \"********\",\n        \"profile_id\": \"7ed77396-9186-4bfa-9fa7-63dddc46b8a3\",\n        \"certificate_common_name\": \"[email protected]\",\n        \"certificate_user_principal_names\": [\n          \"[email protected]\",\n        ],\n        \"certificate_seat_id\": \"[email protected]\"\n      }\n    ],\n    \"ndes_scep_proxy\": {\n      \"admin_url\": \"https://example.com/certsrv/mscep_admin/\",\n      \"password\": \"********\",\n      \"url\": \"https://example.com/certsrv/mscep/mscep.dll\",\n      \"username\": \"[email protected]\"\n    },\n    \"custom_scep_proxy\": [\n      {\n        \"name\": \"SCEP_WIFI\",\n        \"url\": \"https://example.com/scep\",\n        \"challenge\": \"********\",\n      },\n      {\n        \"name\": \"SCEP_VPN\",\n        \"url\": \"https://example.com/scep\",\n        \"challenge\": \"********\",\n      }\n    ],\n    \"zendesk\": []\n  },\n  \"logging\": {\n    \"debug\": false,\n    \"json\": false,\n    \"result\": {\n        \"plugin\": \"filesystem\",\n        \"config\": {\n          \"status_log_file\": \"/var/folders/xh/bxm1d2615tv3vrg4zrxq540h0000gn/T/osquery_status\",\n          \"result_log_file\": \"/var/folders/xh/bxm1d2615tv3vrg4zrxq540h0000gn/T/osquery_result\",\n          \"enable_log_rotation\": false,\n          \"enable_log_compression\": false\n        }\n      },\n    \"status\": {\n      \"plugin\": \"filesystem\",\n      \"config\": {\n        \"status_log_file\": \"/var/folders/xh/bxm1d2615tv3vrg4zrxq540h0000gn/T/osquery_status\",\n        \"result_log_file\": \"/var/folders/xh/bxm1d2615tv3vrg4zrxq540h0000gn/T/osquery_result\",\n        \"enable_log_rotation\": false,\n        \"enable_log_compression\": false\n      }\n    }\n  },\n  \"update_interval\": {\n    \"osquery_detail\": 3600000000000,\n    \"osquery_policy\": 3600000000000\n  },\n  \"vulnerabilities\": {\n    \"cpe_database_url\": \"\",\n    \"disable_schedule\": false,\n    \"cve_feed_prefix_url\": \"\",\n    \"databases_path\": \"\",\n    \"disable_data_sync\": false,\n    \"periodicity\": 3600000000000,\n    \"recent_vulnerability_max_age\": 2592000000000000\n  }\n}"
+              }
+            ],
+            "description": "Returns all information about the Fleet's configuration. The agent_options, smtp_settings and sso_settings fields are only returned for admin and GitOps users with global access."
           },
           {
             "name": "Modify configuration",
@@ -343,17 +432,40 @@
               ],
               "body": {
                 "mode": "raw",
-                "raw": "{\n  \"server_settings\": {\n    \"server_url\": \"{{baseUrl}}\"\n  }\n}",
+                "raw": "{\n  \"scripts\": []\n}",
                 "options": { "raw": { "language": "json" } }
               },
               "url": {
-                "raw": "{{baseUrl}}/api/v1/fleet/config",
+                "raw": "{{baseUrl}}/api/v1/fleet/config?force=false&dry_run=false",
                 "host": [ "{{baseUrl}}" ],
-                "path": [ "api", "v1", "fleet", "config" ]
+                "path": [ "api", "v1", "fleet", "config" ],
+                "query": [
+                  {
+                    "key": "force",
+                    "value": "false",
+                    "description": "Whether to force-apply the agent options even if there are validation errors.",
+                    "disabled": true
+                  },
+                  {
+                    "key": "dry_run",
+                    "value": "false",
+                    "description": "Whether to validate the configuration and return any validation errors without applying changes.",
+                    "disabled": true
+                  }
+                ]
               }
             },
-            "response": [],
-            "description": "Modifies the Fleet's configuration with the supplied information."
+            "response": [
+              {
+                "name": "Default response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{\n  \"org_info\": {\n    \"org_name\": \"Fleet Device Management\",\n    \"org_logo_url\": \"https://fleetdm.com/logo.png\",\n    \"org_logo_url_light_background\": \"https://fleetdm.com/logo-light.png\",\n    \"contact_url\": \"https://fleetdm.com/company/contact\"\n  },\n  \"server_settings\": {\n    \"server_url\": \"https://instance.fleet.com\",\n    \"enable_analytics\": true,\n    \"live_query_disabled\": false,\n    \"query_reports_disabled\": false,\n    \"ai_features_disabled\": false\n  },\n  \"smtp_settings\": {\n    \"enable_smtp\": true,\n    \"configured\": true,\n    \"sender_address\": \"\",\n    \"server\": \"localhost\",\n    \"port\": 1025,\n    \"authentication_type\": \"authtype_username_none\",\n    \"user_name\": \"\",\n    \"password\": \"********\",\n    \"enable_ssl_tls\": true,\n    \"authentication_method\": \"authmethod_plain\",\n    \"domain\": \"\",\n    \"verify_ssl_certs\": true,\n    \"enable_start_tls\": true\n  },\n  \"sso_settings\": {\n    \"entity_id\": \"\",\n    \"issuer_uri\": \"\",\n    \"idp_image_url\": \"\",\n    \"metadata\": \"\",\n    \"metadata_url\": \"\",\n    \"idp_name\": \"\",\n    \"enable_sso\": false,\n    \"enable_sso_idp_login\": false,\n    \"enable_jit_provisioning\": false\n  },\n  \"conditional_access\": {\n    \"microsoft_entra_tenant_id\": \"<TENANT ID>\",\n    \"microsoft_entra_connection_configured\": true\n  },\n  \"host_expiry_settings\": {\n    \"host_expiry_enabled\": false,\n    \"host_expiry_window\": 0\n  },\n  \"activity_expiry_settings\": {\n    \"activity_expiry_enabled\": false,\n    \"activity_expiry_window\": 0\n  },\n  \"features\": {\n    \"enable_host_users\": true,\n    \"enable_software_inventory\": true,\n    \"additional_queries\": null\n  },\n  \"license\": {\n    \"tier\": \"free\",\n    \"expiration\": \"0001-01-01T00:00:00Z\"\n  },\n  \"mdm\": {\n    \"enabled_and_configured\": false,\n    \"android_enabled_and_configured\": false,\n    \"windows_enabled_and_configured\": false,\n    \"enable_disk_encryption\": true,\n    \"macos_updates\": {\n      \"minimum_version\": \"12.3.1\",\n      \"deadline\": \"2022-01-01\"\n    },\n    \"ios_updates\": {\n      \"minimum_version\": \"17.0.1\",\n      \"deadline\": \"2024-08-01\"\n    },\n    \"ipados_updates\": {\n      \"minimum_version\": \"17.0.1\",\n      \"deadline\": \"2024-08-01\"\n    },\n    \"windows_updates\": {\n      \"deadline_days\": 5,\n      \"grace_period_days\": 1\n    },\n    \"macos_settings\": {\n      \"custom_settings\": [\n        {\n          \"path\": \"path/to/profile1.mobileconfig\",\n          \"labels_exclude_any\": [\"Label 1\", \"Label 2\"]\n        },\n        {\n          \"path\": \"path/to/profile2.json\",\n          \"labels_include_all\": [\"Label 3\", \"Label 4\"]\n        },\n          {\n          \"path\": \"path/to/profile3.json\",\n          \"labels_include_any\": [\"Label 5\", \"Label 6\"]\n        }\n      ]\n    },\n    \"windows_settings\": {\n      \"custom_settings\": [\n        {\n          \"path\": \"path/to/profile3.xml\",\n          \"labels_exclude_any\": [\"Label 1\", \"Label 2\"]\n        }\n      ]\n    },\n    \"end_user_authentication\": {\n      \"entity_id\": \"\",\n      \"metadata\": \"\",\n      \"metadata_url\": \"\",\n      \"idp_name\": \"\"\n    },\n    \"macos_migration\": {\n      \"enable\": false,\n      \"mode\": \"voluntary\",\n      \"webhook_url\": \"https://webhook.example.com\"\n    },\n    \"macos_setup\": {\n      \"bootstrap_package\": \"\",\n      \"enable_end_user_authentication\": false,\n      \"macos_setup_assistant\": \"path/to/config.json\"\n    },\n    \"apple_server_url\": \"https://instance.fleet.com\"\n  },\n  \"agent_options\": {\n    \"config\": {\n      \"options\": {\n        \"pack_delimiter\": \"/\",\n        \"logger_tls_period\": 10,\n        \"distributed_plugin\": \"tls\",\n        \"disable_distributed\": false,\n        \"logger_tls_endpoint\": \"/api/v1/osquery/log\",\n        \"distributed_interval\": 10,\n        \"distributed_tls_max_attempts\": 3\n      },\n      \"decorators\": {\n        \"load\": [\n          \"SELECT uuid AS host_uuid FROM system_info;\",\n          \"SELECT hostname AS hostname FROM system_info\"\n        ]\n      }\n    },\n    \"overrides\": {},\n    \"command_line_flags\": {}\n  },\n  \"vulnerability_settings\": {\n    \"databases_path\": \"\"\n  },\n  \"fleet_desktop\": {\n    \"transparency_url\": \"https://fleetdm.com/better\"\n  },\n  \"gitops\": {\n    \"gitops_mode_enabled\": false,\n    \"repository_url\": \"\",\n  },\n  \"webhook_settings\": {\n    \"host_status_webhook\": {\n      \"enable_host_status_webhook\": true,\n      \"destination_url\": \"https://server.com\",\n      \"host_percentage\": 5,\n      \"days_count\": 7\n    },\n    \"failing_policies_webhook\":{\n      \"enable_failing_policies_webhook\": true,\n      \"destination_url\": \"https://server.com\",\n      \"policy_ids\": [1, 2, 3],\n      \"host_batch_size\": 1000\n    },\n    \"vulnerabilities_webhook\":{\n      \"enable_vulnerabilities_webhook\":true,\n      \"destination_url\": \"https://server.com\",n      \"host_batch_size\": 1000\n    },\n    \"activities_webhook\":{\n      \"enable_activities_webhook\":true,\n      \"destination_url\": \"https://server.com\"\n    }\n  },\n  \"integrations\": {\n    \"google_calendar\": [\n      {\n        \"domain\": \"\",\n        \"api_key_json\": null\n      }\n    ],\n    \"jira\": [\n      {\n        \"url\": \"https://jiraserver.com\",\n        \"username\": \"some_user\",\n        \"password\": \"sec4et!\",\n        \"project_key\": \"jira_project\",\n        \"enable_software_vulnerabilities\": false\n      }\n    ],\n    \"ndes_scep_proxy\": null,\n    \"zendesk\": []\n  },\n  \"logging\": {\n      \"debug\": false,\n      \"json\": false,\n      \"result\": {\n          \"plugin\": \"firehose\",\n          \"config\": {\n            \"region\": \"us-east-1\",\n            \"status_stream\": \"\",\n            \"result_stream\": \"result-topic\"\n          }\n      },\n      \"status\": {\n          \"plugin\": \"filesystem\",\n          \"config\": {\n            \"status_log_file\": \"foo_status\",\n            \"result_log_file\": \"\",\n            \"enable_log_rotation\": false,\n            \"enable_log_compression\": false\n          }\n      }\n  },\n  \"scripts\": []\n}"
+              }
+            ],
+            "description": "Modifies the Fleet's configuration with the supplied information. Supports force and dry_run query parameters for validation control."
           },
           {
             "name": "Get global enroll secrets",
@@ -368,7 +480,16 @@
                 "path": [ "api", "v1", "fleet", "spec", "enroll_secret" ]
               }
             },
-            "response": [],
+            "response": [
+              {
+                "name": "Default response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{\n  \"spec\": {\n    \"secrets\": [\n      {\n        \"secret\": \"vhPzPOnCMOMoqSrLxKxzSADyqncayacB\",\n        \"created_at\": \"2021-11-12T20:24:57Z\"\n      },\n      {\n        \"secret\": \"jZpexWGiXmXaFAKdrdttFHdJBqEnqlVF\",\n        \"created_at\": \"2021-11-12T20:24:57Z\"\n      }\n    ]\n  }\n}"
+              }
+            ],
             "description": "Returns the valid global enroll secrets."
           },
           {
@@ -381,7 +502,7 @@
               ],
               "body": {
                 "mode": "raw",
-                "raw": "{\n  \"spec\": {\n    \"secrets\": [\n      {\n        \"secret\": \"<your_new_secret>\"\n      }\n    ]\n  }\n}",
+                "raw": "{\n  \"spec\": {\n    \"secrets\": [\n      {\n        \"secret\": \"KuSkYFsHBQVlaFtqOLwoUIWniHhpvEhP\"\n      }\n    ]\n  }\n}",
                 "options": { "raw": { "language": "json" } }
               },
               "url": {
@@ -390,7 +511,16 @@
                 "path": [ "api", "v1", "fleet", "spec", "enroll_secret" ]
               }
             },
-            "response": [],
+            "response": [
+              {
+                "name": "Default response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{}"
+              }
+            ],
             "description": "Replaces all existing global enroll secrets."
           },
           {
@@ -406,7 +536,16 @@
                 "path": [ "api", "v1", "fleet", "teams", "{{team_id}}", "secrets" ]
               }
             },
-            "response": [],
+            "response": [
+              {
+                "name": "Default response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{\n  \"secrets\": [\n    {\n      \"created_at\": \"2021-06-16T22:05:49Z\",\n      \"secret\": \"aFtH2Nq09hrvi73ErlWNQfa7M53D3rPR\",\n      \"team_id\": 1\n    }\n  ]\n}"
+              }
+            ],
             "description": "Returns the valid team enroll secrets."
           },
           {
@@ -419,7 +558,7 @@
               ],
               "body": {
                 "mode": "raw",
-                "raw": "{\n  \"secrets\": [\n    {\n      \"secret\": \"<your_new_secret>\"\n    }\n  ]\n}",
+                "raw": "{\n  \"secrets\": [\n    {\n      \"secret\": \"n07v32y53c237734m3n201153c237\"\n    }\n  ]\n}",
                 "options": { "raw": { "language": "json" } }
               },
               "url": {
@@ -428,7 +567,16 @@
                 "path": [ "api", "v1", "fleet", "teams", "{{team_id}}", "secrets" ]
               }
             },
-            "response": [],
+            "response": [
+              {
+                "name": "Default response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{\n  \"secrets\": [\n    {\n      \"secret\": \"n07v32y53c237734m3n201153c237\",\n      \"created_at\": \"0001-01-01T00:00:00Z\"\n    }\n  ]\n}"
+              }
+            ],
             "description": "Replaces all existing team enroll secrets."
           },
           {
@@ -444,14 +592,48 @@
                 "path": [ "api", "v1", "fleet", "version" ]
               }
             },
-            "response": [],
+            "response": [
+              {
+                "name": "Default response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{\n  \"version\": \"3.9.0-93-g1b67826f-dirty\",\n  \"branch\": \"version\",\n  \"revision\": \"1b67826fe4bf40b2f45ec53e01db9bf467752e74\",\n  \"go_version\": \"go1.15.7\",\n  \"build_date\": \"2021-03-27\",\n  \"build_user\": \"zwass\"\n}"
+              }
+            ],
             "description": "Get version and build information from the Fleet server."
+          },
+          {
+            "name": "Get configuration profiles assigned to a host",
+            "request": {
+              "method": "GET",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/api/v1/fleet/hosts/{{host_id}}/configuration_profiles",
+                "host": [ "{{baseUrl}}" ],
+                "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}", "configuration_profiles" ]
+              }
+            },
+            "response": [
+              {
+                "name": "Default response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{\n  \"host_id\": 8,\n  \"profiles\": [\n    {\n      \"profile_uuid\": \"bc84dae7-396c-4e10-9d45-5768bce8b8bd\",\n      \"team_id\": 0,\n      \"name\": \"Example profile\",\n      \"identifier\": \"com.example.profile\",\n      \"created_at\": \"2023-03-31T00:00:00Z\",\n      \"updated_at\": \"2023-03-31T00:00:00Z\",\n      \"checksum\": \"dGVzdAo=\"\n    }\n  ]\n}"
+              }
+            ],
+            "description": "Requires Fleet's MDM properly enabled and configured. Retrieves a list of the configuration profiles assigned to a host.\n\n**Parameters:**\n- id (integer, path, required): The ID of the host"
           }
         ]
       },
       {
         "name": "Hosts",
-        "description": "Endpoints for listing, retrieving, and managing hosts in Fleet.",
+        "description": "Endpoints for listing, retrieving, and managing hosts in Fleet. Hosts have various timestamps with '_at' suffix (created_at, updated_at, detail_updated_at, label_updated_at, last_enrolled_at, policy_updated_at, seen_time, software_updated_at, last_restarted_at) that track different aspects of host data.",
         "item": [
           {
             "name": "List hosts",
@@ -461,13 +643,60 @@
                 { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
               ],
               "url": {
-                "raw": "{{baseUrl}}/api/v1/fleet/hosts",
+                "raw": "{{baseUrl}}/api/v1/fleet/hosts?page={{page}}&per_page={{per_page}}&order_key={{order_key}}&order_direction={{order_direction}}&status={{status}}&query={{query}}&additional_info_filters={{additional_info_filters}}&team_id={{team_id}}&policy_id={{policy_id}}&policy_response={{policy_response}}&software_version_id={{software_version_id}}&software_title_id={{software_title_id}}&software_status={{software_status}}&os_version_id={{os_version_id}}&os_name={{os_name}}&os_version={{os_version}}&vulnerability={{vulnerability}}&device_mapping={{device_mapping}}&mdm_id={{mdm_id}}&mdm_name={{mdm_name}}&mdm_enrollment_status={{mdm_enrollment_status}}&connected_to_fleet={{connected_to_fleet}}&macos_settings={{macos_settings}}&munki_issue_id={{munki_issue_id}}&low_disk_space={{low_disk_space}}&disable_failing_policies={{disable_failing_policies}}&macos_settings_disk_encryption={{macos_settings_disk_encryption}}&bootstrap_package={{bootstrap_package}}&os_settings={{os_settings}}&os_settings_disk_encryption={{os_settings_disk_encryption}}&populate_software={{populate_software}}&populate_policies={{populate_policies}}&populate_users={{populate_users}}&populate_labels={{populate_labels}}&profile_uuid={{profile_uuid}}&profile_status={{profile_status}}",
                 "host": [ "{{baseUrl}}" ],
-                "path": [ "api", "v1", "fleet", "hosts" ]
+                "path": [ "api", "v1", "fleet", "hosts" ],
+                "query": [
+                  { "key": "page", "value": "{{page}}", "description": "Page number of the results to fetch", "disabled": true },
+                  { "key": "per_page", "value": "{{per_page}}", "description": "Results per page", "disabled": true },
+                  { "key": "order_key", "value": "{{order_key}}", "description": "What to order results by. Can be any column in the hosts table", "disabled": true },
+                  { "key": "order_direction", "value": "{{order_direction}}", "description": "Direction of the order given the order key. Options: asc, desc. Default: asc", "disabled": true },
+                  { "key": "status", "value": "{{status}}", "description": "Status of hosts to return: new, online, offline, mia, missing", "disabled": true },
+                  { "key": "query", "value": "{{query}}", "description": "Search query keywords. Searchable fields: hostname, hardware_serial, uuid, ipv4, email addresses", "disabled": true },
+                  { "key": "additional_info_filters", "value": "{{additional_info_filters}}", "description": "Comma-delimited list of fields to include in each host's additional object", "disabled": true },
+                  { "key": "team_id", "value": "{{team_id}}", "description": "Fleet Premium: Filter to only include hosts in the specified team. Use 0 for 'No team'", "disabled": true },
+                  { "key": "policy_id", "value": "{{policy_id}}", "description": "ID of the policy to filter hosts by", "disabled": true },
+                  { "key": "policy_response", "value": "{{policy_response}}", "description": "Requires policy_id. Valid options: passing, failing", "disabled": true },
+                  { "key": "software_version_id", "value": "{{software_version_id}}", "description": "ID of the software version to filter hosts by", "disabled": true },
+                  { "key": "software_title_id", "value": "{{software_title_id}}", "description": "ID of the software title to filter hosts by", "disabled": true },
+                  { "key": "software_status", "value": "{{software_status}}", "description": "Status of software install: pending_install, failed_install, installed, pending_uninstall, failed_uninstall, pending, failed", "disabled": true },
+                  { "key": "os_version_id", "value": "{{os_version_id}}", "description": "ID of the operating system version to filter hosts by", "disabled": true },
+                  { "key": "os_name", "value": "{{os_name}}", "description": "Name of the operating system to filter hosts by. Requires os_version", "disabled": true },
+                  { "key": "os_version", "value": "{{os_version}}", "description": "Version of the operating system to filter hosts by. Requires os_name", "disabled": true },
+                  { "key": "vulnerability", "value": "{{vulnerability}}", "description": "CVE to filter hosts by (including 'cve-' prefix, case-insensitive)", "disabled": true },
+                  { "key": "device_mapping", "value": "{{device_mapping}}", "description": "Include device_mapping for each host", "disabled": true },
+                  { "key": "mdm_id", "value": "{{mdm_id}}", "description": "ID of the mobile device management solution to filter hosts by", "disabled": true },
+                  { "key": "mdm_name", "value": "{{mdm_name}}", "description": "Name of the mobile device management solution to filter hosts by", "disabled": true },
+                  { "key": "mdm_enrollment_status", "value": "{{mdm_enrollment_status}}", "description": "MDM enrollment status: manual, automatic, enrolled, pending, unenrolled", "disabled": true },
+                  { "key": "connected_to_fleet", "value": "{{connected_to_fleet}}", "description": "Filter hosts talking to this Fleet server for MDM features", "disabled": true },
+                  { "key": "macos_settings", "value": "{{macos_settings}}", "description": "Filter by MDM profile status: verified, verifying, pending, failed", "disabled": true },
+                  { "key": "munki_issue_id", "value": "{{munki_issue_id}}", "description": "ID of the munki issue to filter hosts by", "disabled": true },
+                  { "key": "low_disk_space", "value": "{{low_disk_space}}", "description": "Fleet Premium: Filter hosts with less GB of disk space available than this value (1-100)", "disabled": true },
+                  { "key": "disable_failing_policies", "value": "{{disable_failing_policies}}", "description": "If true, hosts return failing policies as 0 regardless of failures", "disabled": true },
+                  { "key": "macos_settings_disk_encryption", "value": "{{macos_settings_disk_encryption}}", "description": "Filter by disk encryption status: verified, verifying, action_required, enforcing, failed, removing_enforcement", "disabled": true },
+                  { "key": "bootstrap_package", "value": "{{bootstrap_package}}", "description": "Fleet Premium: Filter by MDM bootstrap package status: installed, pending, failed", "disabled": true },
+                  { "key": "os_settings", "value": "{{os_settings}}", "description": "Filter by OS settings status: verified, verifying, pending, failed", "disabled": true },
+                  { "key": "os_settings_disk_encryption", "value": "{{os_settings_disk_encryption}}", "description": "Filter by disk encryption status: verified, verifying, action_required, enforcing, failed, removing_enforcement", "disabled": true },
+                  { "key": "populate_software", "value": "{{populate_software}}", "description": "Include software details: false, without_vulnerability_details, true", "disabled": true },
+                  { "key": "populate_policies", "value": "{{populate_policies}}", "description": "Include policy data for each host", "disabled": true },
+                  { "key": "populate_users", "value": "{{populate_users}}", "description": "Include user data for each host", "disabled": true },
+                  { "key": "populate_labels", "value": "{{populate_labels}}", "description": "Include labels for each host", "disabled": true },
+                  { "key": "profile_uuid", "value": "{{profile_uuid}}", "description": "Requires profile_status. UUID of the profile to download", "disabled": true },
+                  { "key": "profile_status", "value": "{{profile_status}}", "description": "Requires profile_uuid. Valid options: verified, verifying, pending, failed", "disabled": true }
+                ]
               }
             },
-            "response": [],
-            "description": "List all hosts. Supports filtering and pagination."
+            "response": [
+              {
+                "name": "Default response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{\n  \"hosts\": [\n    {\n      \"created_at\": \"2020-11-05T05:09:44Z\",\n      \"updated_at\": \"2020-11-05T06:03:39Z\",\n      \"id\": 1,\n      \"detail_updated_at\": \"2020-11-05T05:09:45Z\",\n      \"last_restarted_at\": \"2020-11-01T03:01:45Z\",\n      \"software_updated_at\": \"2020-11-05T05:09:44Z\",\n      \"label_updated_at\": \"2020-11-05T05:14:51Z\",\n      \"policy_updated_at\": \"2023-06-26T18:33:15Z\",\n      \"last_enrolled_at\": \"2023-02-26T22:33:12Z\",\n      \"seen_time\": \"2020-11-05T06:03:39Z\",\n      \"hostname\": \"Annas-MacBook-Pro.local\",\n      \"uuid\": \"392547dc-0000-0000-a87a-d701ff75bc65\",\n      \"platform\": \"darwin\",\n      \"osquery_version\": \"5.15.0\",\n      \"os_version\": \"macOS 15.2\",\n      \"build\": \"24C101\",\n      \"platform_like\": \"darwin\",\n      \"code_name\": \"\",\n      \"uptime\": 8305000000000,\n      \"memory\": 2084032512,\n      \"cpu_type\": \"arm64e\",\n      \"cpu_subtype\": \"ARM64E\",\n      \"cpu_brand\": \"Apple M1\",\n      \"cpu_physical_cores\": 8,\n      \"cpu_logical_cores\": 8,\n      \"hardware_vendor\": \"Apple Inc.\",\n      \"hardware_model\": \"MacBookPro17,1\",\n      \"hardware_version\": \"\",\n      \"hardware_serial\": \"C0124FXASD6G\",\n      \"computer_name\": \"Anna's MacBook Pro\",\n      \"display_name\": \"Anna's MacBook Pro\",\n      \"public_ip\": \"123.45.678.910\",\n      \"primary_ip\": \"192.12.345.678\",\n      \"primary_mac\": \"36:34:a5:6b:7b:5c\",\n      \"distributed_interval\": 10,\n      \"config_tls_refresh\": 10,\n      \"logger_tls_period\": 8,\n      \"status\": \"offline\",\n      \"display_text\": \"Annas-MacBook-Pro.local\",\n      \"team_id\": null,\n      \"team_name\": null,\n      \"gigs_disk_space_available\": 174.98,\n      \"percent_disk_space_available\": 71,\n      \"gigs_total_disk_space\": 246,\n      \"additional\": {},\n      \"pack_stats\": [\n        {\n          \"pack_id\": 0,\n          \"pack_name\": \"Global\",\n          \"type\": \"global\",\n          \"query_stats\": [\n            {\n              \"scheduled_query_name\": \"Get recently added or removed USB drives\",\n              \"scheduled_query_id\": 5535,\n              \"query_name\": \"Get recently added or removed USB drives\",\n              \"discard_data\": false,\n              \"last_fetched\": null,\n              \"automations_enabled\": false,\n              \"description\": \"Returns a record every time a USB device is plugged in or removed\",\n              \"pack_name\": \"Global\",\n              \"average_memory\": 434176,\n              \"denylisted\": false,\n              \"executions\": 2,\n              \"interval\": 86400,\n              \"last_executed\": \"2023-11-28T00:02:07Z\",\n              \"output_size\": 891,\n              \"system_time\": 10,\n              \"user_time\": 6,\n              \"wall_time\": 0\n            }\n          ]\n        }\n      ],\n      \"issues\": {\n        \"failing_policies_count\": 1,\n        \"critical_vulnerabilities_count\": 2,\n        \"total_issues_count\": 3\n      },\n      \"geolocation\": {\n        \"country_iso\": \"US\",\n        \"city_name\": \"New York\",\n        \"geometry\": {\n          \"type\": \"point\",\n          \"coordinates\": [40.6799, -74.0028]\n        }\n      },\n      \"mdm\": {\n        \"encryption_key_available\": false,\n        \"enrollment_status\": \"Pending\",\n        \"dep_profile_error\": true,\n        \"name\": \"Fleet\",\n        \"server_url\": \"https://example.fleetdm.com/mdm/apple/mdm\"\n      },\n      \"software\": [\n        {\n          \"id\": 1,\n          \"name\": \"glibc\",\n          \"version\": \"2.12\",\n          \"source\": \"rpm_packages\",\n          \"generated_cpe\": \"cpe:2.3:a:gnu:glibc:2.12:*:*:*:*:*:*:*\",\n          \"vulnerabilities\": [\n            {\n              \"cve\": \"CVE-2009-5155\",\n              \"details_link\": \"https://nvd.nist.gov/vuln/detail/CVE-2009-5155\",\n              \"cvss_score\": 7.5,\n              \"epss_probability\": 0.01537,\n              \"cisa_known_exploit\": false,\n              \"cve_published\": \"2022-01-01 12:32:00\",\n              \"cve_description\": \"In the GNU C Library (aka glibc or libc6) before 2.28, parse_reg_exp in posix/regcomp.c misparses alternatives, which allows attackers to cause a denial of service (assertion failure and application exit) or trigger an incorrect result by attempting a regular-expression match.\",\n              \"resolved_in_version\": \"2.28\"\n            }\n          ],\n          \"installed_paths\": [\"/usr/lib/some-path-1\"]\n        }\n      ],\n      \"policies\": [\n        {\n          \"id\": 1,\n          \"name\": \"Gatekeeper enabled\",\n          \"query\": \"SELECT 1 FROM gatekeeper WHERE assessments_enabled = 1;\",\n          \"description\": \"Checks if gatekeeper is enabled on macOS devices\",\n          \"resolution\": \"Fix with these steps...\",\n          \"platform\": \"darwin\",\n          \"response\": \"fail\",\n          \"fleet_maintained\": true,\n          \"critical\": false\n        }\n      ],\n      \"users\": [\n        {\n          \"uid\": 0,\n          \"username\": \"root\",\n          \"type\": \"\",\n          \"groupname\": \"root\",\n          \"shell\": \"/bin/bash\"\n        },\n        {\n          \"uid\": 1,\n          \"username\": \"bin\",\n          \"type\": \"\",\n          \"groupname\": \"bin\",\n          \"shell\": \"/sbin/nologin\"\n        }\n      ],\n      \"labels\": [\n        {\n          \"created_at\": \"2021-08-19T02:02:17Z\",\n          \"updated_at\": \"2021-08-19T02:02:17Z\",\n          \"id\": 6,\n          \"name\": \"All Hosts\",\n          \"description\": \"All hosts which have enrolled in Fleet\",\n          \"query\": \"SELECT 1;\",\n          \"platform\": \"\",\n          \"label_type\": \"builtin\",\n          \"label_membership_type\": \"dynamic\"\n        }\n      ]\n    }\n  ]\n}"
+              }
+            ],
+            "description": "List all hosts with comprehensive filtering and pagination options. Supports filtering by status, query, team, policy, software, OS, vulnerabilities, MDM, and more. Use populate_* parameters to include additional data like software, policies, users, and labels."
           },
           {
             "name": "Count hosts",
@@ -477,13 +706,49 @@
                 { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
               ],
               "url": {
-                "raw": "{{baseUrl}}/api/v1/fleet/hosts/count",
+                "raw": "{{baseUrl}}/api/v1/fleet/hosts/count?order_key={{order_key}}&order_direction={{order_direction}}&after={{after}}&status={{status}}&query={{query}}&team_id={{team_id}}&policy_id={{policy_id}}&policy_response={{policy_response}}&software_version_id={{software_version_id}}&software_title_id={{software_title_id}}&os_version_id={{os_version_id}}&os_name={{os_name}}&os_version={{os_version}}&vulnerability={{vulnerability}}&label_id={{label_id}}&mdm_id={{mdm_id}}&mdm_name={{mdm_name}}&mdm_enrollment_status={{mdm_enrollment_status}}&macos_settings={{macos_settings}}&munki_issue_id={{munki_issue_id}}&low_disk_space={{low_disk_space}}&macos_settings_disk_encryption={{macos_settings_disk_encryption}}&bootstrap_package={{bootstrap_package}}&os_settings={{os_settings}}&os_settings_disk_encryption={{os_settings_disk_encryption}}",
                 "host": [ "{{baseUrl}}" ],
-                "path": [ "api", "v1", "fleet", "hosts", "count" ]
+                "path": [ "api", "v1", "fleet", "hosts", "count" ],
+                "query": [
+                  { "key": "order_key", "value": "{{order_key}}", "description": "What to order results by. Can be any column in the hosts table", "disabled": true },
+                  { "key": "order_direction", "value": "{{order_direction}}", "description": "Requires order_key. Direction of the order: asc, desc. Default: asc", "disabled": true },
+                  { "key": "after", "value": "{{after}}", "description": "Value to get results after. Requires order_key", "disabled": true },
+                  { "key": "status", "value": "{{status}}", "description": "Status of hosts to return: new, online, offline, mia, missing", "disabled": true },
+                  { "key": "query", "value": "{{query}}", "description": "Search query keywords. Searchable fields: hostname, hardware_serial, uuid, ipv4, email addresses", "disabled": true },
+                  { "key": "team_id", "value": "{{team_id}}", "description": "Fleet Premium: Filter to only include hosts in the specified team", "disabled": true },
+                  { "key": "policy_id", "value": "{{policy_id}}", "description": "ID of the policy to filter hosts by", "disabled": true },
+                  { "key": "policy_response", "value": "{{policy_response}}", "description": "Requires policy_id. Valid options: passing, failing", "disabled": true },
+                  { "key": "software_version_id", "value": "{{software_version_id}}", "description": "ID of the software version to filter hosts by", "disabled": true },
+                  { "key": "software_title_id", "value": "{{software_title_id}}", "description": "ID of the software title to filter hosts by", "disabled": true },
+                  { "key": "os_version_id", "value": "{{os_version_id}}", "description": "ID of the operating system version to filter hosts by", "disabled": true },
+                  { "key": "os_name", "value": "{{os_name}}", "description": "Name of the operating system to filter hosts by. Requires os_version", "disabled": true },
+                  { "key": "os_version", "value": "{{os_version}}", "description": "Version of the operating system to filter hosts by. Requires os_name", "disabled": true },
+                  { "key": "vulnerability", "value": "{{vulnerability}}", "description": "CVE to filter hosts by (including 'cve-' prefix, case-insensitive)", "disabled": true },
+                  { "key": "label_id", "value": "{{label_id}}", "description": "Valid label ID. Can only be used with order_key, order_direction, after, status, query, and team_id", "disabled": true },
+                  { "key": "mdm_id", "value": "{{mdm_id}}", "description": "ID of the mobile device management solution to filter hosts by", "disabled": true },
+                  { "key": "mdm_name", "value": "{{mdm_name}}", "description": "Name of the mobile device management solution to filter hosts by", "disabled": true },
+                  { "key": "mdm_enrollment_status", "value": "{{mdm_enrollment_status}}", "description": "MDM enrollment status: manual, automatic, enrolled, pending, unenrolled", "disabled": true },
+                  { "key": "macos_settings", "value": "{{macos_settings}}", "description": "Filter by MDM profile status: verified, verifying, pending, failed", "disabled": true },
+                  { "key": "munki_issue_id", "value": "{{munki_issue_id}}", "description": "ID of the munki issue to filter hosts by", "disabled": true },
+                  { "key": "low_disk_space", "value": "{{low_disk_space}}", "description": "Fleet Premium: Filter hosts with less GB of disk space available than this value (1-100)", "disabled": true },
+                  { "key": "macos_settings_disk_encryption", "value": "{{macos_settings_disk_encryption}}", "description": "Filter by disk encryption status: verified, verifying, action_required, enforcing, failed, removing_enforcement", "disabled": true },
+                  { "key": "bootstrap_package", "value": "{{bootstrap_package}}", "description": "Fleet Premium: Filter by MDM bootstrap package status: installed, pending, failed", "disabled": true },
+                  { "key": "os_settings", "value": "{{os_settings}}", "description": "Filter by OS settings status: verified, verifying, pending, failed", "disabled": true },
+                  { "key": "os_settings_disk_encryption", "value": "{{os_settings_disk_encryption}}", "description": "Filter by disk encryption status: verified, verifying, action_required, enforcing, failed, removing_enforcement", "disabled": true }
+                ]
               }
             },
-            "response": [],
-            "description": "Get the total count of hosts."
+            "response": [
+              {
+                "name": "Default response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{\n  \"count\": 123\n}"
+              }
+            ],
+            "description": "Get the total count of hosts with the same filtering options as the List hosts endpoint. Supports filtering by status, query, team, policy, software, OS, vulnerabilities, MDM, and more."
           },
           {
             "name": "Get hosts summary",
@@ -493,29 +758,56 @@
                 { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
               ],
               "url": {
-                "raw": "{{baseUrl}}/api/v1/fleet/hosts/summary",
+                "raw": "{{baseUrl}}/api/v1/fleet/host_summary?team_id={{team_id}}&platform={{platform}}&low_disk_space={{low_disk_space}}",
                 "host": [ "{{baseUrl}}" ],
-                "path": [ "api", "v1", "fleet", "hosts", "summary" ]
+                "path": [ "api", "v1", "fleet", "host_summary" ],
+                "query": [
+                  { "key": "team_id", "value": "{{team_id}}", "description": "Fleet Premium: ID of the team whose host counts should be included. Defaults to all teams", "disabled": true },
+                  { "key": "platform", "value": "{{platform}}", "description": "Platform to filter by when counting. Defaults to all platforms", "disabled": true },
+                  { "key": "low_disk_space", "value": "{{low_disk_space}}", "description": "Fleet Premium: Returns count of hosts with less GB of disk space available than this value (1-100)", "disabled": true }
+                ]
               }
             },
-            "response": [],
-            "description": "Get a summary of all hosts."
+            "response": [
+              {
+                "name": "Default response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{\n  \"team_id\": 1,\n  \"totals_hosts_count\": 2408,\n  \"online_count\": 2267,\n  \"offline_count\": 141,\n  \"mia_count\": 0,\n  \"missing_30_days_count\": 0,\n  \"new_count\": 0,\n  \"all_linux_count\": 1204,\n  \"low_disk_space_count\": 12,\n  \"builtin_labels\": [\n    {\n      \"id\": 6,\n      \"name\": \"All Hosts\",\n      \"description\": \"All hosts which have enrolled in Fleet\",\n      \"label_type\": \"builtin\"\n    },\n    {\n      \"id\": 7,\n      \"name\": \"macOS\",\n      \"description\": \"All macOS hosts\",\n      \"label_type\": \"builtin\"\n    },\n    {\n      \"id\": 8,\n      \"name\": \"Ubuntu Linux\",\n      \"description\": \"All Ubuntu hosts\",\n      \"label_type\": \"builtin\"\n    },\n    {\n      \"id\": 9,\n      \"name\": \"CentOS Linux\",\n      \"description\": \"All CentOS hosts\",\n      \"label_type\": \"builtin\"\n    },\n    {\n      \"id\": 10,\n      \"name\": \"MS Windows\",\n      \"description\": \"All Windows hosts\",\n      \"label_type\": \"builtin\"\n    },\n    {\n      \"id\": 11,\n      \"name\": \"Red Hat Linux\",\n      \"description\": \"All Red Hat Enterprise Linux hosts\",\n      \"label_type\": \"builtin\"\n    },\n    {\n      \"id\": 12,\n      \"name\": \"All Linux\",\n      \"description\": \"All Linux distributions\",\n      \"label_type\": \"builtin\"\n    },\n    {\n      \"id\": 13,\n      \"name\": \"iOS\",\n      \"description\": \"All iOS hosts\",\n      \"label_type\": \"builtin\"\n    },\n    {\n      \"id\": 14,\n      \"name\": \"iPadOS\",\n      \"description\": \"All iPadOS hosts\",\n      \"label_type\": \"builtin\"\n    },\n    {\n      \"id\": 15,\n      \"name\": \"Fedora Linux\",\n      \"description\": \"All Fedora hosts\",\n      \"label_type\": \"builtin\"\n    },\n    {\n      \"id\": 16,\n      \"name\": \"Android\",\n      \"description\": \"All Android hosts\",\n      \"label_type\": \"builtin\"\n    }\n  ],\n  \"platforms\": [\n    {\n      \"platform\": \"chrome\",\n      \"hosts_count\": 1234\n    },\n    {\n      \"platform\": \"darwin\",\n      \"hosts_count\": 1234\n    },\n    {\n      \"platform\": \"ios\",\n      \"hosts_count\": 1234\n    },\n    {\n      \"platform\": \"ipados\",\n      \"hosts_count\": 1234\n    },\n    {\n      \"platform\": \"rhel\",\n      \"hosts_count\": 1234\n    },\n    {\n      \"platform\": \"ubuntu\",\n      \"hosts_count\": 12044\n    },\n    {\n      \"platform\": \"windows\",\n      \"hosts_count\": 12044\n    },\n    {\n      \"platform\": \"Android\",\n      \"hosts_count\": 200\n    }\n  ]\n}"
+              }
+            ],
+            "description": "Returns the count of all hosts organized by status. online_count includes all hosts currently enrolled in Fleet. offline_count includes all hosts that haven't checked into Fleet recently. mia_count includes all hosts that haven't been seen by Fleet in more than 30 days. new_count includes the hosts that have been enrolled to Fleet in the last 24 hours."
           },
           {
-            "name": "Get host by ID",
+            "name": "Get host",
             "request": {
               "method": "GET",
               "header": [
                 { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
               ],
               "url": {
-                "raw": "{{baseUrl}}/api/v1/fleet/hosts/{{host_id}}",
+                "raw": "{{baseUrl}}/api/v1/fleet/hosts/{{host_id}}?exclude_software={{exclude_software}}&exclude_fleet_maintained_policies={{exclude_fleet_maintained_policies}}",
                 "host": [ "{{baseUrl}}" ],
-                "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}" ]
+                "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}" ],
+                "query": [
+                  { "key": "exclude_software", "value": "{{exclude_software}}", "description": "If true, the response will not include a list of installed software for the host", "disabled": true },
+                  { "key": "exclude_fleet_maintained_policies", "value": "{{exclude_fleet_maintained_policies}}", "description": "If true, will omit Fleet-maintained policies from the policies list", "disabled": true }
+                ]
               }
             },
-            "response": [],
-            "description": "Get details for a specific host by ID."
+            "response": [
+              {
+                "name": "Default response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{\n  \"host\": {\n    \"created_at\": \"2021-08-19T02:02:22Z\",\n    \"updated_at\": \"2021-08-19T21:14:58Z\",\n    \"id\": 1,\n    \"detail_updated_at\": \"2021-08-19T21:07:53Z\",\n    \"last_restarted_at\": \"2020-11-01T03:01:45Z\",\n    \"software_updated_at\": \"2020-11-05T05:09:44Z\",\n    \"label_updated_at\": \"2021-08-19T21:07:53Z\",\n    \"policy_updated_at\": \"2023-06-26T18:33:15Z\",\n    \"last_enrolled_at\": \"2021-08-19T02:02:22Z\",\n    \"last_mdm_checked_in_at\": \"2023-02-26T22:33:12Z\",\n    \"last_mdm_enrolled_at\": \"2023-02-26T22:33:12Z\",\n    \"seen_time\": \"2021-08-19T21:14:58Z\",\n    \"refetch_requested\": false,\n    \"hostname\": \"Annas-MacBook-Pro.local\",\n    \"uuid\": \"309a4b7d-0000-0000-8e7f-26ae0815ede8\",\n    \"platform\": \"darwin\",\n    \"osquery_version\": \"5.15.0\",\n    \"orbit_version\": \"1.22.0\",\n    \"fleet_desktop_version\": \"1.22.0\",\n    \"scripts_enabled\": true,\n    \"os_version\": \"macOS 15.2\",\n    \"build\": \"24C101\",\n    \"platform_like\": \"darwin\",\n    \"code_name\": \"\",\n    \"uptime\": 210671000000000,\n    \"memory\": 16788398080,\n    \"cpu_type\": \"arm64e\",\n    \"cpu_subtype\": \"ARM64E\",\n    \"cpu_brand\": \"Apple M1\",\n    \"cpu_physical_cores\": 8,\n    \"cpu_logical_cores\": 8,\n    \"hardware_vendor\": \"Apple Inc.\",\n    \"hardware_model\": \"MacBookPro17,1\",\n    \"hardware_version\": \"\",\n    \"hardware_serial\": \"C0124FXASD6G\",\n    \"computer_name\": \"Anna's MacBook Pro\",\n    \"display_name\": \"Anna's MacBook Pro\",\n    \"public_ip\": \"123.45.678.910\",\n    \"primary_ip\": \"172.27.0.6\",\n    \"primary_mac\": \"02:42:ac:1b:00:06\",\n    \"distributed_interval\": 10,\n    \"config_tls_refresh\": 10,\n    \"logger_tls_period\": 10,\n    \"team_id\": null,\n    \"pack_stats\": null,\n    \"team_name\": null,\n    \"gigs_disk_space_available\": 174.98,\n    \"percent_disk_space_available\": 71,\n    \"gigs_total_disk_space\": 246,\n    \"disk_encryption_enabled\": true,\n    \"status\": \"online\",\n    \"display_text\": \"Annas-MacBook-Pro.local\",\n    \"additional\": {},\n    \"issues\": {\n      \"failing_policies_count\": 1,\n      \"critical_vulnerabilities_count\": 2,\n      \"total_issues_count\": 3\n    },\n    \"batteries\": [\n      {\n        \"cycle_count\": 999,\n        \"health\": \"Normal\"\n      }\n    ],\n    \"geolocation\": {\n      \"country_iso\": \"US\",\n      \"city_name\": \"New York\",\n      \"geometry\": {\n        \"type\": \"point\",\n        \"coordinates\": [40.6799, -74.0028]\n      }\n    },\n    \"maintenance_window\": {\n      \"starts_at\": \"2024-06-18T13:27:18−04:00\",\n      \"timezone\": \"America/New_York\"\n    },\n    \"users\": [\n      {\n        \"uid\": 0,\n        \"username\": \"root\",\n        \"type\": \"\",\n        \"groupname\": \"root\",\n        \"shell\": \"/bin/sh\"\n      },\n      {\n        \"uid\": 1,\n        \"username\": \"annachao\",\n        \"type\": \"\",\n        \"groupname\": \"staff\",\n        \"shell\": \"/bin/zsh\"\n      }\n    ],\n    \"end_users\": [\n      {\n        \"idp_info_updated_at\": \"2025-03-20T02:02:17Z\",\n        \"idp_id\": \"f26f8649-1e25-42c5-be71-1b1e6de56d3d\",\n        \"idp_username\": \"[email protected]\",\n        \"idp_full_name\": \"Anna Chao\",\n        \"idp_groups\": [\n          \"Product\",\n          \"Designers\"\n        ],\n        \"other_emails\": [\n          {\n            \"email\": \"[email protected]\",\n            \"source\": \"google_chrome_profiles\"\n          },\n          {\n            \"email\": \"[email protected]\",\n            \"source\": \"custom\"\n          }\n        ]\n      }\n    ],\n    \"labels\": [\n      {\n        \"created_at\": \"2021-08-19T02:02:17Z\",\n        \"updated_at\": \"2021-08-19T02:02:17Z\",\n        \"id\": 6,\n        \"name\": \"All Hosts\",\n        \"description\": \"All hosts which have enrolled in Fleet\",\n        \"query\": \"SELECT 1;\",\n        \"platform\": \"\",\n        \"label_type\": \"builtin\",\n        \"label_membership_type\": \"dynamic\"\n      }\n    ],\n    \"packs\": [],\n    \"policies\": [\n      {\n        \"id\": 2,\n        \"name\": \"SomeQuery2\",\n        \"query\": \"SELECT * FROM bar;\",\n        \"description\": \"this is another query\",\n        \"resolution\": \"fix with these other steps...\",\n        \"platform\": \"darwin\",\n        \"response\": \"fail\",\n        \"critical\": false,\n        \"fleet_maintained\": false\n      }\n    ],\n    \"software\": [\n      {\n        \"id\": 321,\n        \"name\": \"SomeApp.app\",\n        \"version\": \"1.0\",\n        \"source\": \"apps\",\n        \"browser\": \"\",\n        \"bundle_identifier\": \"com.some.app\",\n        \"last_opened_at\": \"2021-08-18T21:14:00Z\",\n        \"generated_cpe\": \"\",\n        \"vulnerabilities\": null,\n        \"installed_paths\": [\"/usr/lib/some-path-2\"]\n      }\n    ],\n    \"mdm\": {\n      \"encryption_key_available\": true,\n      \"enrollment_status\": \"On (manual)\",\n      \"name\": \"Fleet\",\n      \"connected_to_fleet\": true,\n      \"server_url\": \"https://acme.com/mdm/apple/mdm\",\n      \"device_status\": \"unlocked\",\n      \"pending_action\": \"\",\n      \"macos_settings\": {\n        \"disk_encryption\": \"verified\",\n        \"action_required\": null\n      },\n      \"macos_setup\": {\n        \"bootstrap_package_status\": \"installed\",\n        \"detail\": \"\",\n        \"bootstrap_package_name\": \"test.pkg\"\n      },\n      \"os_settings\": {\n        \"disk_encryption\": {\n          \"status\": \"verified\",\n          \"detail\": \"\"\n        }\n      },\n      \"profiles\": [\n        {\n          \"profile_uuid\": \"954ec5ea-a334-4825-87b3-937e7e381f24\",\n          \"name\": \"profile1\",\n          \"status\": \"verifying\",\n          \"operation_type\": \"install\",\n          \"detail\": \"\"\n        }\n      ]\n    }\n  }\n}"
+              }
+            ],
+            "description": "Returns the information of the specified host by ID. Includes comprehensive host details including timestamps, hardware info, software, policies, users, labels, and MDM information."
           },
           {
             "name": "Get host by identifier",
@@ -525,13 +817,27 @@
                 { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
               ],
               "url": {
-                "raw": "{{baseUrl}}/api/v1/fleet/hosts/identifier/{{identifier}}",
+                "raw": "{{baseUrl}}/api/v1/fleet/hosts/identifier/{{identifier}}?exclude_software={{exclude_software}}&exclude_fleet_maintained_policies={{exclude_fleet_maintained_policies}}",
                 "host": [ "{{baseUrl}}" ],
-                "path": [ "api", "v1", "fleet", "hosts", "identifier", "{{identifier}}" ]
+                "path": [ "api", "v1", "fleet", "hosts", "identifier", "{{identifier}}" ],
+                "query": [
+                  { "key": "exclude_software", "value": "{{exclude_software}}", "description": "If true, the response will not include a list of installed software for the host", "disabled": true },
+                  { "key": "exclude_fleet_maintained_policies", "value": "{{exclude_fleet_maintained_policies}}", "description": "If true, will omit Fleet-maintained policies from the policies list", "disabled": true }
+                ]
               }
             },
-            "response": [],
-            "description": "Get a host by its identifier (e.g., uuid, hostname, hardware_serial, etc.)."
+            "response": [
+              {
+                "name": "Default response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{\n  \"host\": {\n    \"created_at\": \"2022-02-10T02:29:13Z\",\n    \"updated_at\": \"2022-10-14T17:07:11Z\",\n    \"id\": 33,\n    \"detail_updated_at\": \"2022-10-14T17:07:12Z\",\n    \"label_updated_at\": \"2022-10-14T17:07:12Z\",\n    \"policy_updated_at\": \"2022-10-14T17:07:12Z\",\n    \"last_enrolled_at\": \"2022-02-10T02:29:13Z\",\n    \"last_mdm_checked_in_at\": \"2023-02-26T22:33:12Z\",\n    \"last_mdm_enrolled_at\": \"2023-02-26T22:33:12Z\",\n    \"software_updated_at\": \"2020-11-05T05:09:44Z\",\n    \"seen_time\": \"2022-10-14T17:45:41Z\",\n    \"refetch_requested\": false,\n    \"hostname\": \"23cfc9caacf0\",\n    \"uuid\": \"392547dc-0000-0000-a87a-d701ff75bc65\",\n    \"platform\": \"ubuntu\",\n    \"osquery_version\": \"5.5.1\",\n    \"os_version\": \"Ubuntu 20.04.3 LTS\",\n    \"build\": \"\",\n    \"platform_like\": \"debian\",\n    \"code_name\": \"focal\",\n    \"uptime\": 20807520000000000,\n    \"memory\": 1024360448,\n    \"cpu_type\": \"x86_64\",\n    \"cpu_subtype\": \"63\",\n    \"cpu_brand\": \"DO-Regular\",\n    \"cpu_physical_cores\": 1,\n    \"cpu_logical_cores\": 1,\n    \"hardware_vendor\": \"\",\n    \"hardware_model\": \"\",\n    \"hardware_version\": \"\",\n    \"hardware_serial\": \"\",\n    \"computer_name\": \"23cfc9caacf0\",\n    \"public_ip\": \"\",\n    \"primary_ip\": \"172.27.0.6\",\n    \"primary_mac\": \"02:42:ac:1b:00:06\",\n    \"distributed_interval\": 10,\n    \"config_tls_refresh\": 60,\n    \"logger_tls_period\": 10,\n    \"team_id\": 2,\n    \"team_name\": null,\n    \"gigs_disk_space_available\": 19.29,\n    \"percent_disk_space_available\": 74,\n    \"gigs_total_disk_space\": 192,\n    \"issues\": {\n      \"failing_policies_count\": 1,\n      \"critical_vulnerabilities_count\": 2,\n      \"total_issues_count\": 3\n    },\n    \"batteries\": [\n      {\n        \"cycle_count\": 999,\n        \"health\": \"Normal\"\n      }\n    ],\n    \"geolocation\": {\n      \"country_iso\": \"US\",\n      \"city_name\": \"New York\",\n      \"geometry\": {\n        \"type\": \"point\",\n        \"coordinates\": [40.6799, -74.0028]\n      }\n    },\n    \"pack_stats\": [\n      {\n        \"pack_id\": 1,\n        \"pack_name\": \"Global\",\n        \"type\": \"global\",\n        \"query_stats\": [\n          {\n            \"scheduled_query_name\": \"Get running processes (with user_name)\",\n            \"scheduled_query_id\": 49,\n            \"query_name\": \"Get running processes (with user_name)\",\n            \"pack_name\": \"Global\",\n            \"pack_id\": 1,\n            \"average_memory\": 260000,\n            \"denylisted\": false,\n            \"executions\": 1,\n            \"interval\": 86400,\n            \"last_executed\": \"2022-10-14T10:00:01Z\",\n            \"output_size\": 198,\n            \"system_time\": 20,\n            \"user_time\": 80,\n            \"wall_time\": 0\n          }\n        ]\n      }\n    ],\n    \"labels\": [\n      {\n        \"created_at\": \"2021-09-14T05:11:02Z\",\n        \"updated_at\": \"2021-09-14T05:11:02Z\",\n        \"id\": 12,\n        \"name\": \"All Linux\",\n        \"description\": \"All Linux distributions\",\n        \"query\": \"SELECT 1 FROM osquery_info WHERE build_platform LIKE '%ubuntu%' OR build_distro LIKE '%centos%';\",\n        \"platform\": \"\",\n        \"label_type\": \"builtin\",\n        \"label_membership_type\": \"dynamic\"\n      }\n    ],\n    \"packs\": [\n      {\n        \"created_at\": \"2021-09-17T05:28:54Z\",\n        \"updated_at\": \"2021-09-17T05:28:54Z\",\n        \"id\": 1,\n        \"name\": \"Global\",\n        \"description\": \"Global pack\",\n        \"disabled\": false,\n        \"type\": \"global\",\n        \"labels\": null,\n        \"label_ids\": null,\n        \"hosts\": null,\n        \"host_ids\": null,\n        \"teams\": null,\n        \"team_ids\": null\n      }\n    ],\n    \"policies\": [\n      {\n        \"id\": 142,\n        \"name\": \"Full disk encryption enabled (macOS)\",\n        \"query\": \"SELECT 1 FROM disk_encryption WHERE user_uuid IS NOT '' AND filevault_status = 'on' LIMIT 1;\",\n        \"description\": \"Checks to make sure that full disk encryption (FileVault) is enabled on macOS devices.\",\n        \"author_id\": 31,\n        \"author_name\": \"\",\n        \"author_email\": \"\",\n        \"team_id\": null,\n        \"resolution\": \"To enable full disk encryption, on the failing device, select System Preferences > Security & Privacy > FileVault > Turn On FileVault.\",\n        \"platform\": \"darwin,linux\",\n        \"created_at\": \"2022-09-02T18:52:19Z\",\n        \"updated_at\": \"2022-09-02T18:52:19Z\",\n        \"response\": \"fail\",\n        \"critical\": false,\n        \"fleet_maintained\": false\n      }\n    ],\n    \"software\": [\n      {\n        \"id\": 16923,\n        \"name\": \"Automat\",\n        \"version\": \"0.8.0\",\n        \"source\": \"python_packages\",\n        \"browser\": \"\",\n        \"generated_cpe\": \"\",\n        \"vulnerabilities\": null,\n        \"installed_paths\": [\"/usr/lib/some_path/\"]\n      }\n    ],\n    \"mdm\": {\n      \"encryption_key_available\": false,\n      \"enrollment_status\": null,\n      \"name\": \"\",\n      \"server_url\": null,\n      \"device_status\": \"unlocked\",
+      \"pending_action\": \"lock\",\n      \"macos_settings\": {\n        \"disk_encryption\": null,\n        \"action_required\": null\n      },\n      \"macos_setup\": {\n        \"bootstrap_package_status\": \"installed\",\n        \"detail\": \"\"\n      },\n      \"os_settings\": {\n        \"disk_encryption\": {\n          \"status\": null,\n          \"detail\": \"\"\n        }\n      },\n      \"profiles\": [\n        {\n          \"profile_uuid\": \"954ec5ea-a334-4825-87b3-937e7e381f24\",\n          \"name\": \"profile1\",\n          \"status\": \"verifying\",\n          \"operation_type\": \"install\",\n          \"detail\": \"\"\n        }\n      ]\n    }\n  }\n}"
+              }
+            ],
+            "description": "Returns the information of the host specified using the hostname, uuid, or hardware_serial as an identifier. If hostname is specified when there is more than one host with the same hostname, the endpoint returns the first matching host."
           },
           {
             "name": "Get host by device token",
@@ -541,13 +847,22 @@
                 { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
               ],
               "url": {
-                "raw": "{{baseUrl}}/api/v1/fleet/hosts/device_token/{{device_token}}",
+                "raw": "{{baseUrl}}/api/v1/fleet/device/{{device_token}}",
                 "host": [ "{{baseUrl}}" ],
-                "path": [ "api", "v1", "fleet", "hosts", "device_token", "{{device_token}}" ]
+                "path": [ "api", "v1", "fleet", "device", "{{device_token}}" ]
               }
             },
-            "response": [],
-            "description": "Get a host by its device token."
+            "response": [
+              {
+                "name": "Default response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{\n  \"host\": {\n    \"created_at\": \"2021-08-19T02:02:22Z\",\n    \"updated_at\": \"2021-08-19T21:14:58Z\",\n    \"id\": 1,\n    \"detail_updated_at\": \"2021-08-19T21:07:53Z\",\n    \"label_updated_at\": \"2021-08-19T21:07:53Z\",\n    \"last_enrolled_at\": \"2021-08-19T02:02:22Z\",\n    \"last_mdm_checked_in_at\": \"2023-02-26T22:33:12Z\",\n    \"last_mdm_enrolled_at\": \"2023-02-26T22:33:12Z\",\n    \"seen_time\": \"2021-08-19T21:14:58Z\",\n    \"refetch_requested\": false,\n    \"hostname\": \"Annas-MacBook-Pro.local\",\n    \"uuid\": \"309a4b7d-0000-0000-8e7f-26ae0815ede8\",\n    \"platform\": \"darwin\",\n    \"osquery_version\": \"5.15.0\",\n    \"os_version\": \"macOS 15.2\",\n    \"build\": \"24C101\",\n    \"platform_like\": \"darwin\",\n    \"code_name\": \"\",\n    \"uptime\": 210671000000000,\n    \"memory\": 16788398080,\n    \"cpu_type\": \"arm64e\",\n    \"cpu_subtype\": \"ARM64E\",\n    \"cpu_brand\": \"Apple M1\",\n    \"cpu_physical_cores\": 8,\n    \"cpu_logical_cores\": 8,\n    \"hardware_vendor\": \"Apple Inc.\",\n    \"hardware_model\": \"MacBookPro17,1\",\n    \"hardware_version\": \"\",\n    \"hardware_serial\": \"\",\n    \"computer_name\": \"Anna's MacBook Pro\",\n    \"display_name\": \"Anna's MacBook Pro\",\n    \"public_ip\": \"123.45.678.910\",\n    \"primary_ip\": \"192.12.345.678\",\n    \"primary_mac\": \"36:34:a5:6b:7b:5c\",\n    \"distributed_interval\": 10,\n    \"config_tls_refresh\": 10,\n    \"logger_tls_period\": 10,\n    \"team_id\": null,\n    \"pack_stats\": null,\n    \"team_name\": null,\n    \"additional\": {},\n    \"gigs_disk_space_available\": 174.98,\n    \"percent_disk_space_available\": 71,\n    \"gigs_total_disk_space\": 246,\n    \"disk_encryption_enabled\": true,\n    \"dep_assigned_to_fleet\": false,\n    \"status\": \"online\",\n    \"display_text\": \"Annas-MacBook-Pro.local\",\n    \"self_service\": true,\n    \"org_logo_url\": \"https://example.com/logo.jpg\",\n    \"license\": {\n      \"tier\": \"free\",\n      \"expiration\": \"2031-01-01T00:00:00Z\"\n    },\n    \"global_config\": {\n      \"mdm\": {\n        \"enabled_and_configured\": false\n      }\n    },\n    \"batteries\": [\n      {\n        \"cycle_count\": 999,\n        \"health\": \"Good\"\n      }\n    ],\n    \"users\": [\n      {\n        \"uid\": 0,\n        \"username\": \"root\",\n        \"type\": \"\",\n        \"groupname\": \"root\",\n        \"shell\": \"/bin/sh\"\n      },\n      {\n        \"uid\": 1,\n        \"username\": \"annachao\",\n        \"type\": \"\",\n        \"groupname\": \"staff\",\n        \"shell\": \"/bin/zsh\"\n      }\n    ],\n    \"labels\": [\n      {\n        \"created_at\": \"2021-08-19T02:02:17Z\",\n        \"updated_at\": \"2021-08-19T02:02:17Z\",\n        \"id\": 6,\n        \"name\": \"All Hosts\",\n        \"description\": \"All hosts which have enrolled in Fleet\",\n        \"query\": \"SELECT 1;\",\n        \"platform\": \"\",\n        \"label_type\": \"builtin\",\n        \"label_membership_type\": \"dynamic\"\n      }\n    ],\n    \"software\": [\n      {\n        \"id\": 321,\n        \"name\": \"SomeApp.app\",\n        \"version\": \"1.0\",\n        \"source\": \"apps\",\n        \"browser\": \"\",\n        \"bundle_identifier\": \"com.some.app\",\n        \"last_opened_at\": \"2021-08-18T21:14:00Z\",\n        \"generated_cpe\": \"\",\n        \"vulnerabilities\": null\n      }\n    ],\n    \"packs\": [],\n    \"mdm\": {\n      \"encryption_key_available\": true,\n      \"enrollment_status\": \"On (manual)\",\n      \"name\": \"Fleet\",\n      \"connected_to_fleet\": true,\n      \"server_url\": \"https://acme.com/mdm/apple/mdm\",\n      \"macos_settings\": {\n        \"disk_encryption\": \"verified\",\n        \"action_required\": null\n      },\n      \"macos_setup\": {\n        \"bootstrap_package_status\": \"installed\",\n        \"detail\": \"\",\n        \"bootstrap_package_name\": \"test.pkg\"\n      },\n      \"os_settings\": {\n        \"disk_encryption\": {\n          \"status\": \"verified\",\n          \"detail\": \"\"\n        }\n      },\n      \"profiles\": [\n        {\n          \"profile_uuid\": \"954ec5ea-a334-4825-87b3-937e7e381f24\",\n          \"name\": \"profile1\",\n          \"status\": \"verifying\",\n          \"operation_type\": \"install\",\n          \"detail\": \"\"\n        }\n      ]\n    }\n  }\n}"
+              }
+            ],
+            "description": "Returns a subset of information about the host specified by token. This is the API route used by the My device page in Fleet desktop to display information about the host to the end user. To get all information about a host, use the Get host endpoint."
           },
           {
             "name": "Delete host",
@@ -562,7 +877,16 @@
                 "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}" ]
               }
             },
-            "response": [],
+            "response": [
+              {
+                "name": "Default response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{}"
+              }
+            ],
             "description": "Delete a host by ID."
           },
           {
@@ -578,7 +902,16 @@
                 "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}", "refetch" ]
               }
             },
-            "response": [],
+            "response": [
+              {
+                "name": "Default response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{}"
+              }
+            ],
             "description": "Refetch a host's details from the agent."
           },
           {
@@ -600,7 +933,16 @@
                 "path": [ "api", "v1", "fleet", "hosts", "transfer" ]
               }
             },
-            "response": [],
+            "response": [
+              {
+                "name": "Default response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{}"
+              }
+            ],
             "description": "Transfer hosts to a team by host IDs."
           },
           {
@@ -622,27 +964,45 @@
                 "path": [ "api", "v1", "fleet", "hosts", "transfer_by_filter" ]
               }
             },
-            "response": [],
+            "response": [
+              {
+                "name": "Default response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{}"
+              }
+            ],
             "description": "Transfer hosts to a team by filter."
           },
           {
             "name": "Turn off MDM for a host",
             "request": {
-              "method": "POST",
+              "method": "DELETE",
               "header": [
                 { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
               ],
               "url": {
-                "raw": "{{baseUrl}}/api/v1/fleet/hosts/{{host_id}}/disable_mdm",
+                "raw": "{{baseUrl}}/api/v1/fleet/hosts/{{host_id}}/mdm",
                 "host": [ "{{baseUrl}}" ],
-                "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}", "disable_mdm" ]
+                "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}", "mdm" ]
               }
             },
-            "response": [],
-            "description": "Turn off MDM for a specific host."
+            "response": [
+              {
+                "name": "Default response (204)",
+                "originalRequest": {},
+                "status": "No Content",
+                "code": 204,
+                "_postman_previewlanguage": "json",
+                "body": ""
+              }
+            ],
+            "description": "Turns off MDM for the specified macOS, iOS, or iPadOS host.\n\n**Parameters:**\n- id (integer, path, required): The host's ID in Fleet."
           },
           {
-            "name": "Batch-delete hosts",
+            "name": "Batch-delete hosts by filter or ids",
             "request": {
               "method": "POST",
               "header": [
@@ -651,7 +1011,7 @@
               ],
               "body": {
                 "mode": "raw",
-                "raw": "// Option 1: Delete by IDs\n{\n  \"ids\": [{{host_id}}]\n}\n\n// Option 2: Delete by filter\n{\n  \"filters\": {\n    \"query\": \"search keywords\",\n    \"status\": \"offline\",\n    \"label_id\": 1,\n    \"team_id\": 2\n  }\n}",
+                "raw": "// Option 1: Delete by IDs\n{\n  \"ids\": [{{host_id}}]\n}\n\n// Option 2: Delete by filter\n{\n  \"filters\": {\n    \"query\": \"search keywords\",\n    \"status\": \"offline\",\n    \"label_id\": 1,\n    \"team_id\": 2\n  }\n}\n\n// Option 3: Delete all hosts (empty filters)\n{\n  \"filters\": {}\n}",
                 "options": { "raw": { "language": "json" } }
               },
               "url": {
@@ -660,20 +1020,29 @@
                 "path": [ "api", "v1", "fleet", "hosts", "delete" ]
               }
             },
-            "response": [],
-            "description": "Batch-delete hosts by IDs or by filter. The request body can include either 'ids' (an array of host IDs) or 'filters' (an object specifying filter criteria). Accepted filters: query (string), status (new, online, offline, mia, missing), label_id (number), team_id (number)."
+            "response": [
+              {
+                "name": "Default response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{}"
+              }
+            ],
+            "description": "Batch-delete hosts by IDs or by filter. The request body can include either 'ids' (an array of host IDs) or 'filters' (an object specifying filter criteria). Only one of 'ids' or 'filters' may be included in the request.\n\n**Parameters:**\n- ids (array, body): A list of the host IDs you'd like to delete. Required if filters not specified.\n- filters (object, body): Required if ids not specified. See filters table in docs.\n\n**Accepted filters:**\n- query (string): Search query keywords. Searchable fields include hostname, hardware_serial, uuid, and ipv4.\n- status (string): Host status. Can either be new, online, offline, mia or missing.\n- label_id (number): ID of a label to filter by.\n- team_id (number): ID of the team to filter by.\n\n**Notes:** label_id and status filters cannot be used at the same time."
           },
           {
             "name": "Update custom human-device mapping",
             "request": {
-              "method": "PATCH",
+              "method": "PUT",
               "header": [
                 { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
                 { "key": "Content-Type", "value": "application/json", "type": "text" }
               ],
               "body": {
                 "mode": "raw",
-                "raw": "{\n  \"mapping\": {\n    \"user\": \"example@domain.com\"\n  }\n}",
+                "raw": "{\n  \"email\": \"example@domain.com\"\n}",
                 "options": { "raw": { "language": "json" } }
               },
               "url": {
@@ -682,8 +1051,17 @@
                 "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}", "device_mapping" ]
               }
             },
-            "response": [],
-            "description": "Update custom human-device mapping for a host."
+            "response": [
+              {
+                "name": "Default response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{\n  \"host_id\": 1,\n  \"device_mapping\": [\n    {\n      \"email\": \"example@domain.com\",\n      \"source\": \"mdm_idp_accounts\"\n    },\n    {\n      \"email\": \"example@domain.com\",\n      \"source\": \"google_chrome_profiles\"\n    },\n    {\n      \"email\": \"example@domain.com\",\n      \"source\": \"custom\"\n    }\n  ]\n}"
+              }
+            ],
+            "description": "Updates the email for the custom data source in the human-device mapping. This source can only have one email.\n\n**Parameters:**\n- id (integer, path, required): The host's id.\n- email (string, body, required): The custom email."
           },
           {
             "name": "Get host's device health report",
@@ -693,13 +1071,22 @@
                 { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
               ],
               "url": {
-                "raw": "{{baseUrl}}/api/v1/fleet/hosts/{{host_id}}/device_health",
+                "raw": "{{baseUrl}}/api/v1/fleet/hosts/{{host_id}}/health",
                 "host": [ "{{baseUrl}}" ],
-                "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}", "device_health" ]
+                "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}", "health" ]
               }
             },
-            "response": [],
-            "description": "Get a host's device health report."
+            "response": [
+              {
+                "name": "Default response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{\n  \"host_id\": 1,\n  \"health\": {\n    \"updated_at\": \"2023-09-16T18:52:19Z\",\n    \"os_version\": \"CentOS Linux 8.3.2011\",\n    \"disk_encryption_enabled\": true,\n    \"failing_policies_count\": 1,\n    \"failing_critical_policies_count\": 1,\n    \"failing_policies\": [\n      {\n        \"id\": 123,\n        \"name\": \"Google Chrome is up to date\",\n        \"critical\": true,\n        \"resolution\": \"Follow the Update Google Chrome instructions here: https://support.google.com/chrome/answer/95414?sjid=6534253818042437614-NA\",\n        \"fleet_maintained\": false\n      }\n    ],\n    \"vulnerable_software\": [\n      {\n        \"id\": 321,\n        \"name\": \"Firefox.app\",\n        \"version\": \"116.0.3\"\n      }\n    ]\n  }\n}"
+              }
+            ],
+            "description": "Retrieves information about a single host's device health. This report includes a subset of host vitals, and simplified policy and vulnerable software information. Data is cached to preserve performance.\n\n**Parameters:**\n- id (integer, path, required): The host's id."
           },
           {
             "name": "Get host's mobile device management (MDM) information",
@@ -714,8 +1101,17 @@
                 "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}", "mdm" ]
               }
             },
-            "response": [],
-            "description": "Get a host's MDM information."
+            "response": [
+              {
+                "name": "Default response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{\n  \"enrollment_status\": \"On (automatic)\",\n  \"server_url\": \"some.mdm.com\",\n  \"name\": \"Some MDM\",\n  \"id\": 3\n}"
+              }
+            ],
+            "description": "Currently supports Windows and MacOS. On MacOS this requires the macadmins osquery extension which comes bundled in Fleet's agent (fleetd). Retrieves a host's MDM enrollment status and MDM server URL. If the host exists but is not enrolled to an MDM server, then this API returns null.\n\n**Parameters:**\n- id (integer, path, required): The id of the host to get the details for"
           },
           {
             "name": "Get mobile device management (MDM) summary",
@@ -725,13 +1121,34 @@
                 { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
               ],
               "url": {
-                "raw": "{{baseUrl}}/api/v1/fleet/hosts/mdm/summary",
+                "raw": "{{baseUrl}}/api/v1/fleet/hosts/summary/mdm?team_id={{team_id}}&platform={{platform}}",
                 "host": [ "{{baseUrl}}" ],
-                "path": [ "api", "v1", "fleet", "hosts", "mdm", "summary" ]
+                "path": [ "api", "v1", "fleet", "hosts", "summary", "mdm" ],
+                "query": [
+                  {
+                    "key": "team_id",
+                    "value": "{{team_id}}",
+                    "description": "Available in Fleet Premium. Filter by team"
+                  },
+                  {
+                    "key": "platform",
+                    "value": "{{platform}}",
+                    "description": "Filter by platform (\"windows\" or \"darwin\")"
+                  }
+                ]
               }
             },
-            "response": [],
-            "description": "Get a summary of mobile device management (MDM) for all hosts."
+            "response": [
+              {
+                "name": "Default response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{\n  \"counts_updated_at\": \"2021-03-21T12:32:44Z\",\n  \"mobile_device_management_enrollment_status\": {\n    \"enrolled_manual_hosts_count\": 0,\n    \"enrolled_automated_hosts_count\": 2,\n    \"unenrolled_hosts_count\": 0,\n    \"hosts_count\": 2\n  },\n  \"mobile_device_management_solution\": [\n    {\n      \"id\": 2,\n      \"name\": \"Solution1\",\n      \"server_url\": \"solution1.com\",\n      \"hosts_count\": 1\n    },\n    {\n      \"id\": 3,\n      \"name\": \"Solution2\",\n      \"server_url\": \"solution2.com\",\n      \"hosts_count\": 1\n    }\n  ]\n}"
+              }
+            ],
+            "description": "Currently supports Windows and MacOS. On MacOS this requires the macadmins osquery extension which comes bundled in Fleet's agent (fleetd). Retrieves MDM enrollment summary. Windows servers are excluded from the aggregated data.\n\n**Parameters:**\n- team_id (integer, query): Available in Fleet Premium. Filter by team\n- platform (string, query): Filter by platform (\"windows\" or \"darwin\")\n\nA team_id of 0 returns the statistics for hosts that are not part of any team. A null or missing team_id returns statistics for all hosts regardless of the team."
           },
           {
             "name": "Get host's mobile device management (MDM) and Munki information",
@@ -741,13 +1158,22 @@
                 { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
               ],
               "url": {
-                "raw": "{{baseUrl}}/api/v1/fleet/hosts/{{host_id}}/mdm_munki",
+                "raw": "{{baseUrl}}/api/v1/fleet/hosts/{{host_id}}/macadmins",
                 "host": [ "{{baseUrl}}" ],
-                "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}", "mdm_munki" ]
+                "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}", "macadmins" ]
               }
             },
-            "response": [],
-            "description": "Get a host's MDM and Munki information."
+            "response": [
+              {
+                "name": "Default response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{\n  \"macadmins\": {\n    \"munki\": {\n      \"version\": \"1.2.3\"\n    },\n    \"munki_issues\": [\n      {\n        \"id\": 1,\n        \"name\": \"Could not retrieve managed install primary manifest\",\n        \"type\": \"error\",\n        \"created_at\": \"2022-08-01T05:09:44Z\"\n      },\n      {\n        \"id\": 2,\n        \"name\": \"Could not process item Figma for optional install. No pkginfo found in catalogs: release\",\n        \"type\": \"warning\",\n        \"created_at\": \"2022-08-01T05:09:44Z\"\n      }\n    ],\n    \"mobile_device_management\": {\n      \"enrollment_status\": \"On (automatic)\",\n      \"server_url\": \"http://some.url/mdm\",\n      \"name\": \"MDM Vendor Name\",\n      \"id\": 999\n    }\n  }\n}"
+              }
+            ],
+            "description": "Retrieves a host's MDM enrollment status, MDM server URL, and Munki version.\n\n**Parameters:**\n- id (integer, path, required): The id of the host to get the details for"
           },
           {
             "name": "Get aggregated host's mobile device management (MDM) and Munki information",
@@ -757,13 +1183,29 @@
                 { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
               ],
               "url": {
-                "raw": "{{baseUrl}}/api/v1/fleet/hosts/mdm_munki/aggregate",
+                "raw": "{{baseUrl}}/api/v1/fleet/macadmins?team_id={{team_id}}",
                 "host": [ "{{baseUrl}}" ],
-                "path": [ "api", "v1", "fleet", "hosts", "mdm_munki", "aggregate" ]
+                "path": [ "api", "v1", "fleet", "macadmins" ],
+                "query": [
+                  {
+                    "key": "team_id",
+                    "value": "{{team_id}}",
+                    "description": "Available in Fleet Premium. Filters the aggregate host information to only include hosts in the specified team."
+                  }
+                ]
               }
             },
-            "response": [],
-            "description": "Get aggregated MDM and Munki information for all hosts."
+            "response": [
+              {
+                "name": "Default response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{\n  \"macadmins\": {\n    \"counts_updated_at\": \"2021-03-21T12:32:44Z\",\n    \"munki_versions\": [\n      {\n        \"version\": \"5.5\",\n        \"hosts_count\": 8360\n      },\n      {\n        \"version\": \"5.4\",\n        \"hosts_count\": 1700\n      }\n    ],\n    \"munki_issues\": [\n      {\n        \"id\": 1,\n        \"name\": \"Could not retrieve managed install primary manifest\",\n        \"type\": \"error\",\n        \"hosts_count\": 2851\n      }\n    ],\n    \"mobile_device_management_enrollment_status\": {\n      \"enrolled_manual_hosts_count\": 124,\n      \"enrolled_automated_hosts_count\": 124,\n      \"unenrolled_hosts_count\": 112\n    },\n    \"mobile_device_management_solution\": [\n      {\n        \"id\": 1,\n        \"name\": \"SimpleMDM\",\n        \"hosts_count\": 8360,\n        \"server_url\": \"https://a.simplemdm.com/mdm\"\n      }\n    ]\n  }\n}"
+              }
+            ],
+            "description": "Requires the macadmins osquery extension which comes bundled in Fleet's agent (fleetd). Currently supported only on macOS. Retrieves aggregated host's MDM enrollment status and Munki versions.\n\n**Parameters:**\n- team_id (integer, query): Available in Fleet Premium. Filters the aggregate host information to only include hosts in the specified team.\n\nA team_id of 0 returns the statistics for hosts that are not part of any team. A null or missing team_id returns statistics for all hosts regardless of the team."
           },
           {
             "name": "Resend host's configuration profile",
@@ -778,8 +1220,17 @@
                 "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}", "resend_profile" ]
               }
             },
-            "response": [],
-            "description": "Resend a host's configuration profile."
+            "response": [
+              {
+                "name": "Default response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{}"
+              }
+            ],
+            "description": "Resend host's configuration profile."
           },
           {
             "name": "Get host's software",
@@ -789,13 +1240,79 @@
                 { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
               ],
               "url": {
-                "raw": "{{baseUrl}}/api/v1/fleet/hosts/{{host_id}}/software",
+                "raw": "{{baseUrl}}/api/v1/fleet/hosts/{{host_id}}/software?query={{query}}&available_for_install={{available_for_install}}&self_service={{self_service}}&vulnerable={{vulnerable}}&page={{page}}&per_page={{per_page}}&order_key={{order_key}}&order_direction={{order_direction}}&min_cvss_score={{min_cvss_score}}&max_cvss_score={{max_cvss_score}}&exploit={{exploit}}",
                 "host": [ "{{baseUrl}}" ],
-                "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}", "software" ]
+                "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}", "software" ],
+                "query": [
+                  {
+                    "key": "query",
+                    "value": "{{query}}",
+                    "description": "Search query keywords. Searchable fields include name."
+                  },
+                  {
+                    "key": "available_for_install",
+                    "value": "{{available_for_install}}",
+                    "description": "If true or 1, only list software that is available for install (added by the user). Default is false."
+                  },
+                  {
+                    "key": "self_service",
+                    "value": "{{self_service}}",
+                    "description": "If true or 1, only lists self-service software. Default is false."
+                  },
+                  {
+                    "key": "vulnerable",
+                    "value": "{{vulnerable}}",
+                    "description": "If true or 1, only list software that have vulnerabilities. Default is false."
+                  },
+                  {
+                    "key": "page",
+                    "value": "{{page}}",
+                    "description": "Page number of the results to fetch."
+                  },
+                  {
+                    "key": "per_page",
+                    "value": "{{per_page}}",
+                    "description": "Results per page."
+                  },
+                  {
+                    "key": "order_key",
+                    "value": "{{order_key}}",
+                    "description": "What to order results by. Options include \"name\". Default is \"name\"."
+                  },
+                  {
+                    "key": "order_direction",
+                    "value": "{{order_direction}}",
+                    "description": "Requires order_key. The direction of the order given the order key. Options include \"asc\" and \"desc\". Default is \"asc\"."
+                  },
+                  {
+                    "key": "min_cvss_score",
+                    "value": "{{min_cvss_score}}",
+                    "description": "Available in Fleet Premium. Filters to include only software with vulnerabilities that have a CVSS version 3.x base score higher than the specified value."
+                  },
+                  {
+                    "key": "max_cvss_score",
+                    "value": "{{max_cvss_score}}",
+                    "description": "Available in Fleet Premium. Filters to only include software with vulnerabilities that have a CVSS version 3.x base score lower than what's specified."
+                  },
+                  {
+                    "key": "exploit",
+                    "value": "{{exploit}}",
+                    "description": "Available in Fleet Premium. If true, filters to only include software with vulnerabilities that have been actively exploited in the wild (cisa_known_exploit: true). Default is false."
+                  }
+                ]
               }
             },
-            "response": [],
-            "description": "Get a host's installed software."
+            "response": [
+              {
+                "name": "Default response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{\n  \"count\": 3,\n  \"software\": [\n    {\n      \"id\": 121,\n      \"name\": \"Google Chrome.app\",\n      \"software_package\": {\n        \"name\": \"GoogleChrome.pkg\",\n        \"platform\": \"darwin\",\n        \"version\": \"125.12.0.3\",\n        \"self_service\": true,\n        \"last_install\": {\n          \"install_uuid\": \"8bbb8ac2-b254-4387-8cba-4d8a0407368b\",\n          \"installed_at\": \"2024-05-15T15:23:57Z\"\n        }\n      },\n      \"app_store_app\": null,\n      \"source\": \"apps\",\n      \"status\": \"failed_install\",\n      \"installed_versions\": [\n        {\n          \"version\": \"121.0\",\n          \"bundle_identifier\": \"com.google.Chrome\",\n          \"last_opened_at\": \"2024-04-01T23:03:07Z\",\n          \"vulnerabilities\": [\"CVE-2023-1234\",\"CVE-2023-4321\",\"CVE-2023-7654\"],\n          \"installed_paths\": [\"/Applications/Google Chrome.app\"],\n          \"signature_information\": [\n            {\n              \"installed_path\": \"/Applications/Google Chrome.app\",\n              \"team_identifier\": \"EQHXZ8M8AV\"\n            }\n          ]\n        }\n      ]\n    }\n  ],\n  \"meta\": {\n    \"has_next_results\": false,\n    \"has_previous_results\": false\n  }\n}"
+              }
+            ],
+            "description": "Experimental feature. This feature is undergoing rapid improvement, which may result in breaking changes to the API or configuration surface. It is not recommended for use in automated workflows.\n\n**Parameters:**\n- id (integer, path, required): The host's ID.\n- query (string, query): Search query keywords. Searchable fields include name.\n- available_for_install (boolean, query): If true or 1, only list software that is available for install (added by the user). Default is false.\n- self_service (boolean, query): If true or 1, only lists self-service software. Default is false.\n- vulnerable (boolean, query): If true or 1, only list software that have vulnerabilities. Default is false.\n- page (integer, query): Page number of the results to fetch.\n- per_page (integer, query): Results per page.\n- order_key (string, query): What to order results by. Options include \"name\". Default is \"name\".\n- order_direction (string, query): Requires order_key. The direction of the order given the order key. Options include \"asc\" and \"desc\". Default is \"asc\".\n- min_cvss_score (integer, query): Available in Fleet Premium. Filters to include only software with vulnerabilities that have a CVSS version 3.x base score higher than the specified value.\n- max_cvss_score (integer, query): Available in Fleet Premium. Filters to only include software with vulnerabilities that have a CVSS version 3.x base score lower than what's specified.\n- exploit (boolean, query): Available in Fleet Premium. If true, filters to only include software with vulnerabilities that have been actively exploited in the wild (cisa_known_exploit: true). Default is false."
           },
           {
             "name": "Get hosts report in CSV",
@@ -810,8 +1327,17 @@
                 "path": [ "api", "v1", "fleet", "hosts", "report" ]
               }
             },
-            "response": [],
-            "description": "Get a CSV report of all hosts."
+            "response": [
+              {
+                "name": "Default response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "text",
+                "body": "hostname,uuid,platform,os_version,status,team_name\nAnnas-MacBook-Pro.local,392547dc-0000-0000-a87a-d701ff75bc65,darwin,macOS 15.2,offline,Team A\n23cfc9caacf0,392547dc-0000-0000-a87a-d701ff75bc66,ubuntu,Ubuntu 20.04.3 LTS,online,Team B"
+              }
+            ],
+            "description": "Get hosts report in CSV."
           },
           {
             "name": "Get host's disk encryption key",
@@ -821,13 +1347,22 @@
                 { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
               ],
               "url": {
-                "raw": "{{baseUrl}}/api/v1/fleet/hosts/{{host_id}}/disk_encryption_key",
+                "raw": "{{baseUrl}}/api/v1/fleet/hosts/{{host_id}}/encryption_key",
                 "host": [ "{{baseUrl}}" ],
-                "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}", "disk_encryption_key" ]
+                "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}", "encryption_key" ]
               }
             },
-            "response": [],
-            "description": "Get a host's disk encryption key."
+            "response": [
+              {
+                "name": "Default response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{\n  \"host_id\": 8,\n  \"encryption_key\": {\n    \"key\": \"5ADZ-HTZ8-LJJ4-B2F8-JWH3-YPBT\",\n    \"updated_at\": \"2022-12-01T05:31:43Z\"\n  }\n}"
+              }
+            ],
+            "description": "Retrieves the disk encryption key for a host. The host will only return a key if its disk encryption status is \"Verified.\" Get hosts' disk encryption statuses using the List hosts endpoint and os_settings_disk_encryption parameter.\n\n**Parameters:**\n- id (integer, path, required): The id of the host to get the disk encryption key for."
           },
           {
             "name": "Get host's certificates",
@@ -853,13 +1388,37 @@
                 { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
               ],
               "url": {
-                "raw": "{{baseUrl}}/api/v1/fleet/hosts/{{host_id}}/lock",
+                "raw": "{{baseUrl}}/api/v1/fleet/hosts/{{host_id}}/lock?view_pin={{view_pin}}",
                 "host": [ "{{baseUrl}}" ],
-                "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}", "lock" ]
+                "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}", "lock" ],
+                "query": [
+                  {
+                    "key": "view_pin",
+                    "value": "{{view_pin}}",
+                    "description": "For macOS hosts, whether to return the unlock PIN."
+                  }
+                ]
               }
             },
-            "response": [],
-            "description": "Lock a host."
+            "response": [
+              {
+                "name": "Default response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{\n  \"device_status\": \"unlocked\",\n  \"pending_action\": \"lock\"\n}"
+              },
+              {
+                "name": "macOS hosts response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{\n  \"unlock_pin\": \"123456\",\n  \"device_status\": \"unlocked\",\n  \"pending_action\": \"lock\"\n}"
+              }
+            ],
+            "description": "Available in Fleet Premium. Sends a command to lock the specified macOS, Linux, or Windows host. The host is locked once it comes online. To lock a macOS host, the host must have MDM turned on. To lock a Windows or Linux host, the host must have scripts enabled.\n\n**Parameters:**\n- id (integer, path, required): ID of the host to be locked.\n- view_pin (boolean, query): For macOS hosts, whether to return the unlock PIN.\n\nTo verify the host successfully locked, you can use the Get host endpoint to retrieve the host's mdm.device_status."
           },
           {
             "name": "Unlock host",
@@ -874,8 +1433,25 @@
                 "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}", "unlock" ]
               }
             },
-            "response": [],
-            "description": "Unlock a host."
+            "response": [
+              {
+                "name": "Windows or Linux hosts response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{\n  \"host_id\": 8,\n  \"device_status\": \"locked\",\n  \"pending_action\": \"unlock\"\n}"
+              },
+              {
+                "name": "macOS hosts response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{\n  \"host_id\": 8,\n  \"unlock_pin\": \"123456\",\n  \"device_status\": \"locked\",\n  \"pending_action\": \"unlock\"\n}"
+              }
+            ],
+            "description": "Available in Fleet Premium. Sends a command to unlock the specified Windows or Linux host, or retrieves the unlock PIN for a macOS host. To unlock a Windows or Linux host, the host must have scripts enabled.\n\n**Parameters:**\n- id (integer, path, required): ID of the host to be unlocked.\n\nTo verify the host successfully unlocked, you can use the Get host endpoint to retrieve the host's mdm.device_status. macOS hosts require entering unlock_pin to unlock."
           },
           {
             "name": "Wipe host",
@@ -928,7 +1504,7 @@
           {
             "name": "Cancel host's upcoming activity",
             "request": {
-              "method": "POST",
+              "method": "DELETE",
               "header": [
                 { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
               ],
@@ -951,7 +1527,7 @@
               ],
               "body": {
                 "mode": "raw",
-                "raw": "{\n  \"labels\": [{{label_id}}]\n}",
+                "raw": "{\n  \"labels\": [\"label1\", \"label2\"]\n}",
                 "options": { "raw": { "language": "json" } }
               },
               "url": {
@@ -960,8 +1536,17 @@
                 "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}", "labels" ]
               }
             },
-            "response": [],
-            "description": "Add labels to a host."
+            "response": [
+              {
+                "name": "Default response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{}"
+              }
+            ],
+            "description": "Adds manual labels to a host.\n\n**Parameters:**\n- labels (array, body): The list of label names to add to the host.\n\n**Request body example:**\n```json\n{\n  \"labels\": [\"label1\", \"label2\"]\n}\n```"
           },
           {
             "name": "Remove labels from host",
@@ -973,7 +1558,7 @@
               ],
               "body": {
                 "mode": "raw",
-                "raw": "{\n  \"labels\": [{{label_id}}]\n}",
+                "raw": "{\n  \"labels\": [\"label3\", \"label4\"]\n}",
                 "options": { "raw": { "language": "json" } }
               },
               "url": {
@@ -982,8 +1567,79 @@
                 "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}", "labels" ]
               }
             },
-            "response": [],
-            "description": "Remove labels from a host."
+            "response": [
+              {
+                "name": "Default response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{}"
+              }
+            ],
+            "description": "Removes manual labels from a host.\n\n**Parameters:**\n- labels (array, body): The list of label names to delete from the host.\n\n**Request body example:**\n```json\n{\n  \"labels\": [\"label3\", \"label4\"]\n}\n```"
+          },
+          {
+            "name": "Live query one host (ad-hoc)",
+            "request": {
+              "method": "POST",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+                { "key": "Content-Type", "value": "application/json", "type": "text" }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"query\": \"SELECT model, vendor FROM usb_devices;\"\n}",
+                "options": { "raw": { "language": "json" } }
+              },
+              "url": {
+                "raw": "{{baseUrl}}/api/v1/fleet/hosts/{{host_id}}/query",
+                "host": [ "{{baseUrl}}" ],
+                "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}", "query" ]
+              }
+            },
+            "response": [
+              {
+                "name": "Default response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{\n  \"host_id\": 123,\n  \"query\": \"SELECT model, vendor FROM usb_devices;\",\n  \"status\": \"online\",\n  \"error\": null,\n  \"rows\": [\n    {\n      \"model\": \"USB2.0 Hub\",\n      \"vendor\": \"VIA Labs, Inc.\"\n    }\n  ]\n}"
+              }
+            ],
+            "description": "Runs an ad-hoc live query against the specified host and responds with the results. The live query will stop if the targeted host is offline, or if the query times out. Timeouts happen if the host hasn't responded after the configured FLEET_LIVE_QUERY_REST_PERIOD (default 25 seconds) or if the distributed_interval agent option (default 10 seconds) is higher than the FLEET_LIVE_QUERY_REST_PERIOD.\n\n**Parameters:**\n- id (integer, path, required): The target host ID.\n- query (string, body, required): The query SQL.\n\n**Request body example:**\n```json\n{\n  \"query\": \"SELECT model, vendor FROM usb_devices;\"\n}\n```\n\nNote that if the host is online and the query times out, this endpoint will return an error and rows will be null. If the host is offline, no error will be returned, and rows will be null."
+          },
+          {
+            "name": "Live query host by identifier (ad-hoc)",
+            "request": {
+              "method": "POST",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+                { "key": "Content-Type", "value": "application/json", "type": "text" }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"query\": \"SELECT model, vendor FROM usb_devices;\"\n}",
+                "options": { "raw": { "language": "json" } }
+              },
+              "url": {
+                "raw": "{{baseUrl}}/api/v1/fleet/hosts/identifier/{{identifier}}/query",
+                "host": [ "{{baseUrl}}" ],
+                "path": [ "api", "v1", "fleet", "hosts", "identifier", "{{identifier}}", "query" ]
+              }
+            },
+            "response": [
+              {
+                "name": "Default response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{\n  \"host_id\": 123,\n  \"query\": \"SELECT model, vendor FROM usb_devices;\",\n  \"status\": \"online\",\n  \"error\": null,\n  \"rows\": [\n    {\n      \"model\": \"USB2.0 Hub\",\n      \"vendor\": \"VIA Labs, Inc.\"\n    }\n  ]\n}"
+              }
+            ],
+            "description": "Runs an ad-hoc live query against a host identified using uuid and responds with the results. The live query will stop if the targeted host is offline, or if the query times out. Timeouts happen if the host hasn't responded after the configured FLEET_LIVE_QUERY_REST_PERIOD (default 25 seconds) or if the distributed_interval agent option (default 10 seconds) is higher than the FLEET_LIVE_QUERY_REST_PERIOD.\n\n**Parameters:**\n- identifier (integer or string, path, required): The host's hardware_serial, uuid, osquery_host_id, hostname, or node_key.\n- query (string, body, required): The query SQL.\n\n**Request body example:**\n```json\n{\n  \"query\": \"SELECT model, vendor FROM usb_devices;\"\n}\n```\n\nNote that if the host is online and the query times out, this endpoint will return an error and rows will be null. If the host is offline, no error will be returned, and rows will be null."
           },
           {
             "name": "Live query one host (ad-hoc)",
@@ -1004,30 +1660,142 @@
                 "path": [ "api", "v1", "fleet", "queries", "run" ]
               }
             },
-            "response": [],
+            "response": [
+              {
+                "name": "Default response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{\n  \"campaign\": {\n    \"created_at\": \"2021-08-19T02:02:22Z\",\n    \"updated_at\": \"2021-08-19T02:02:22Z\",\n    \"Metrics\": {\n      \"total_hosts\": 1,\n      \"online_hosts\": 1,\n      \"offline_hosts\": 0,\n      \"missing_in_action_hosts\": 0,\n      \"new_hosts\": 0\n    },\n    \"id\": 1,\n    \"query_id\": 1,\n    \"status\": 0,\n    \"user_id\": 1,\n    \"type\": 1\n  }\n}"
+              }
+            ],
             "description": "Run a live query on a single host by host ID."
           },
           {
-            "name": "Live query host by identifier (ad-hoc)",
+            "name": "Wipe host",
             "request": {
               "method": "POST",
               "header": [
                 { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
                 { "key": "Content-Type", "value": "application/json", "type": "text" }
               ],
-              "body": {
-                "mode": "raw",
-                "raw": "{\n  \"identifier\": \"{{identifier}}\",\n  \"query\": \"SELECT * FROM osquery_info;\"\n}",
-                "options": { "raw": { "language": "json" } }
-              },
               "url": {
-                "raw": "{{baseUrl}}/api/v1/fleet/queries/run_by_identifier",
+                "raw": "{{baseUrl}}/api/v1/fleet/hosts/{{host_id}}/wipe",
                 "host": [ "{{baseUrl}}" ],
-                "path": [ "api", "v1", "fleet", "queries", "run_by_identifier" ]
+                "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}", "wipe" ]
               }
             },
-            "response": [],
-            "description": "Run a live query on a host by identifier (e.g., uuid, hostname, etc.)."
+            "response": [
+              {
+                "name": "Default response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{\n  \"device_status\": \"unlocked\",\n  \"pending_action\": \"wipe\"\n}"
+              }
+            ],
+            "description": "Sends a command to wipe the specified macOS, iOS, iPadOS, Windows, or Linux host. The host is wiped once it comes online. To wipe a macOS, iOS, iPadOS, or Windows host, the host must have MDM turned on. To lock a Linux host, the host must have scripts enabled.\n\n**Parameters:**\n- id (integer, path, required): ID of the host to be wiped.\n- windows (object, body): Optional metadata used when wiping Windows hosts. The object includes a wipe_type property that can be used for specifying what type of remote wipe to perform. Allowed values are \"doWipe\" and \"doWipeProtected\".\n\n**Optional request body example:**\n```json\n{ \"windows\": { \"wipe_type\": \"doWipe\" } }\n```\n\nTo verify the host was successfully wiped, you can use the Get host endpoint to retrieve the host's mdm.device_status."
+          },
+          {
+            "name": "Get host's past activity",
+            "request": {
+              "method": "GET",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/api/v1/fleet/hosts/{{host_id}}/activities?page={{page}}&per_page={{per_page}}",
+                "host": [ "{{baseUrl}}" ],
+                "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}", "activities" ],
+                "query": [
+                  {
+                    "key": "page",
+                    "value": "{{page}}",
+                    "description": "Page number of the results to fetch."
+                  },
+                  {
+                    "key": "per_page",
+                    "value": "{{per_page}}",
+                    "description": "Results per page."
+                  }
+                ]
+              }
+            },
+            "response": [
+              {
+                "name": "Default response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{\n  \"activities\": [\n    {\n      \"created_at\": \"2025-02-20T10:09:48.551757Z\",\n      \"id\": 123,\n      \"actor_full_name\": \"Anna Chao\",\n      \"actor_id\": 12,\n      \"actor_gravatar\": \"\",\n      \"actor_email\": \"anna@fleetdm.com\",\n      \"type\": \"installed_software\",\n      \"fleet_initiated\": false,\n      \"details\": {\n          \"status\": \"installed\",\n          \"host_id\": 934,\n          \"policy_id\": null,\n          \"policy_name\": null,\n          \"install_uuid\": \"2fddb3d3-d553-4334-89a3-235da50d0ee7\",\n          \"self_service\": false,\n          \"software_title\": \"Notion.app\",\n          \"software_package\": \"Notion-4.5.0-arm64.dmg\",\n          \"host_display_name\": \"Marko's MacBook Pro\"\n      }\n    }\n  ],\n  \"meta\": {\n    \"has_next_results\": false,\n    \"has_previous_results\": false\n  }\n}"
+              }
+            ],
+            "description": "Get host's past activity.\n\n**Parameters:**\n- id (integer, path, required): The host's ID.\n- page (integer, query): Page number of the results to fetch.\n- per_page (integer, query): Results per page."
+          },
+          {
+            "name": "Get host's upcoming activity",
+            "request": {
+              "method": "GET",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/api/v1/fleet/hosts/{{host_id}}/activities/upcoming?page={{page}}&per_page={{per_page}}",
+                "host": [ "{{baseUrl}}" ],
+                "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}", "activities", "upcoming" ],
+                "query": [
+                  {
+                    "key": "page",
+                    "value": "{{page}}",
+                    "description": "Page number of the results to fetch."
+                  },
+                  {
+                    "key": "per_page",
+                    "value": "{{per_page}}",
+                    "description": "Results per page."
+                  }
+                ]
+              }
+            },
+            "response": [
+              {
+                "name": "Default response (200)",
+                "originalRequest": {},
+                "status": "OK",
+                "code": 200,
+                "_postman_previewlanguage": "json",
+                "body": "{\n  \"count\": 3,\n  \"activities\": [\n    {\n      \"created_at\": \"2025-02-20T10:05:43.013218Z\",\n      \"uuid\": \"ce8ed8b1-8e77-413f-936c-4ef2f9b665f8\",\n      \"actor_full_name\": \"Anna Chao\",\n      \"actor_id\": 12,\n      \"actor_gravatar\": \"\",\n      \"actor_email\": \"anna@fleetdm.com\",\n      \"type\": \"installed_software\",\n      \"fleet_initiated\": false,\n      \"details\": {\n          \"status\": \"pending_install\",\n          \"host_id\": 934,\n          \"policy_id\": null,\n          \"policy_name\": null,\n          \"install_uuid\": \"2fddb3d3-d553-4334-89a3-235da50d0ee7\",\n          \"self_service\": false,\n          \"software_title\": \"Notion.app\",\n          \"software_package\": \"Notion-4.5.0-arm64.dmg\",\n          \"host_display_name\": \"Marko's MacBook Pro\"\n      }\n    }\n  ],\n  \"meta\": {\n    \"has_next_results\": false,\n    \"has_previous_results\": false\n  }\n}"
+              }
+            ],
+            "description": "Get host's upcoming activity.\n\n**Parameters:**\n- id (integer, path, required): The host's id.\n- page (integer, query): Page number of the results to fetch.\n- per_page (integer, query): Results per page."
+          },
+          {
+            "name": "Cancel host's upcoming activity",
+            "request": {
+              "method": "DELETE",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/api/v1/fleet/hosts/{{host_id}}/activities/upcoming/{{activity_id}}",
+                "host": [ "{{baseUrl}}" ],
+                "path": [ "api", "v1", "fleet", "hosts", "{{host_id}}", "activities", "upcoming", "{{activity_id}}" ]
+              }
+            },
+            "response": [
+              {
+                "name": "Default response (204)",
+                "originalRequest": {},
+                "status": "No Content",
+                "code": 204,
+                "_postman_previewlanguage": "json",
+                "body": ""
+              }
+            ],
+            "description": "Cancel host's upcoming activity.\n\n**Parameters:**\n- id (integer, path, required): The host's ID.\n- activity_id (string, path, required): The ID of the host's upcoming activity."
           }
         ]
       },
@@ -1128,6 +1896,38 @@
             "description": "Delete a label by ID."
           },
           {
+            "name": "Delete label by name",
+            "request": {
+              "method": "DELETE",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/api/v1/fleet/labels/{{label_name}}",
+                "host": [ "{{baseUrl}}" ],
+                "path": [ "api", "v1", "fleet", "labels", "{{label_name}}" ]
+              }
+            },
+            "response": [],
+            "description": "Delete a label by name."
+          },
+          {
+            "name": "Delete label by ID",
+            "request": {
+              "method": "DELETE",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/api/v1/fleet/labels/id/{{label_id}}",
+                "host": [ "{{baseUrl}}" ],
+                "path": [ "api", "v1", "fleet", "labels", "id", "{{label_id}}" ]
+              }
+            },
+            "response": [],
+            "description": "Delete a label by ID."
+          },
+          {
             "name": "Get labels summary",
             "request": {
               "method": "GET",
@@ -1158,6 +1958,728 @@
             },
             "response": [],
             "description": "List all hosts in a label by label ID."
+          }
+        ]
+      },
+      {
+        "name": "OS settings",
+        "description": "Endpoints for managing OS settings (configuration profiles) and disk encryption.",
+        "item": [
+          {
+            "name": "Add custom OS setting (configuration profile)",
+            "request": {
+              "method": "POST",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+              ],
+              "body": {
+                "mode": "formdata",
+                "formdata": [
+                  {
+                    "key": "profile",
+                    "type": "file",
+                    "description": "Required. The .mobileconfig, JSON, or XML file containing the configuration profile.",
+                    "src": ""
+                  },
+                  {
+                    "key": "team_id",
+                    "type": "text",
+                    "description": "Optional (Fleet Premium). Team ID to target. If specified, applies only to hosts in this team."
+                  },
+                  {
+                    "key": "labels_include_all",
+                    "type": "text",
+                    "description": "Optional (Fleet Premium). Array of label IDs. Only hosts with all these labels are targeted. Only one of labels_include_all, labels_include_any, or labels_exclude_any can be specified."
+                  },
+                  {
+                    "key": "labels_include_any",
+                    "type": "text",
+                    "description": "Optional (Fleet Premium). Array of label IDs. Hosts with any of these labels are targeted. Only one of labels_include_all, labels_include_any, or labels_exclude_any can be specified."
+                  },
+                  {
+                    "key": "labels_exclude_any",
+                    "type": "text",
+                    "description": "Optional (Fleet Premium). Array of label IDs. Hosts without any of these labels are targeted. Only one of labels_include_all, labels_include_any, or labels_exclude_any can be specified."
+                  }
+                ]
+              },
+              "url": {
+                "raw": "{{baseUrl}}/api/v1/fleet/configuration_profiles",
+                "host": [ "{{baseUrl}}" ],
+                "path": [ "api", "v1", "fleet", "configuration_profiles" ]
+              }
+            },
+            "response": [],
+            "description": "Add a configuration profile to enforce custom settings on macOS and Windows hosts. Accepts a .mobileconfig, JSON, or XML file. Optional parameters allow targeting by team or label (Fleet Premium). Only one of labels_include_all, labels_include_any, or labels_exclude_any can be specified."
+          },
+          {
+            "name": "List custom OS settings (configuration profiles)",
+            "request": {
+              "method": "GET",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/api/v1/fleet/configuration_profiles?team_id={{team_id}}&page={{page}}&per_page={{per_page}}",
+                "host": [ "{{baseUrl}}" ],
+                "path": [ "api", "v1", "fleet", "configuration_profiles" ],
+                "query": [
+                  {
+                    "key": "team_id",
+                    "value": "{{team_id}}",
+                    "description": "(Fleet Premium) Team ID to filter profiles. If omitted, only 'No team' profiles are listed.",
+                    "disabled": true
+                  },
+                  {
+                    "key": "page",
+                    "value": "{{page}}",
+                    "description": "Page number of the results to fetch.",
+                    "disabled": true
+                  },
+                  {
+                    "key": "per_page",
+                    "value": "{{per_page}}",
+                    "description": "Results per page.",
+                    "disabled": true
+                  }
+                ]
+              }
+            },
+            "response": [],
+            "description": "List all configuration profiles in Fleet. Supports filtering by team (Fleet Premium) and pagination with page and per_page query parameters."
+          },
+          {
+            "name": "Get or download custom OS setting (configuration profile)",
+            "request": {
+              "method": "GET",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/api/v1/fleet/configuration_profiles/{{profile_uuid}}?alt={{alt}}",
+                "host": [ "{{baseUrl}}" ],
+                "path": [ "api", "v1", "fleet", "configuration_profiles", "{{profile_uuid}}" ],
+                "query": [
+                  {
+                    "key": "alt",
+                    "value": "{{alt}}",
+                    "description": "If set to 'media', downloads the profile.",
+                    "disabled": true
+                  }
+                ]
+              }
+            },
+            "response": [],
+            "description": "Get or download a custom OS setting (configuration profile) by UUID. Use 'alt=media' to download the profile."
+          },
+          {
+            "name": "Delete custom OS setting (configuration profile)",
+            "request": {
+              "method": "DELETE",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/api/v1/fleet/configuration_profiles/{{profile_uuid}}",
+                "host": [ "{{baseUrl}}" ],
+                "path": [ "api", "v1", "fleet", "configuration_profiles", "{{profile_uuid}}" ]
+              }
+            },
+            "response": [],
+            "description": "Delete a custom OS setting (configuration profile) by UUID."
+          },
+          {
+            "name": "Resend custom OS setting (configuration profile)",
+            "request": {
+              "method": "POST",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/api/v1/fleet/hosts/{{id}}/configuration_profiles/{{profile_uuid}}/resend",
+                "host": [ "{{baseUrl}}" ],
+                "path": [ "api", "v1", "fleet", "hosts", "{{id}}", "configuration_profiles", "{{profile_uuid}}", "resend" ]
+              }
+            },
+            "response": [],
+            "description": "Resend a configuration profile to a host. Requires host ID and profile UUID."
+          },
+          {
+            "name": "Batch-resend custom OS setting (configuration profile)",
+            "request": {
+              "method": "POST",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+                { "key": "Content-Type", "value": "application/json", "type": "text" }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"profile_uuid\": \"{{profile_uuid}}\",\n  \"filters\": {\n    \"profile_status\": \"failed\"\n  }\n}",
+                "options": { "raw": { "language": "json" } }
+              },
+              "url": {
+                "raw": "{{baseUrl}}/api/v1/fleet/configuration_profiles/batch/resend",
+                "host": [ "{{baseUrl}}" ],
+                "path": [ "api", "v1", "fleet", "configuration_profiles", "batch", "resend" ]
+              }
+            },
+            "response": [],
+            "description": "Batch-resend configuration profiles. Body: profile_uuid (required), filters (object, required, e.g. {profile_status: 'failed'})."
+          },
+          {
+            "name": "Update disk encryption enforcement",
+            "request": {
+              "method": "POST",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+                { "key": "Content-Type", "value": "application/json", "type": "text" }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"team_id\": {{team_id}},\n  \"enable_disk_encryption\": true\n}",
+                "options": { "raw": { "language": "json" } }
+              },
+              "url": {
+                "raw": "{{baseUrl}}/api/v1/fleet/disk_encryption",
+                "host": [ "{{baseUrl}}" ],
+                "path": [ "api", "v1", "fleet", "disk_encryption" ]
+              }
+            },
+            "response": [],
+            "description": "Update disk encryption enforcement. Body: team_id (optional), enable_disk_encryption (boolean)."
+          },
+          {
+            "name": "Get disk encryption statistics",
+            "request": {
+              "method": "GET",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/api/v1/fleet/disk_encryption?team_id={{team_id}}",
+                "host": [ "{{baseUrl}}" ],
+                "path": [ "api", "v1", "fleet", "disk_encryption" ],
+                "query": [
+                  {
+                    "key": "team_id",
+                    "value": "{{team_id}}",
+                    "description": "(Fleet Premium) The team ID to filter the summary.",
+                    "disabled": true
+                  }
+                ]
+              }
+            },
+            "response": [],
+            "description": "Get disk encryption statistics. Optional query: team_id."
+          },
+          {
+            "name": "Get OS settings summary",
+            "request": {
+              "method": "GET",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/api/v1/fleet/configuration_profiles/summary?team_id={{team_id}}",
+                "host": [ "{{baseUrl}}" ],
+                "path": [ "api", "v1", "fleet", "configuration_profiles", "summary" ],
+                "query": [
+                  {
+                    "key": "team_id",
+                    "value": "{{team_id}}",
+                    "description": "(Fleet Premium) The team ID to filter profiles.",
+                    "disabled": true
+                  }
+                ]
+              }
+            },
+            "response": [],
+            "description": "Get OS settings summary. Optional query: team_id."
+          },
+          {
+            "name": "Get OS setting (configuration profile) status",
+            "request": {
+              "method": "GET",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/api/v1/fleet/configuration_profile/{{profile_uuid}}/status",
+                "host": [ "{{baseUrl}}" ],
+                "path": [ "api", "v1", "fleet", "configuration_profile", "{{profile_uuid}}", "status" ]
+              }
+            },
+            "response": [],
+            "description": "Get status counts of a single OS settings (configuration profile) enforced on hosts. Path: profile_uuid (required)."
+          }
+        ]
+      },
+      {
+        "name": "Setup experience",
+        "description": "Endpoints for managing MDM setup, bootstrap packages, EULA, and setup automation.",
+        "item": [
+          {
+            "name": "Set custom MDM setup enrollment profile",
+            "request": {
+              "method": "POST",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+                { "key": "Content-Type", "value": "application/json", "type": "text" }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"team_id\": {{team_id}},\n  \"name\": \"dep_profile.json\",\n  \"enrollment_profile\": {\n    \"is_mandatory\": true,\n    \"is_mdm_removable\": false\n  }\n}",
+                "options": { "raw": { "language": "json" } }
+              },
+              "url": {
+                "raw": "{{baseUrl}}/api/v1/fleet/enrollment_profiles/automatic",
+                "host": [ "{{baseUrl}}" ],
+                "path": [ "api", "v1", "fleet", "enrollment_profiles", "automatic" ]
+              }
+            },
+            "response": [],
+            "description": "Set a custom MDM setup enrollment profile for a team or no team. Body: team_id (optional), name (optional), enrollment_profile (required, object)."
+          },
+          {
+            "name": "Get custom MDM setup enrollment profile",
+            "request": {
+              "method": "GET",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/api/v1/fleet/enrollment_profiles/automatic?team_id={{team_id}}",
+                "host": [ "{{baseUrl}}" ],
+                "path": [ "api", "v1", "fleet", "enrollment_profiles", "automatic" ],
+                "query": [
+                  { "key": "team_id", "value": "{{team_id}}", "description": "Team ID to return the profile for.", "disabled": true }
+                ]
+              }
+            },
+            "response": [],
+            "description": "Get the custom MDM setup enrollment profile for a team or no team. Optional query: team_id."
+          },
+          {
+            "name": "Delete custom MDM setup enrollment profile",
+            "request": {
+              "method": "DELETE",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/api/v1/fleet/enrollment_profiles/automatic?team_id={{team_id}}",
+                "host": [ "{{baseUrl}}" ],
+                "path": [ "api", "v1", "fleet", "enrollment_profiles", "automatic" ],
+                "query": [
+                  { "key": "team_id", "value": "{{team_id}}", "description": "Team ID to delete the profile for.", "disabled": true }
+                ]
+              }
+            },
+            "response": [],
+            "description": "Delete the custom MDM setup enrollment profile for a team or no team. Optional query: team_id."
+          },
+          {
+            "name": "Get Over-the-Air (OTA) enrollment profile",
+            "request": {
+              "method": "GET",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/api/v1/fleet/enrollment_profiles/ota?enroll_secret={{enroll_secret}}",
+                "host": [ "{{baseUrl}}" ],
+                "path": [ "api", "v1", "fleet", "enrollment_profiles", "ota" ],
+                "query": [
+                  { "key": "enroll_secret", "value": "{{enroll_secret}}", "description": "Enroll secret of the team.", "disabled": false }
+                ]
+              }
+            },
+            "response": [],
+            "description": "Get a signed OTA enrollment profile. Query: enroll_secret (required)."
+          },
+          {
+            "name": "Get manual enrollment profile",
+            "request": {
+              "method": "GET",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/api/v1/fleet/enrollment_profiles/manual",
+                "host": [ "{{baseUrl}}" ],
+                "path": [ "api", "v1", "fleet", "enrollment_profiles", "manual" ]
+              }
+            },
+            "response": [],
+            "description": "Get an unsigned manual enrollment profile for macOS hosts."
+          },
+          {
+            "name": "Upload a bootstrap package",
+            "request": {
+              "method": "POST",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+              ],
+              "body": {
+                "mode": "formdata",
+                "formdata": [
+                  { "key": "package", "type": "file", "description": "Required. Signed .pkg file.", "src": "" },
+                  { "key": "team_id", "type": "text", "description": "Optional. Team ID for the package." },
+                  { "key": "manual_agent_install", "type": "text", "description": "Optional. If true, fleetd won't be installed." }
+                ]
+              },
+              "url": {
+                "raw": "{{baseUrl}}/api/v1/fleet/bootstrap",
+                "host": [ "{{baseUrl}}" ],
+                "path": [ "api", "v1", "fleet", "bootstrap" ]
+              }
+            },
+            "response": [],
+            "description": "Upload a bootstrap package for DEP setup. Form-data: package (file, required), team_id (optional), manual_agent_install (optional)."
+          },
+          {
+            "name": "Get metadata about a bootstrap package",
+            "request": {
+              "method": "GET",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/api/v1/fleet/bootstrap/{{team_id}}/metadata?for_update={{for_update}}",
+                "host": [ "{{baseUrl}}" ],
+                "path": [ "api", "v1", "fleet", "bootstrap", "{{team_id}}", "metadata" ],
+                "query": [
+                  { "key": "for_update", "value": "{{for_update}}", "description": "If true, for write action.", "disabled": true }
+                ]
+              }
+            },
+            "response": [],
+            "description": "Get metadata about a bootstrap package. Path: team_id (required). Optional query: for_update."
+          },
+          {
+            "name": "Delete a bootstrap package",
+            "request": {
+              "method": "DELETE",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/api/v1/fleet/bootstrap/{{team_id}}",
+                "host": [ "{{baseUrl}}" ],
+                "path": [ "api", "v1", "fleet", "bootstrap", "{{team_id}}" ]
+              }
+            },
+            "response": [],
+            "description": "Delete a team's bootstrap package. Path: team_id (required)."
+          },
+          {
+            "name": "Download a bootstrap package",
+            "request": {
+              "method": "GET",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/api/v1/fleet/bootstrap?token={{token}}",
+                "host": [ "{{baseUrl}}" ],
+                "path": [ "api", "v1", "fleet", "bootstrap" ],
+                "query": [
+                  { "key": "token", "value": "{{token}}", "description": "Token of the bootstrap package.", "disabled": false }
+                ]
+              }
+            },
+            "response": [],
+            "description": "Download a bootstrap package. Query: token (required)."
+          },
+          {
+            "name": "Get a summary of bootstrap package status",
+            "request": {
+              "method": "GET",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/api/v1/fleet/bootstrap/summary?team_id={{team_id}}",
+                "host": [ "{{baseUrl}}" ],
+                "path": [ "api", "v1", "fleet", "bootstrap", "summary" ],
+                "query": [
+                  { "key": "team_id", "value": "{{team_id}}", "description": "Team ID to filter the summary.", "disabled": true }
+                ]
+              }
+            },
+            "response": [],
+            "description": "Get a summary of bootstrap package status. Optional query: team_id."
+          },
+          {
+            "name": "Configure setup experience",
+            "request": {
+              "method": "PATCH",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+                { "key": "Content-Type", "value": "application/json", "type": "text" }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"team_id\": {{team_id}},\n  \"enable_end_user_authentication\": true,\n  \"enable_release_device_manually\": true,\n  \"manual_agent_install\": false\n}",
+                "options": { "raw": { "language": "json" } }
+              },
+              "url": {
+                "raw": "{{baseUrl}}/api/v1/fleet/setup_experience",
+                "host": [ "{{baseUrl}}" ],
+                "path": [ "api", "v1", "fleet", "setup_experience" ]
+              }
+            },
+            "response": [],
+            "description": "Configure setup experience. Body: team_id, enable_end_user_authentication, enable_release_device_manually, manual_agent_install."
+          },
+          {
+            "name": "Upload an EULA file",
+            "request": {
+              "method": "POST",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+              ],
+              "body": {
+                "mode": "formdata",
+                "formdata": [
+                  { "key": "eula", "type": "file", "description": "Required. PDF document containing the EULA.", "src": "" }
+                ]
+              },
+              "url": {
+                "raw": "{{baseUrl}}/api/v1/fleet/setup_experience/eula",
+                "host": [ "{{baseUrl}}" ],
+                "path": [ "api", "v1", "fleet", "setup_experience", "eula" ]
+              }
+            },
+            "response": [],
+            "description": "Upload an EULA file (PDF). Form-data: eula (file, required)."
+          },
+          {
+            "name": "Get metadata about an EULA file",
+            "request": {
+              "method": "GET",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/api/v1/fleet/setup_experience/eula/metadata",
+                "host": [ "{{baseUrl}}" ],
+                "path": [ "api", "v1", "fleet", "setup_experience", "eula", "metadata" ]
+              }
+            },
+            "response": [],
+            "description": "Get metadata about the uploaded EULA file."
+          },
+          {
+            "name": "Delete an EULA file",
+            "request": {
+              "method": "DELETE",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/api/v1/fleet/setup_experience/eula/{{token}}",
+                "host": [ "{{baseUrl}}" ],
+                "path": [ "api", "v1", "fleet", "setup_experience", "eula", "{{token}}" ]
+              }
+            },
+            "response": [],
+            "description": "Delete an EULA file. Path: token (required)."
+          },
+          {
+            "name": "Download an EULA file",
+            "request": {
+              "method": "GET",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/api/v1/fleet/setup_experience/eula/{{token}}",
+                "host": [ "{{baseUrl}}" ],
+                "path": [ "api", "v1", "fleet", "setup_experience", "eula", "{{token}}" ]
+              }
+            },
+            "response": [],
+            "description": "Download an EULA file. Path: token (required)."
+          },
+          {
+            "name": "List software (setup experience)",
+            "request": {
+              "method": "GET",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/api/v1/fleet/setup_experience/software?team_id={{team_id}}&page={{page}}&per_page={{per_page}}",
+                "host": [ "{{baseUrl}}" ],
+                "path": [ "api", "v1", "fleet", "setup_experience", "software" ],
+                "query": [
+                  { "key": "team_id", "value": "{{team_id}}", "description": "Team ID to filter software by.", "disabled": true },
+                  { "key": "page", "value": "{{page}}", "description": "Page number of the results to fetch.", "disabled": true },
+                  { "key": "per_page", "value": "{{per_page}}", "description": "Results per page.", "disabled": true }
+                ]
+              }
+            },
+            "response": [],
+            "description": "List software for setup experience. Query: team_id, page, per_page."
+          },
+          {
+            "name": "Update software (setup experience)",
+            "request": {
+              "method": "PUT",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+                { "key": "Content-Type", "value": "application/json", "type": "text" }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/api/v1/fleet/setup_experience/software?team_id={{team_id}}",
+                "host": [ "{{baseUrl}}" ],
+                "path": [ "api", "v1", "fleet", "setup_experience", "software" ],
+                "query": [
+                  { "key": "team_id", "value": "{{team_id}}", "description": "Team ID to set the software for.", "disabled": true }
+                ]
+              },
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"software_title_ids\": [23, 3411, 5032]\n}",
+                "options": { "raw": { "language": "json" } }
+              }
+            },
+            "response": [],
+            "description": "Update software for setup experience. Query: team_id (optional). Body: software_title_ids (array, required)."
+          },
+          {
+            "name": "Add script (setup experience)",
+            "request": {
+              "method": "POST",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+              ],
+              "body": {
+                "mode": "formdata",
+                "formdata": [
+                  { "key": "team_id", "type": "text", "description": "Team ID to add the script to (optional)." },
+                  { "key": "script", "type": "file", "description": "Script file to run during setup (required).", "src": "" }
+                ]
+              },
+              "url": {
+                "raw": "{{baseUrl}}/api/v1/fleet/setup_experience/script",
+                "host": [ "{{baseUrl}}" ],
+                "path": [ "api", "v1", "fleet", "setup_experience", "script" ]
+              }
+            },
+            "response": [],
+            "description": "Add a script to run during setup experience. Form-data: team_id (optional), script (file, required)."
+          },
+          {
+            "name": "Get or download script (setup experience)",
+            "request": {
+              "method": "GET",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/api/v1/fleet/setup_experience/script?team_id={{team_id}}&alt={{alt}}",
+                "host": [ "{{baseUrl}}" ],
+                "path": [ "api", "v1", "fleet", "setup_experience", "script" ],
+                "query": [
+                  { "key": "team_id", "value": "{{team_id}}", "description": "Team ID to get the script for (optional).", "disabled": true },
+                  { "key": "alt", "value": "{{alt}}", "description": "If set to 'media', downloads the script.", "disabled": true }
+                ]
+              }
+            },
+            "response": [],
+            "description": "Get or download a script for setup experience. Query: team_id (optional), alt (optional, set to 'media' to download)."
+          },
+          {
+            "name": "Delete script (setup experience)",
+            "request": {
+              "method": "DELETE",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/api/v1/fleet/setup_experience/script?team_id={{team_id}}",
+                "host": [ "{{baseUrl}}" ],
+                "path": [ "api", "v1", "fleet", "setup_experience", "script" ],
+                "query": [
+                  { "key": "team_id", "value": "{{team_id}}", "description": "Team ID to delete the script for (optional).", "disabled": true }
+                ]
+              }
+            },
+            "response": [],
+            "description": "Delete a script for setup experience. Query: team_id (optional)."
+          }
+        ]
+      },
+      {
+        "name": "Commands",
+        "description": "Endpoints for running and retrieving results of MDM commands.",
+        "item": [
+          {
+            "name": "Run MDM command",
+            "request": {
+              "method": "POST",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+                { "key": "Content-Type", "value": "application/json", "type": "text" }
+              ],
+              "body": {
+                "mode": "raw",
+                "raw": "{\n  \"command\": \"<base64-encoded-command>\",\n  \"host_uuids\": [\"{{host_uuid}}\"]\n}",
+                "options": { "raw": { "language": "json" } }
+              },
+              "url": {
+                "raw": "{{baseUrl}}/api/v1/fleet/commands/run",
+                "host": [ "{{baseUrl}}" ],
+                "path": [ "api", "v1", "fleet", "commands", "run" ]
+              }
+            },
+            "response": [],
+            "description": "Run a custom MDM command on targeted hosts. Body: command (Base64 string, required), host_uuids (array, required)."
+          },
+          {
+            "name": "Get MDM command results",
+            "request": {
+              "method": "GET",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/api/v1/fleet/commands/results?command_uuid={{command_uuid}}",
+                "host": [ "{{baseUrl}}" ],
+                "path": [ "api", "v1", "fleet", "commands", "results" ],
+                "query": [
+                  { "key": "command_uuid", "value": "{{command_uuid}}", "description": "The unique identifier of the command.", "disabled": false }
+                ]
+              }
+            },
+            "response": [],
+            "description": "Get results for a specific custom MDM command. Query: command_uuid (required)."
+          },
+          {
+            "name": "List MDM commands",
+            "request": {
+              "method": "GET",
+              "header": [
+                { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+              ],
+              "url": {
+                "raw": "{{baseUrl}}/api/v1/fleet/commands?page={{page}}&per_page={{per_page}}&order_key={{order_key}}&order_direction={{order_direction}}&host_identifier={{host_identifier}}&request_type={{request_type}}",
+                "host": [ "{{baseUrl}}" ],
+                "path": [ "api", "v1", "fleet", "commands" ],
+                "query": [
+                  { "key": "page", "value": "{{page}}", "description": "Page number of the results to fetch.", "disabled": true },
+                  { "key": "per_page", "value": "{{per_page}}", "description": "Results per page.", "disabled": true },
+                  { "key": "order_key", "value": "{{order_key}}", "description": "Field to order results by.", "disabled": true },
+                  { "key": "order_direction", "value": "{{order_direction}}", "description": "Order direction (asc or desc). Requires order_key.", "disabled": true },
+                  { "key": "host_identifier", "value": "{{host_identifier}}", "description": "Host's hostname, uuid, or hardware_serial.", "disabled": true },
+                  { "key": "request_type", "value": "{{request_type}}", "description": "Request type to filter commands by.", "disabled": true }
+                ]
+              }
+            },
+            "response": [],
+            "description": "List custom MDM commands that have been executed. Query: page, per_page, order_key, order_direction, host_identifier, request_type."
           }
         ]
       }
