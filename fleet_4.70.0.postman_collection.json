@@ -5835,6 +5835,570 @@
                   "description": "Resolve the full list of hosts, labels, and teams that would be affected by a query or action. The request body can include host IDs, label IDs, and team IDs."
                 }
               ]
+            },
+            {
+              "name": "Teams",
+              "description": "Endpoints for managing teams in Fleet.",
+              "item": [
+                {
+                  "name": "List teams",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/latest/fleet/teams",
+                      "host": ["{{baseUrl}}"],
+                      "path": ["api", "latest", "fleet", "teams"]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Create team",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+                      { "key": "Content-Type", "value": "application/json", "type": "text" }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"Engineering\",\n  \"description\": \"Engineering team\"\n}"
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/latest/fleet/teams",
+                      "host": ["{{baseUrl}}"],
+                      "path": ["api", "latest", "fleet", "teams"]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Get team by ID",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/latest/fleet/teams/:id",
+                      "host": ["{{baseUrl}}"],
+                      "path": ["api", "latest", "fleet", "teams", ":id"]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Modify team",
+                  "request": {
+                    "method": "PATCH",
+                    "header": [
+                      { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+                      { "key": "Content-Type", "value": "application/json", "type": "text" }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"Engineering Updated\",\n  \"description\": \"Updated description\"\n}"
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/latest/fleet/teams/:id",
+                      "host": ["{{baseUrl}}"],
+                      "path": ["api", "latest", "fleet", "teams", ":id"]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Delete team",
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/latest/fleet/teams/:id",
+                      "host": ["{{baseUrl}}"],
+                      "path": ["api", "latest", "fleet", "teams", ":id"]
+                    }
+                  },
+                  "response": []
+                },
+                {
+                  "name": "Add users to team",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+                      { "key": "Content-Type", "value": "application/json", "type": "text" }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"users\": [1, 2, 3]\n}"
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/latest/fleet/teams/:id/users",
+                      "host": ["{{baseUrl}}"],
+                      "path": ["api", "latest", "fleet", "teams", ":id", "users"]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "Translator",
+              "description": "Endpoints for translating queries and managing query translations in Fleet.",
+              "item": [
+                {
+                  "name": "Translate query",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+                      { "key": "Content-Type", "value": "application/json", "type": "text" }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"query\": \"SELECT * FROM osquery_info;\"\n}",
+                      "options": { "raw": { "language": "json" } }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/latest/fleet/translate",
+                      "host": ["{{baseUrl}}"],
+                      "path": ["api", "latest", "fleet", "translate"]
+                    }
+                  },
+                  "response": []
+                }
+              ]
+            },
+            {
+              "name": "Users",
+              "description": "The Fleet server exposes API endpoints that handles common user management operations, including managing emailed invites to new users. All of these endpoints require prior authentication, so you'll need to log in before calling any of the endpoints documented below.",
+              "item": [
+                {
+                  "name": "List all users",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/fleet/users?query=&order_key=&order_direction=asc&page=1&per_page=50&team_id=",
+                      "host": ["{{baseUrl}}"],
+                      "path": ["api", "v1", "fleet", "users"],
+                      "query": [
+                        { "key": "query", "value": "", "description": "Search query keywords. Searchable fields include name and email." },
+                        { "key": "order_key", "value": "", "description": "What to order results by. Can be any column in the users table." },
+                        { "key": "order_direction", "value": "asc", "description": "Requires order_key. The direction of the order given the order key. Options include \"asc\" and \"desc\". Default is \"asc\"." },
+                        { "key": "page", "value": "1", "description": "Page number of the results to fetch." },
+                        { "key": "per_page", "value": "50", "description": "Results per page." },
+                        { "key": "team_id", "value": "", "description": "Available in Fleet Premium. Filters the users to only include users in the specified team." }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "name": "Default response (200)",
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "body": "{\n  \"users\": [\n    {\n      \"created_at\": \"2020-12-10T03:52:53Z\",\n      \"updated_at\": \"2020-12-10T03:52:53Z\",\n      \"id\": 1,\n      \"name\": \"Jane Doe\",\n      \"email\": \"janedoe@example.com\",\n      \"force_password_reset\": false,\n      \"gravatar_url\": \"\",\n      \"sso_enabled\": false,\n      \"mfa_enabled\": false,\n      \"global_role\": null,\n      \"api_only\": false,\n      \"teams\": [\n        {\n          \"id\": 1,\n          \"created_at\": \"0001-01-01T00:00:00Z\",\n          \"name\": \"workstations\",\n          \"description\": \"\",\n          \"role\": \"admin\"\n        }\n      ]\n    }\n  ]\n}"
+                    },
+                    {
+                      "name": "Failed authentication (401)",
+                      "status": "Authentication Failed",
+                      "code": 401,
+                      "_postman_previewlanguage": "json",
+                      "body": "{\n  \"message\": \"Authentication Failed\",\n  \"errors\": [\n    {\n      \"name\": \"base\",\n      \"reason\": \"Authentication failed\"\n    }\n  ]\n}"
+                    }
+                  ],
+                  "description": "Returns a list of all enabled users"
+                },
+                {
+                  "name": "Create a user account with an invitation",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+                      { "key": "Content-Type", "value": "application/json", "type": "text" }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"janedoe@example.com\",\n  \"invite_token\": \"SjdReDNuZW5jd3dCbTJtQTQ5WjJTc2txWWlEcGpiM3c=\",\n  \"name\": \"janedoe\",\n  \"password\": \"test-123\",\n  \"password_confirmation\": \"test-123\"\n}",
+                      "options": { "raw": { "language": "json" } }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/fleet/users",
+                      "host": ["{{baseUrl}}"],
+                      "path": ["api", "v1", "fleet", "users"]
+                    }
+                  },
+                  "response": [
+                    {
+                      "name": "Default response (200)",
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "body": "{\n  \"user\": {\n    \"created_at\": \"0001-01-01T00:00:00Z\",\n    \"updated_at\": \"0001-01-01T00:00:00Z\",\n    \"id\": 2,\n    \"name\": \"janedoe\",\n    \"email\": \"janedoe@example.com\",\n    \"enabled\": true,\n    \"force_password_reset\": false,\n    \"gravatar_url\": \"\",\n    \"sso_enabled\": false,\n    \"mfa_enabled\": false,\n    \"global_role\": \"admin\",\n    \"teams\": []\n  }\n}"
+                    },
+                    {
+                      "name": "Expired or used invite code (404)",
+                      "status": "Resource Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "body": "{\n  \"message\": \"Resource Not Found\",\n  \"errors\": [\n    {\n      \"name\": \"base\",\n      \"reason\": \"Invite with token SjdReDNuZW5jd3dCbTJtQTQ5WjJTc2txWWlEcGpiM3c= was not found in the datastore\"\n    }\n  ]\n}"
+                    },
+                    {
+                      "name": "Validation failed (422)",
+                      "status": "Validation Failed",
+                      "code": 422,
+                      "_postman_previewlanguage": "json",
+                      "body": "{\n  \"message\": \"Validation Failed\",\n  \"errors\": [\n    {\n      \"name\": \"name\",\n      \"reason\": \"cannot be empty\"\n    }\n  ]\n}"
+                    }
+                  ],
+                  "description": "Creates a user account after an invited user provides registration information and submits the form."
+                },
+                {
+                  "name": "Create a user account without an invitation",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+                      { "key": "Content-Type", "value": "application/json", "type": "text" }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"Jane Doe\",\n  \"email\": \"janedoe@example.com\",\n  \"password\": \"test-123\",\n  \"api_only\": true,\n  \"teams\": [\n    {\n      \"id\": 2,\n      \"role\": \"observer\"\n    },\n    {\n      \"id\": 3,\n      \"role\": \"maintainer\"\n    }\n  ]\n}",
+                      "options": { "raw": { "language": "json" } }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/fleet/users/admin",
+                      "host": ["{{baseUrl}}"],
+                      "path": ["api", "v1", "fleet", "users", "admin"]
+                    }
+                  },
+                  "response": [
+                    {
+                      "name": "Default response (200)",
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "body": "{\n  \"user\": {\n    \"created_at\": \"0001-01-01T00:00:00Z\",\n    \"updated_at\": \"0001-01-01T00:00:00Z\",\n    \"id\": 5,\n    \"name\": \"Jane Doe\",\n    \"email\": \"janedoe@example.com\",\n    \"enabled\": true,\n    \"force_password_reset\": false,\n    \"gravatar_url\": \"\",\n    \"sso_enabled\": false,\n    \"mfa_enabled\": false,\n    \"api_only\": true,\n    \"global_role\": null,\n    \"teams\": [\n      {\n        \"id\": 2,\n        \"role\": \"observer\"\n      },\n      {\n        \"id\": 3,\n        \"role\": \"maintainer\"\n      }\n    ]\n  },\n  \"token\": \"{API key}\"\n}"
+                    }
+                  ],
+                  "description": "Creates a user account without requiring an invitation, the user is enabled immediately. By default, the user will be forced to reset its password upon first login."
+                },
+                {
+                  "name": "Get user information",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/fleet/users/:id",
+                      "host": ["{{baseUrl}}"],
+                      "path": ["api", "v1", "fleet", "users", ":id"]
+                    }
+                  },
+                  "response": [
+                    {
+                      "name": "Default response (200)",
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "body": "{\n  \"user\": {\n    \"created_at\": \"2020-12-10T05:20:25Z\",\n    \"updated_at\": \"2020-12-10T05:24:27Z\",\n    \"id\": 2,\n    \"name\": \"Jane Doe\",\n    \"email\": \"janedoe@example.com\",\n    \"force_password_reset\": false,\n    \"gravatar_url\": \"\",\n    \"sso_enabled\": false,\n    \"mfa_enabled\": false,\n    \"global_role\": \"admin\",\n    \"api_only\": false,\n    \"teams\": []\n  }\n}"
+                    },
+                    {
+                      "name": "User doesn't exist (404)",
+                      "status": "Resource Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "body": "{\n  \"message\": \"Resource Not Found\",\n  \"errors\": [\n    {\n      \"name\": \"base\",\n      \"reason\": \"User with id=5 was not found in the datastore\"\n    }\n  ]\n}"
+                    }
+                  ],
+                  "description": "Returns all information about a specific user."
+                },
+                {
+                  "name": "Modify user",
+                  "request": {
+                    "method": "PATCH",
+                    "header": [
+                      { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+                      { "key": "Content-Type", "value": "application/json", "type": "text" }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"name\": \"Jane Doe\",\n  \"global_role\": \"admin\"\n}",
+                      "options": { "raw": { "language": "json" } }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/fleet/users/:id",
+                      "host": ["{{baseUrl}}"],
+                      "path": ["api", "v1", "fleet", "users", ":id"]
+                    }
+                  },
+                  "response": [
+                    {
+                      "name": "Default response (200)",
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "body": "{\n  \"user\": {\n    \"created_at\": \"2021-02-03T16:11:06Z\",\n    \"updated_at\": \"2021-02-03T16:11:06Z\",\n    \"id\": 2,\n    \"name\": \"Jane Doe\",\n    \"email\": \"janedoe@example.com\",\n    \"global_role\": \"admin\",\n    \"force_password_reset\": false,\n    \"gravatar_url\": \"\",\n    \"sso_enabled\": false,\n    \"mfa_enabled\": false,\n    \"api_only\": false,\n    \"teams\": []\n  }\n}"
+                    }
+                  ],
+                  "description": "Modify user information including name, position, email, roles, and team assignments."
+                },
+                {
+                  "name": "Delete user",
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/fleet/users/:id",
+                      "host": ["{{baseUrl}}"],
+                      "path": ["api", "v1", "fleet", "users", ":id"]
+                    }
+                  },
+                  "response": [
+                    {
+                      "name": "Default response (200)",
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "body": ""
+                    }
+                  ],
+                  "description": "Delete the specified user from Fleet."
+                },
+                {
+                  "name": "Require password reset",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+                      { "key": "Content-Type", "value": "application/json", "type": "text" }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"require\": true\n}",
+                      "options": { "raw": { "language": "json" } }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/fleet/users/:id/require_password_reset",
+                      "host": ["{{baseUrl}}"],
+                      "path": ["api", "v1", "fleet", "users", ":id", "require_password_reset"]
+                    }
+                  },
+                  "response": [
+                    {
+                      "name": "Default response (200)",
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "body": "{\n  \"user\": {\n    \"created_at\": \"2021-02-23T22:23:34Z\",\n    \"updated_at\": \"2021-02-23T22:28:52Z\",\n    \"id\": 2,\n    \"name\": \"Jane Doe\",\n    \"email\": \"janedoe@example.com\",\n    \"force_password_reset\": true,\n    \"gravatar_url\": \"\",\n    \"mfa_enabled\": false,\n    \"sso_enabled\": false,\n    \"global_role\": \"observer\",\n    \"teams\": []\n  }\n}"
+                    }
+                  ],
+                  "description": "The selected user is logged out of Fleet and required to reset their password during the next attempt to log in. This also revokes all active Fleet API tokens for this user. Returns the user object."
+                },
+                {
+                  "name": "List a user's sessions",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/fleet/users/:id/sessions",
+                      "host": ["{{baseUrl}}"],
+                      "path": ["api", "v1", "fleet", "users", ":id", "sessions"]
+                    }
+                  },
+                  "response": [
+                    {
+                      "name": "Default response (200)",
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "body": "{\n  \"sessions\": [\n    {\n      \"session_id\": 2,\n      \"user_id\": 1,\n      \"created_at\": \"2021-02-03T16:12:50Z\"\n    },\n    {\n      \"session_id\": 3,\n      \"user_id\": 1,\n      \"created_at\": \"2021-02-09T23:40:23Z\"\n    },\n    {\n      \"session_id\": 6,\n      \"user_id\": 1,\n      \"created_at\": \"2021-02-23T22:23:58Z\"\n    }\n  ]\n}"
+                    }
+                  ],
+                  "description": "Returns a list of the user's sessions in Fleet."
+                },
+                {
+                  "name": "Delete a user's sessions",
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/fleet/users/:id/sessions",
+                      "host": ["{{baseUrl}}"],
+                      "path": ["api", "v1", "fleet", "users", ":id", "sessions"]
+                    }
+                  },
+                  "response": [
+                    {
+                      "name": "Default response (200)",
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "body": ""
+                    }
+                  ],
+                  "description": "Deletes the selected user's sessions in Fleet. Also deletes the user's API token."
+                },
+                {
+                  "name": "Create invite",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+                      { "key": "Content-Type", "value": "application/json", "type": "text" }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"john_appleseed@example.com\",\n  \"name\": \"John\",\n  \"sso_enabled\": false,\n  \"mfa_enabled\": false,\n  \"global_role\": null,\n  \"teams\": [\n    {\n      \"id\": 2,\n      \"role\": \"observer\"\n    },\n    {\n      \"id\": 3,\n      \"role\": \"maintainer\"\n    }\n  ]\n}",
+                      "options": { "raw": { "language": "json" } }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/fleet/invites",
+                      "host": ["{{baseUrl}}"],
+                      "path": ["api", "v1", "fleet", "invites"]
+                    }
+                  },
+                  "response": [
+                    {
+                      "name": "Default response (200)",
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "body": "{\n  \"invite\": {\n    \"created_at\": \"0001-01-01T00:00:00Z\",\n    \"updated_at\": \"0001-01-01T00:00:00Z\",\n    \"id\": 3,\n    \"invited_by\": 1,\n    \"email\": \"john_appleseed@example.com\",\n    \"name\": \"John\",\n    \"sso_enabled\": false,\n    \"mfa_enabled\": false,\n    \"teams\": [\n      {\n        \"id\": 10,\n        \"created_at\": \"0001-01-01T00:00:00Z\",\n        \"name\": \"Apples\",\n        \"description\": \"\",\n        \"agent_options\": null,\n        \"user_count\": 0,\n        \"host_count\": 0,\n        \"role\": \"observer\"\n      },\n      {\n        \"id\": 14,\n        \"created_at\": \"0001-01-01T00:00:00Z\",\n        \"name\": \"Best of the Best Engineering\",\n        \"description\": \"\",\n        \"agent_options\": null,\n        \"user_count\": 0,\n        \"host_count\": 0,\n        \"role\": \"maintainer\"\n      }\n    ]\n  }\n}"
+                    }
+                  ],
+                  "description": "Create an invitation for a new user to join Fleet."
+                },
+                {
+                  "name": "List invites",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/fleet/invites?order_key=&order_direction=asc&query=",
+                      "host": ["{{baseUrl}}"],
+                      "path": ["api", "v1", "fleet", "invites"],
+                      "query": [
+                        { "key": "order_key", "value": "", "description": "What to order results by. Can be any column in the invites table." },
+                        { "key": "order_direction", "value": "asc", "description": "Requires order_key. The direction of the order given the order key. Options include \"asc\" and \"desc\". Default is \"asc\"." },
+                        { "key": "query", "value": "", "description": "Search query keywords. Searchable fields include name and email." }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "name": "Default response (200)",
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "body": "{\n  \"invites\": [\n    {\n      \"created_at\": \"0001-01-01T00:00:00Z\",\n      \"updated_at\": \"0001-01-01T00:00:00Z\",\n      \"id\": 3,\n      \"email\": \"john_appleseed@example.com\",\n      \"name\": \"John\",\n      \"sso_enabled\": false,\n      \"mfa_enabled\": false,\n      \"global_role\": \"admin\",\n      \"teams\": []\n    },\n    {\n      \"created_at\": \"0001-01-01T00:00:00Z\",\n      \"updated_at\": \"0001-01-01T00:00:00Z\",\n      \"id\": 4,\n      \"email\": \"bob_marks@example.com\",\n      \"name\": \"Bob\",\n      \"sso_enabled\": false,\n      \"mfa_enabled\": false,\n      \"global_role\": \"admin\",\n      \"teams\": []\n    }\n  ]\n}"
+                    }
+                  ],
+                  "description": "Returns a list of the active invitations in Fleet."
+                },
+                {
+                  "name": "Delete invite",
+                  "request": {
+                    "method": "DELETE",
+                    "header": [
+                      { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/fleet/invites/:id",
+                      "host": ["{{baseUrl}}"],
+                      "path": ["api", "v1", "fleet", "invites", ":id"]
+                    }
+                  },
+                  "response": [
+                    {
+                      "name": "Default response (200)",
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "body": ""
+                    }
+                  ],
+                  "description": "Delete the specified invite from Fleet."
+                },
+                {
+                  "name": "Verify invite",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/fleet/invites/:token",
+                      "host": ["{{baseUrl}}"],
+                      "path": ["api", "v1", "fleet", "invites", ":token"]
+                    }
+                  },
+                  "response": [
+                    {
+                      "name": "Default response (200)",
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "body": "{\n  \"invite\": {\n    \"created_at\": \"2021-01-15T00:58:33Z\",\n    \"updated_at\": \"2021-01-15T00:58:33Z\",\n    \"id\": 4,\n    \"email\": \"steve@example.com\",\n    \"name\": \"Steve\",\n    \"sso_enabled\": false,\n    \"mfa_enabled\": false,\n    \"global_role\": \"admin\",\n    \"teams\": []\n  }\n}"
+                    },
+                    {
+                      "name": "Not found (404)",
+                      "status": "Resource Not Found",
+                      "code": 404,
+                      "_postman_previewlanguage": "json",
+                      "body": "{\n  \"message\": \"Resource Not Found\",\n  \"errors\": [\n    {\n      \"name\": \"base\",\n      \"reason\": \"Invite with token <token> was not found in the datastore\"\n    }\n  ]\n}"
+                    }
+                  ],
+                  "description": "Verify the specified invite."
+                },
+                {
+                  "name": "Modify invite",
+                  "request": {
+                    "method": "PATCH",
+                    "header": [
+                      { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+                      { "key": "Content-Type", "value": "application/json", "type": "text" }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"email\": \"john_appleseed@example.com\",\n  \"name\": \"John\",\n  \"sso_enabled\": false,\n  \"mfa_enabled\": false,\n  \"global_role\": null,\n  \"teams\": [\n    {\n      \"id\": 2,\n      \"role\": \"observer\"\n    },\n    {\n      \"id\": 3,\n      \"role\": \"maintainer\"\n    }\n  ]\n}",
+                      "options": { "raw": { "language": "json" } }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/fleet/invites/:id",
+                      "host": ["{{baseUrl}}"],
+                      "path": ["api", "v1", "fleet", "invites", ":id"]
+                    }
+                  },
+                  "response": [
+                    {
+                      "name": "Default response (200)",
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "body": "{\n  \"invite\": {\n    \"created_at\": \"0001-01-01T00:00:00Z\",\n    \"updated_at\": \"0001-01-01T00:00:00Z\",\n    \"id\": 3,\n    \"invited_by\": 1,\n    \"email\": \"john_appleseed@example.com\",\n    \"name\": \"John\",\n    \"sso_enabled\": false,\n    \"mfa_enabled\": false,\n    \"teams\": [\n      {\n        \"id\": 10,\n        \"created_at\": \"0001-01-01T00:00:00Z\",\n        \"name\": \"Apples\",\n        \"description\": \"\",\n        \"agent_options\": null,\n        \"user_count\": 0,\n        \"host_count\": 0,\n        \"role\": \"observer\"\n      },\n      {\n        \"id\": 14,\n        \"created_at\": \"0001-01-01T00:00:00Z\",\n        \"name\": \"Best of the Best Engineering\",\n        \"description\": \"\",\n        \"agent_options\": null,\n        \"user_count\": 0,\n        \"host_count\": 0,\n        \"role\": \"maintainer\"\n      }\n    ]\n  }\n}"
+                    }
+                  ],
+                  "description": "Modify an existing invitation."
+                }
+              ]
             }
           ],
     "variable": [
