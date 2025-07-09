@@ -245,33 +245,33 @@
       {
         "name": "Activities",
         "description": "Endpoints for retrieving Fleet activity logs (audit logs).",
-        "item": [
-          {
+            "item": [
+              {
             "name": "List activities",
-            "request": {
-              "method": "GET",
-              "header": [
-                { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
-              ],
-              "url": {
+                "request": {
+                  "method": "GET",
+                  "header": [
+                    { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+                  ],
+                  "url": {
                 "raw": "{{baseUrl}}/api/v1/fleet/activities?page={{page}}&per_page={{per_page}}&order_key={{order_key}}&order_direction={{order_direction}}",
-                "host": [ "{{baseUrl}}" ],
+                    "host": [ "{{baseUrl}}" ],
                 "path": [ "api", "v1", "fleet", "activities" ],
-                "query": [
+                    "query": [
                   { "key": "page", "value": "{{page}}", "description": "Page number of the results to fetch.", "disabled": true },
                   { "key": "per_page", "value": "{{per_page}}", "description": "Results per page.", "disabled": true },
                   { "key": "order_key", "value": "{{order_key}}", "description": "What to order results by. Can be any column in the activities table.", "disabled": true },
                   { "key": "order_direction", "value": "{{order_direction}}", "description": "The direction of the order given the order key. Options: 'asc', 'desc'. Requires order_key.", "disabled": true }
-                ]
-              }
-            },
-            "response": [
-              {
-                "name": "Default response (200)",
+                    ]
+                  }
+                },
+                "response": [
+                  {
+                    "name": "Default response (200)",
                 "originalRequest": {},
-                "status": "OK",
-                "code": 200,
-                "_postman_previewlanguage": "json",
+                    "status": "OK",
+                    "code": 200,
+                    "_postman_previewlanguage": "json",
                 "body": "{\n  \"activities\": [\n    {\n      \"created_at\": \"2023-07-27T14:35:08Z\",\n      \"id\": 25,\n      \"actor_full_name\": \"Anna Chao\",\n      \"actor_id\": 3,\n      \"actor_gravatar\": \"\",\n      \"actor_email\": \"\",\n      \"type\": \"installed_software\",\n      \"fleet_initiated\": false,\n      \"details\": {\n        \"status\": \"installed\",\n        \"host_id\": 1272,\n        \"host_display_name\": \"MacBook Pro\",\n        \"policy_id\": null,\n        \"policy_name\": null,\n        \"install_uuid\": \"23c18ea1-8cd7-4af4-a1d8-f2666993a66b\",\n        \"self_service\": false,\n        \"software_title\": \"zoom.us.app\",\n        \"software_package\": \"ZoomInstallerIT.pkg\"\n        }\n    },\n    {\n      \"created_at\": \"2021-07-29T14:40:27Z\",\n      \"id\": 21,\n      \"actor_full_name\": \"name\",\n      \"actor_id\": 1,\n      \"actor_gravatar\": \"\",\n      \"actor_email\": \"[email protected]\",\n      \"type\": \"created_team\",\n      \"fleet_initiated\": false,\n      \"details\": {\n        \"team_id\": 2,\n        \"team_name\": \"Apples\"\n      }\n    },\n    {\n      \"created_at\": \"2023-07-27T14:35:08Z\",\n      \"id\": 25,\n      \"type\": \"installed_software\",\n      \"fleet_initiated\": true,\n      \"details\": {\n        \"status\": \"installed\",\n        \"host_id\": 1272,\n        \"host_display_name\": \"MacBook Pro\",\n        \"policy_id\": 24,\n        \"policy_name\": \"[Install software] Zoom\",\n        \"install_uuid\": \"077970ab-0ed6-4573-9cdc-ca9ef9015283\",\n        \"self_service\": false,\n        \"software_title\": \"zoom.us.app\",\n        \"software_package\": \"ZoomInstallerIT.pkg\"\n        }\n    }\n  ],\n  \"meta\": {\n    \"has_next_results\": false,\n    \"has_previous_results\": false\n  }\n}"
               }
             ],
@@ -285,14 +285,14 @@
         "item": [
           {
             "name": "List carves",
-            "request": {
-              "method": "GET",
-              "header": [
-                { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
-              ],
-              "url": {
+                "request": {
+                  "method": "GET",
+                  "header": [
+                    { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+                  ],
+                  "url": {
                 "raw": "{{baseUrl}}/api/v1/fleet/carves?page={{page}}&per_page={{per_page}}&order_key={{order_key}}&order_direction={{order_direction}}&after={{after}}&expired={{expired}}",
-                "host": [ "{{baseUrl}}" ],
+                    "host": [ "{{baseUrl}}" ],
                 "path": [ "api", "v1", "fleet", "carves" ],
                 "query": [
                   { "key": "page", "value": "{{page}}", "description": "Page number of the results to fetch.", "disabled": true },
@@ -302,15 +302,15 @@
                   { "key": "after", "value": "{{after}}", "description": "The value to get results after. Needs order_key defined.", "disabled": true },
                   { "key": "expired", "value": "{{expired}}", "description": "Include expired carves (default: false)", "disabled": true }
                 ]
-              }
-            },
-            "response": [
-              {
-                "name": "Default response (200)",
+                  }
+                },
+                "response": [
+                  {
+                    "name": "Default response (200)",
                 "originalRequest": {},
-                "status": "OK",
-                "code": 200,
-                "_postman_previewlanguage": "json",
+                    "status": "OK",
+                    "code": 200,
+                    "_postman_previewlanguage": "json",
                 "body": "{\n  \"carves\": [\n    {\n      \"id\": 1,\n      \"created_at\": \"2021-02-23T22:52:01Z\",\n      \"host_id\": 7,\n      \"name\": \"macbook-pro.local-2021-02-23T22:52:01Z-fleet_distributed_query_30\",\n      \"block_count\": 1,\n      \"block_size\": 2000000,\n      \"carve_size\": 2048,\n      \"carve_id\": \"c6958b5f-4c10-4dc8-bc10-60aad5b20dc8\",\n      \"request_id\": \"fleet_distributed_query_30\",\n      \"session_id\": \"065a1dc3-40ad-441c-afff-80c2ad7dac28\",\n      \"expired\": false,\n      \"max_block\": 0\n    },\n    {\n      \"id\": 2,\n      \"created_at\": \"2021-02-23T22:53:03Z\",\n      \"host_id\": 7,\n      \"name\": \"macbook-pro.local-2021-02-23T22:53:03Z-fleet_distributed_query_31\",\n      \"block_count\": 2,\n      \"block_size\": 2000000,\n      \"carve_size\": 3400704,\n      \"carve_id\": \"2b9170b9-4e11-4569-a97c-2f18d18bec7a\",\n      \"request_id\": \"fleet_distributed_query_31\",\n      \"session_id\": \"f73922ed-40a4-4e98-a50a-ccda9d3eb755\",\n      \"expired\": false,\n      \"max_block\": 1,\n      \"error\": \"S3 multipart carve upload: EntityTooSmall: Your proposed upload is smaller than the minimum allowed object size\"\n    }\n  ]\n}"
               }
             ],
@@ -5709,6 +5709,66 @@
                   ]
                 }
               ]
+            },
+            {
+              "name": "Vulnerabilities",
+              "description": "Endpoints for retrieving and managing software vulnerabilities in Fleet.",
+              "item": [
+                {
+                  "name": "List vulnerabilities",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/fleet/vulnerabilities?software_id={{software_id}}&cve={{cve}}&page={{page}}&per_page={{per_page}}",
+                      "host": [ "{{baseUrl}}" ],
+                      "path": [ "api", "v1", "fleet", "vulnerabilities" ],
+                      "query": [
+                        { "key": "software_id", "value": "{{software_id}}", "description": "Filter by software ID", "disabled": true },
+                        { "key": "cve", "value": "{{cve}}", "description": "Filter by CVE identifier", "disabled": true },
+                        { "key": "page", "value": "{{page}}", "description": "Page number", "disabled": true },
+                        { "key": "per_page", "value": "{{per_page}}", "description": "Results per page", "disabled": true }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "name": "Default response (200)",
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "body": "{\n  \"vulnerabilities\": [\n    {\n      \"cve\": \"CVE-2023-1234\",\n      \"software_id\": 123,\n      \"description\": \"Example vulnerability description.\",\n      \"cvss_score\": 7.5,\n      \"epss_probability\": 0.015,\n      \"cisa_known_exploit\": false,\n      \"published\": \"2023-01-01T00:00:00Z\"\n    }\n  ],\n  \"meta\": {\n    \"has_next_results\": false,\n    \"has_previous_results\": false\n  }\n}"
+                    }
+                  ],
+                  "description": "List vulnerabilities detected in Fleet. Optional filters: software_id, cve, pagination."
+                },
+                {
+                  "name": "Get vulnerability details",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/fleet/vulnerabilities/{{cve}}",
+                      "host": [ "{{baseUrl}}" ],
+                      "path": [ "api", "v1", "fleet", "vulnerabilities", "{{cve}}" ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "name": "Default response (200)",
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "body": "{\n  \"cve\": \"CVE-2023-1234\",\n  \"description\": \"Example vulnerability description.\",\n  \"cvss_score\": 7.5,\n  \"epss_probability\": 0.015,\n  \"cisa_known_exploit\": false,\n  \"published\": \"2023-01-01T00:00:00Z\",\n  \"affected_software\": [\n    {\n      \"software_id\": 123,\n      \"name\": \"ExampleApp\",\n      \"version\": \"1.2.3\"\n    }\n  ]\n}"
+                    }
+                  ],
+                  "description": "Get details for a specific vulnerability by CVE."
+                }
+              ]
             }
           ],
     "variable": [
@@ -5720,4 +5780,3 @@
   }
 ]
 }
-
