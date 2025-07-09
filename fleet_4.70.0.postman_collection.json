@@ -6399,6 +6399,151 @@
                   "description": "Modify an existing invitation."
                 }
               ]
+            },
+            {
+              "name": "Debug",
+              "description": "The Fleet server exposes a handful of API endpoints to retrieve debug information about the server itself in order to help troubleshooting. All the following endpoints require prior authentication meaning you must first log in successfully before calling any of the endpoints documented below.",
+              "item": [
+                {
+                  "name": "Get a summary of errors",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/debug/errors?flush=false",
+                      "host": ["{{baseUrl}}"],
+                      "path": ["debug", "errors"],
+                      "query": [
+                        { "key": "flush", "value": "false", "description": "Whether or not clear the errors from Redis after reading them. Default is false" }
+                      ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "name": "Default response (200)",
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "body": "[\n  {\n    \"count\": \"3\",\n    \"chain\": [\n      {\n        \"message\": \"Authorization header required\"\n      },\n      {\n        \"message\": \"missing FleetError in chain\",\n        \"data\": {\n          \"timestamp\": \"2022-06-03T14:16:01-03:00\"\n        },\n        \"stack\": [\n          \"github.com/fleetdm/fleet/v4/server/contexts/ctxerr.Handle (ctxerr.go:262)\",\n          \"github.com/fleetdm/fleet/v4/server/service.encodeError (transport_error.go:80)\",\n          \"github.com/go-kit/kit/transport/http.Server.ServeHTTP (server.go:124)\"\n        ]\n      }\n    ]\n  }\n]"
+                    }
+                  ],
+                  "description": "Returns a set of all the errors that happened in the server during the interval of time defined by the logging_error_retention_period configuration. The server only stores and returns a single instance of each error."
+                },
+                {
+                  "name": "Get database information - locks",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/debug/db/locks",
+                      "host": ["{{baseUrl}}"],
+                      "path": ["debug", "db", "locks"]
+                    }
+                  },
+                  "response": [],
+                  "description": "Returns transaction locking information from the database."
+                },
+                {
+                  "name": "Get database information - innodb-status",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/debug/db/innodb-status",
+                      "host": ["{{baseUrl}}"],
+                      "path": ["debug", "db", "innodb-status"]
+                    }
+                  },
+                  "response": [],
+                  "description": "Returns InnoDB status information from the database."
+                },
+                {
+                  "name": "Get database information - process-list",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/debug/db/process-list",
+                      "host": ["{{baseUrl}}"],
+                      "path": ["debug", "db", "process-list"]
+                    }
+                  },
+                  "response": [],
+                  "description": "Returns running processes (queries, etc) from the database."
+                },
+                {
+                  "name": "Get profiling information - cmdline",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/debug/pprof/cmdline",
+                      "host": ["{{baseUrl}}"],
+                      "path": ["debug", "pprof", "cmdline"]
+                    }
+                  },
+                  "response": [],
+                  "description": "Returns command line information in the format expected by go tools pprof."
+                },
+                {
+                  "name": "Get profiling information - profile",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/debug/pprof/profile",
+                      "host": ["{{baseUrl}}"],
+                      "path": ["debug", "pprof", "profile"]
+                    }
+                  },
+                  "response": [],
+                  "description": "Returns CPU profiling data in the format expected by go tools pprof."
+                },
+                {
+                  "name": "Get profiling information - symbol",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/debug/pprof/symbol",
+                      "host": ["{{baseUrl}}"],
+                      "path": ["debug", "pprof", "symbol"]
+                    }
+                  },
+                  "response": [],
+                  "description": "Returns symbol information in the format expected by go tools pprof."
+                },
+                {
+                  "name": "Get profiling information - trace",
+                  "request": {
+                    "method": "GET",
+                    "header": [
+                      { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" }
+                    ],
+                    "url": {
+                      "raw": "{{baseUrl}}/debug/pprof/trace",
+                      "host": ["{{baseUrl}}"],
+                      "path": ["debug", "pprof", "trace"]
+                    }
+                  },
+                  "response": [],
+                  "description": "Returns trace information in the format expected by go tools pprof."
+                }
+              ]
             }
           ],
     "variable": [
