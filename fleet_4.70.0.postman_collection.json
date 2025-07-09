@@ -5769,6 +5769,72 @@
                   "description": "Get details for a specific vulnerability by CVE."
                 }
               ]
+            },
+            {
+              "name": "Targets",
+              "description": "Endpoints for resolving and previewing targets (hosts, labels, teams) for queries and actions in Fleet.",
+              "item": [
+                {
+                  "name": "Preview query targets",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+                      { "key": "Content-Type", "value": "application/json", "type": "text" }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"query\": \"SELECT * FROM osquery_info;\",\n  \"selected\": {\n    \"hosts\": [1, 2],\n    \"labels\": [3],\n    \"teams\": [4]\n  }\n}",
+                      "options": { "raw": { "language": "json" } }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/fleet/targets",
+                      "host": [ "{{baseUrl}}" ],
+                      "path": [ "api", "v1", "fleet", "targets" ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "name": "Default response (200)",
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "body": "{\n  \"targets\": {\n    \"hosts\": [\n      { \"id\": 1, \"hostname\": \"host1.example.com\" },\n      { \"id\": 2, \"hostname\": \"host2.example.com\" }\n    ],\n    \"labels\": [\n      { \"id\": 3, \"name\": \"All Macs\" }\n    ],\n    \"teams\": [\n      { \"id\": 4, \"name\": \"IT Team\" }\n    ]\n  },\n  \"total\": 3\n}"
+                    }
+                  ],
+                  "description": "Preview the list of hosts, labels, and teams that would be targeted by a query or action. The request body can include host IDs, label IDs, and team IDs."
+                },
+                {
+                  "name": "Resolve targets",
+                  "request": {
+                    "method": "POST",
+                    "header": [
+                      { "key": "Authorization", "value": "Bearer {{token}}", "type": "text" },
+                      { "key": "Content-Type", "value": "application/json", "type": "text" }
+                    ],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\n  \"selected\": {\n    \"hosts\": [1],\n    \"labels\": [2],\n    \"teams\": [3]\n  }\n}",
+                      "options": { "raw": { "language": "json" } }
+                    },
+                    "url": {
+                      "raw": "{{baseUrl}}/api/v1/fleet/targets",
+                      "host": [ "{{baseUrl}}" ],
+                      "path": [ "api", "v1", "fleet", "targets" ]
+                    }
+                  },
+                  "response": [
+                    {
+                      "name": "Default response (200)",
+                      "status": "OK",
+                      "code": 200,
+                      "_postman_previewlanguage": "json",
+                      "body": "{\n  \"targets\": {\n    \"hosts\": [\n      { \"id\": 1, \"hostname\": \"host1.example.com\" }\n    ],\n    \"labels\": [\n      { \"id\": 2, \"name\": \"All Windows\" }\n    ],\n    \"teams\": [\n      { \"id\": 3, \"name\": \"Security Team\" }\n    ]\n  },\n  \"total\": 3\n}"
+                    }
+                  ],
+                  "description": "Resolve the full list of hosts, labels, and teams that would be affected by a query or action. The request body can include host IDs, label IDs, and team IDs."
+                }
+              ]
             }
           ],
     "variable": [
