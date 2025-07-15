@@ -1,4 +1,4 @@
-# FleetDM API Postman Collection
+# Fleet API Postman Collection
 
 This repository contains a comprehensive Postman collection for the Fleet API (version 4.7.0). The collection was created based on the [official Fleet REST API documentation](https://fleetdm.com/docs/rest-api/rest-api#rest-api).
 
