@@ -1,40 +1,37 @@
 # Fleet API Postman Collection
 
-This repository contains a comprehensive Postman collection for the Fleet API (version 4.7.0). The collection was created based on the [official Fleet REST API documentation](https://fleetdm.com/docs/rest-api/rest-api#rest-api).
+A Postman collection for the [Fleet REST API](https://fleetdm.com/docs/rest-api/rest-api), generated directly from Fleet's official API documentation.
 
-### Features:
+> **Note:** This collection is a community resource and is **not officially supported by Fleet**. It's generated from Fleet's API docs and may contain errors or lag behind the latest release. For authoritative reference, always use the [official API documentation](https://fleetdm.com/docs/rest-api/rest-api).
 
-* **Comprehensive Coverage**: Includes nearly all available API endpoints.
-* **Parameter Inclusion**: Contains all supported parameters with clear examples provided whenever possible.
-* **Validated Endpoints**: Approximately 90% of endpoints have been thoroughly tested and validated.
+**Current version:** see [`VERSION`](VERSION) (the collection file is always `fleet.postman_collection.json`, regardless of Fleet version).
 
-### Setup & Usage:
+### How it works
 
-1. **Import the Collection**: Import the collection into Postman.
-2. **Create a New Environment**:
+Fleet doesn't publish an OpenAPI spec, the source of truth is [`docs/REST API/rest-api.md`](https://github.com/fleetdm/fleet/blob/main/docs/REST%20API/rest-api.md) in the fleetdm/fleet repo, versioned by release tag. [`scripts/generate_collection.py`](scripts/generate_collection.py) parses that markdown and produces the collection, including every documented endpoint, its parameters, request body examples, and a saved default response.
 
-   * Name the environment `Fleet`.
-   * Tie it to the imported collection.
-3. **Configure Environment Variables**:
+### Setup & usage
 
-   * Add the following required variables:
+Clone this repo, then import **both** files into Postman (drag the folder in, or File → Import):
 
-     * `baseUrl`
-     * `email`
-     * `password`
-   * The `token` variable will automatically populate upon initial authentication, though you can manually set a different token if desired.
+1. `fleet.postman_collection.json` — the collection
+2. `fleet.postman_environment.json` — creates the `Fleet` environment automatically, with:
+   * `baseUrl` — your Fleet server, e.g. `https://fleet.example.com`
+   * `token` — your API token (Fleet UI → **My account** → **Get API token**), stored as a Postman **secret**
 
-### Recommendations:
+Select the `Fleet` environment, fill in the two values, and you're done. Every request inherits `Bearer {{token}}` auth from the collection — no per-request setup, no email/password login flow.
+
+Query parameters are included on each request but **disabled by default**. Enable the ones you need and replace the placeholder values.
+
+### Recommendations
 
 * Always test requests against a **development environment** before using them in production.
 * Review endpoints and parameters carefully before execution to ensure correctness.
 
-### Contributing:
+### Contributing
 
-If you discover any issues or identify areas for improvement, please open a pull request. Contributions and feedback are always welcome!
+If you discover any issues or identify areas for improvement, please open a pull request. Note that `fleet.postman_collection.json` is generated, so improve `scripts/generate_collection.py` instead of editing the collection by hand.
 
-### Documentation:
+### Documentation
 
-* [Fleet REST API Documentation](https://fleetdm.com/docs/rest-api/rest-api#rest-api)
-
-Thank you for contributing to the improvement of this collection!
+* [Fleet REST API documentation](https://fleetdm.com/docs/rest-api/rest-api)

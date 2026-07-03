@@ -1,0 +1,69 @@
+name: Update Postman collection
+
+# Checks for a new Fleet release and, if found, regenerates the collection
+# from that release's REST API docs and opens a PR with the changes.
+
+on:
+  schedule:
+    - cron: "0 9 * * 1-5" # weekdays at 09:00 UTC
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Fleet release tag to generate from (e.g. fleet-v4.88.0). Leave empty for latest."
+        required: false
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Determine target Fleet release
+        id: release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          INPUT_TAG: ${{ inputs.tag }}
+        run: |
+          if [ -n "$INPUT_TAG" ]; then
+            TAG="$INPUT_TAG"
+          else
+            TAG=$(gh api repos/fleetdm/fleet/releases/latest --jq .tag_name)
+          fi
+          VERSION="${TAG#fleet-v}"
+          CURRENT=$(cat VERSION 2>/dev/null || echo "0.0.0")
+          echo "tag=$TAG"         >> "$GITHUB_OUTPUT"
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "current=$CURRENT" >> "$GITHUB_OUTPUT"
+          if [ "$VERSION" = "$CURRENT" ]; then
+            echo "Already at Fleet v$CURRENT — nothing to do."
+            echo "update=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "Updating: v$CURRENT -> v$VERSION"
+            echo "update=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Regenerate collection
+        if: steps.release.outputs.update == 'true'
+        run: |
+          python3 scripts/generate_collection.py \
+            --tag "${{ steps.release.outputs.tag }}" \
+            -o fleet.postman_collection.json
+
+      - name: Open pull request
+        if: steps.release.outputs.update == 'true'
+        uses: peter-evans/create-pull-request@v7
+        with:
+          branch: update/fleet-v${{ steps.release.outputs.version }}
+          commit-message: "Update collection to Fleet v${{ steps.release.outputs.version }}"
+          title: "Update collection to Fleet v${{ steps.release.outputs.version }}"
+          body: |
+            Auto-generated from [`docs/REST API/rest-api.md` at `${{ steps.release.outputs.tag }}`](https://github.com/fleetdm/fleet/blob/${{ steps.release.outputs.tag }}/docs/REST%20API/rest-api.md) by `scripts/generate_collection.py`.
+
+            Previous version: v${{ steps.release.outputs.current }}
+
+            Review the diff for added/removed/changed endpoints, then merge.
+          delete-branch: true
