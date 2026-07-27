@@ -1,10 +1,10 @@
 {
  "info": {
-  "_postman_id": "aaec53a9-c0d3-514d-b596-dac5456091eb",
-  "name": "Fleet API v4.88.0",
-  "description": "Postman collection for the Fleet REST API, version 4.88.0.\n\n**Note: this collection is a community resource and is not officially supported by Fleet.** For authoritative reference, use the official API documentation: https://fleetdm.com/docs/rest-api/rest-api\n\nGenerated from `docs/REST API/rest-api.md` at tag `fleet-v4.88.0` in the fleetdm/fleet repo by `scripts/generate_collection.py`.\n\nSetup: import the accompanying `fleet.postman_environment.json`, then set `baseUrl` to your Fleet server and `token` to your API token (Fleet UI > My account > Get API token). All requests inherit `Bearer {{token}}` auth from the collection.\n\nQuery parameters are included on each request but disabled by default — enable the ones you need and replace the placeholder values.",
+  "_postman_id": "dad9f85b-07dc-504e-84c2-8564af5a963e",
+  "name": "Fleet API v4.89.2",
+  "description": "Postman collection for the Fleet REST API, version 4.89.2.\n\n**Note: this collection is a community resource and is not officially supported by Fleet.** For authoritative reference, use the official API documentation: https://fleetdm.com/docs/rest-api/rest-api\n\nGenerated from `docs/REST API/rest-api.md` at tag `fleet-v4.89.2` in the fleetdm/fleet repo by `scripts/generate_collection.py`.\n\nSetup: import the accompanying `fleet.postman_environment.json`, then set `baseUrl` to your Fleet server and `token` to your API token (Fleet UI > My account > Get API token). All requests inherit `Bearer {{token}}` auth from the collection.\n\nQuery parameters are included on each request but disabled by default — enable the ones you need and replace the placeholder values.",
   "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-  "version": "4.88.0"
+  "version": "4.89.2"
  },
  "auth": {
   "type": "bearer",
@@ -732,7 +732,7 @@
         }
        ]
       },
-      "description": "> **Experimental feature**. This feature is undergoing rapid improvement, which may result in breaking changes to the API or configuration surface. It is not recommended for use in automated workflows.\n\n\nWhen editing a CA, specify one object and only its fields that you want to update.\n\n\nSee Connect certificate authority above for the structure of each CA object.",
+      "description": "When editing a CA, specify one object and only its fields that you want to update.\n\n\nSee Connect certificate authority above for the structure of each CA object.",
       "body": {
        "mode": "raw",
        "raw": "{\n  \"digicert\": {\n    \"certificate_common_name\": \"$FLEET_VAR_HOST_HARDWARE_SERIAL\",\n  }\n}",
@@ -778,8 +778,7 @@
         "fleet",
         "certificate_authorities"
        ]
-      },
-      "description": "> **Experimental feature**. This feature is undergoing rapid improvement, which may result in breaking changes to the API or configuration surface. It is not recommended for use in automated workflows."
+      }
      },
      "response": [
       {
@@ -831,7 +830,7 @@
         }
        ]
       },
-      "description": "> **Experimental feature**. This feature is undergoing rapid improvement, which may result in breaking changes to the API or configuration surface. It is not recommended for use in automated workflows.\n\nGet details of the certificate authority.",
+      "description": "Get details of the certificate authority.",
       "body": {
        "mode": "raw",
        "raw": "{\n  \"id\": 0\n}",
@@ -916,7 +915,7 @@
         }
        ]
       },
-      "description": "List certificate added to Fleet. Currently, they can only be added via GitOps.\n\n\n\n\nThis endpoint accepts the node key from Fleet's Android agent for authentication in addition to default authentication with a Bearer token.\n\nThe `Authorization` header must be formatted as follows:\n\n```\nAuthorization: Node key <node_key>\n```\n\nOR\n\n```\nAuthorization: Bearer <token>\n```\n\nWhen you pass a node key in the authorization header the server will look up the host and replace\nthe `$FLEET_*` variables with the values associated to that host. If you use a regular bearer token\nthe `$FLEET_*` variables will not be replaced."
+      "description": "List certificates added to Fleet.\n\n\n\n\nThis endpoint accepts the node key from Fleet's Android agent for authentication in addition to default authentication with a Bearer token.\n\nThe `Authorization` header must be formatted as follows:\n\n```\nAuthorization: Node key <node_key>\n```\n\nOR\n\n```\nAuthorization: Bearer <token>\n```\n\nWhen you pass a node key in the authorization header the server will look up the host and replace\nthe `$FLEET_*` variables with the values associated to that host. If you use a regular bearer token\nthe `$FLEET_*` variables will not be replaced."
      },
      "response": [
       {
@@ -1016,7 +1015,7 @@
         }
        ]
       },
-      "description": "> **Experimental feature**. This feature is undergoing rapid improvement, which may result in breaking changes to the API or configuration surface. It is not recommended for use in automated workflows.\n\nWhen the CA is deleted, the issued certificates will remain on existing hosts."
+      "description": "When the CA is deleted, the issued certificates will remain on existing hosts."
      },
      "response": [
       {
@@ -1565,7 +1564,7 @@
        "_postman_previewlanguage": "json",
        "header": [],
        "cookie": [],
-       "body": "{\n  \"org_info\": {\n    \"org_name\": \"fleet\",\n    \"org_logo_url_dark_mode\": \"\",\n    \"org_logo_url_light_mode\": \"\",\n    \"org_logo_url\": \"\",\n    \"org_logo_url_light_background\": \"\",\n    \"contact_url\": \"https://fleetdm.com/company/contact\"\n  },\n  \"server_settings\": {\n    \"server_url\": \"https://instance.fleet.com\",\n    \"enable_analytics\": true,\n    \"live_query_disabled\": false,\n    \"query_reports_disabled\": false,\n    \"ai_features_disabled\": false\n  },\n  \"smtp_settings\": {\n    \"enable_smtp\": false,\n    \"configured\": false,\n    \"sender_address\": \"\",\n    \"server\": \"\",\n    \"port\": 587,\n    \"authentication_type\": \"authtype_username_password\",\n    \"user_name\": \"\",\n    \"password\": \"********\",\n    \"enable_ssl_tls\": true,\n    \"authentication_method\": \"authmethod_plain\",\n    \"domain\": \"\",\n    \"verify_ssl_certs\": true,\n    \"enable_start_tls\": true\n  },\n  \"sso_settings\": {\n    \"entity_id\": \"\",\n    \"issuer_uri\": \"\",\n    \"idp_image_url\": \"\",\n    \"metadata\": \"\",\n    \"metadata_url\": \"\",\n    \"idp_name\": \"\",\n    \"enable_sso\": false,\n    \"enable_sso_idp_login\": false,\n    \"enable_jit_provisioning\": false,\n    \"sso_server_url\": \"\"\n  },\n  \"conditional_access\": {\n    \"microsoft_entra_tenant_id\": \"\",\n    \"microsoft_entra_connection_configured\": false,\n    \"okta_idp_id\": \"0ogmbinlfy9hvGs7cx492\",\n    \"okta_assertion_consumer_service_url\": \"https://example.okta.com/sso/saml2/0ogmbinlfy9hvGs7cx492\",\n    \"okta_audience_uri\": \"https://www.okta.com/saml2/service-provider/asdhjlksoewpoasn\",\n    \"okta_certificate\": \"-----BEGIN CERTIFICATE-----\\nMIIC...\\n-----END CERTIFICATE-----\",\n    \"bypass_disabled\": false\n  },\n  \"host_expiry_settings\": {\n    \"host_expiry_enabled\": false,\n    \"host_expiry_window\": 0\n  },\n  \"activity_expiry_settings\": {\n    \"activity_expiry_enabled\": false,\n    \"activity_expiry_window\": 0,\n    \"preserve_host_activity_on_reenrollment\": false,\n  },\n  \"features\": {\n    \"enable_host_users\": true,\n    \"enable_software_inventory\": true,\n    \"additional_queries\": null\n  },\n  \"mdm\": {\n    \"android_enabled_and_configured\": true,\n    \"windows_enabled_and_configured\": true,\n    \"windows_entra_tenant_ids\": [\n      {\n        \"tenant_id\": \"fec37e96-3615-4e37-8fac-445d5328af3c\",\n      },\n    ],\n    \"enable_turn_on_windows_mdm_manually\": false,\n    \"enable_disk_encryption\": true,\n    \"windows_require_bitlocker_pin\": false,\n    \"apple_require_hardware_attestation\": false,\n    \"macos_updates\": {\n      \"minimum_version\": \"12.3.1\",\n      \"deadline\": \"2022-01-01\",\n      \"update_new_hosts\": true\n    },\n    \"ios_updates\": {\n      \"minimum_version\": \"17.0.1\",\n      \"deadline\": \"2024-08-01\"\n    },\n    \"ipados_updates\": {\n      \"minimum_version\": \"17.0.1\",\n      \"deadline\": \"2024-08-01\"\n    },\n    \"windows_updates\": {\n      \"deadline_days\": 5,\n      \"grace_period_days\": 1\n    },\n    \"macos_settings\": {\n      \"custom_settings\": [\n        {\n          \"path\": \"path/to/profile1.mobileconfig\",\n          \"labels\": [\"Label 1\", \"Label 2\"]\n        }\n      ]\n    },\n    \"apple_settings\": {\n      \"configuration_profiles\": [\n        {\n          \"path\": \"path/to/profile1.mobileconfig\",\n          \"labels\": [\"Label 1\", \"Label 2\"]\n        }\n      ]\n    },\n    \"windows_settings\": {\n      \"custom_settings\": [\n        {\n         \"path\": \"path/to/profile2.xml\",\n         \"labels\": [\"Label 3\", \"Label 4\"]\n        }\n      ],\n      \"configuration_profiles\": [\n        {\n         \"path\": \"path/to/profile2.xml\",\n         \"labels\": [\"Label 3\", \"Label 4\"]\n        }\n      ],\n    },\n    \"scripts\": [\"path/to/script.sh\"],\n    \"end_user_authentication\": {\n      \"entity_id\": \"\",\n      \"metadata\": \"\",\n      \"metadata_url\": \"\",\n      \"idp_name\": \"\"\n    },\n    \"macos_migration\": {\n      \"enable\": false,\n      \"mode\": \"voluntary\",\n      \"webhook_url\": \"https://webhook.example.com\"\n    },\n    \"macos_setup\": {\n      \"bootstrap_package\": \"\",\n      \"enable_end_user_authentication\": false,\n      \"macos_setup_assistant\": \"path/to/config.json\",\n      \"enable_release_device_manually\": false,\n      \"manual_agent_install\": false,\n      \"enable_managed_local_account\": false,\n      \"end_user_local_account_type\": \"admin\",\n    },\n    \"setup_experience\": {\n      \"bootstrap_package\": \"\",\n      \"enable_end_user_authentication\": false,\n      \"apple_setup_assistant\": \"path/to/config.json\",\n      \"enable_release_device_manually\": false,\n      \"manual_agent_install\": false\n    },\n    \"client_url\": \"https://instance.fleet.com\"\n  },\n  \"agent_options\": {\n    \"spec\": {\n      \"config\": {\n        \"options\": {\n          \"pack_delimiter\": \"/\",\n          \"logger_tls_period\": 10,\n          \"distributed_plugin\": \"tls\",\n          \"disable_distributed\": false,\n          \"logger_tls_endpoint\": \"/api/v1/osquery/log\",\n          \"distributed_interval\": 10,\n          \"distributed_tls_max_attempts\": 3\n        },\n        \"decorators\": {\n          \"load\": [\n            \"SELECT uuid AS host_uuid FROM system_info;\",\n            \"SELECT hostname AS hostname FROM system_info;\"\n          ]\n        }\n      },\n      \"overrides\": {},\n      \"command_line_flags\": {}\n    }\n  },\n  \"license\": {\n    \"tier\": \"premium\",\n    \"organization\": \"fleet\",\n    \"device_count\": 500000,\n    \"managed_cloud\": false,\n    \"expiration\": \"2031-10-16T00:00:00Z\",\n    \"note\": \"\"\n  },\n  \"logging\": {\n    \"debug\": false,\n    \"json\": false,\n    \"result\": {\n      \"plugin\": \"firehose\",\n      \"config\": {\n        \"region\": \"us-east-1\",\n        \"status_stream\": \"\",\n        \"result_stream\": \"result-topic\"\n      }\n    },\n    \"status\": {\n      \"plugin\": \"filesystem\",\n      \"config\": {\n        \"status_log_file\": \"foo_status\",\n        \"result_log_file\": \"\",\n        \"enable_log_rotation\": false,\n        \"enable_log_compression\": false\n      }\n    }\n  },\n  \"vulnerability_settings\": {\n    \"databases_path\": \"\"\n  },\n  \"gitops\": {\n    \"gitops_mode_enabled\": false,\n    \"repository_url\": \"\",\n  },\n  \"webhook_settings\": {\n    \"host_status_webhook\": {\n      \"enable_host_status_webhook\": true,\n      \"destination_url\": \"https://server.com\",\n      \"host_percentage\": 5,\n      \"days_count\": 7\n    },\n    \"failing_policies_webhook\":{\n      \"enable_failing_policies_webhook\":true,\n      \"destination_url\": \"https://server.com\",\n      \"policy_ids\": [1, 2, 3],\n      \"host_batch_size\": 1000\n    },\n    \"vulnerabilities_webhook\":{\n      \"enable_vulnerabilities_webhook\":true,\n      \"destination_url\": \"https://server.com\",\n      \"host_batch_size\": 1000\n    },\n    \"activities_webhook\":{\n      \"enable_activities_webhook\":true,\n      \"destination_url\": \"https://server.com\"\n    }\n  },\n  \"integrations\": {\n    \"google_calendar\": [\n      {\n        \"domain\": \"example.com\",\n        \"api_key_json\": {\n           \"type\": \"service_account\",\n           \"project_id\": \"fleet-in-your-calendar\",\n           \"private_key_id\": \"<private key id>\",\n           \"private_key\": \"-----BEGIN PRIVATE KEY-----\\n<private key>\\n-----END PRIVATE KEY-----\\n\",\n           \"client_email\": \"fleet-calendar-events@fleet-in-your-calendar.iam.gserviceaccount.com\",\n           \"client_id\": \"<client id>\",\n           \"auth_uri\": \"https://accounts.google.com/o/oauth2/auth\",\n           \"token_uri\": \"https://oauth2.googleapis.com/token\",\n           \"auth_provider_x509_cert_url\": \"https://www.googleapis.com/oauth2/v1/certs\",\n           \"client_x509_cert_url\": \"https://www.googleapis.com/robot/v1/metadata/x509/fleet-calendar-events%40fleet-in-your-calendar.iam.gserviceaccount.com\",\n           \"universe_domain\": \"googleapis.com\"\n         }\n      }\n    ],\n    \"jira\": [],\n    \"zendesk\": []\n  },\n  \"logging\": {\n    \"debug\": false,\n    \"json\": false,\n    \"result\": {\n        \"plugin\": \"filesystem\",\n        \"config\": {\n          \"status_log_file\": \"/var/folders/xh/bxm1d2615tv3vrg4zrxq540h0000gn/T/osquery_status\",\n          \"result_log_file\": \"/var/folders/xh/bxm1d2615tv3vrg4zrxq540h0000gn/T/osquery_result\",\n          \"enable_log_rotation\": false,\n          \"enable_log_compression\": false\n        }\n      },\n    \"status\": {\n      \"plugin\": \"filesystem\",\n      \"config\": {\n        \"status_log_file\": \"/var/folders/xh/bxm1d2615tv3vrg4zrxq540h0000gn/T/osquery_status\",\n        \"result_log_file\": \"/var/folders/xh/bxm1d2615tv3vrg4zrxq540h0000gn/T/osquery_result\",\n        \"enable_log_rotation\": false,\n        \"enable_log_compression\": false\n      }\n    }\n  },\n  \"update_interval\": {\n    \"osquery_detail\": 3600000000000,\n    \"osquery_policy\": 3600000000000\n  },\n  \"vulnerabilities\": {\n    \"cpe_database_url\": \"\",\n    \"disable_schedule\": false,\n    \"cve_feed_prefix_url\": \"\",\n    \"databases_path\": \"\",\n    \"disable_data_sync\": false,\n    \"periodicity\": 3600000000000,\n    \"recent_vulnerability_max_age\": 2592000000000000\n  }\n}"
+       "body": "{\n  \"org_info\": {\n    \"org_name\": \"fleet\",\n    \"org_logo_url_dark_mode\": \"\",\n    \"org_logo_url_light_mode\": \"\",\n    \"org_logo_url\": \"\",\n    \"org_logo_url_light_background\": \"\",\n    \"contact_url\": \"https://fleetdm.com/company/contact\"\n  },\n  \"server_settings\": {\n    \"server_url\": \"https://instance.fleet.com\",\n    \"enable_analytics\": true,\n    \"live_query_disabled\": false,\n    \"query_reports_disabled\": false,\n    \"ai_features_disabled\": false\n  },\n  \"smtp_settings\": {\n    \"enable_smtp\": false,\n    \"configured\": false,\n    \"sender_address\": \"\",\n    \"server\": \"\",\n    \"port\": 587,\n    \"authentication_type\": \"authtype_username_password\",\n    \"user_name\": \"\",\n    \"password\": \"********\",\n    \"enable_ssl_tls\": true,\n    \"authentication_method\": \"authmethod_plain\",\n    \"domain\": \"\",\n    \"verify_ssl_certs\": true,\n    \"enable_start_tls\": true\n  },\n  \"sso_settings\": {\n    \"entity_id\": \"\",\n    \"issuer_uri\": \"\",\n    \"idp_image_url\": \"\",\n    \"metadata\": \"\",\n    \"metadata_url\": \"\",\n    \"idp_name\": \"\",\n    \"enable_sso\": false,\n    \"enable_sso_idp_login\": false,\n    \"enable_jit_provisioning\": false,\n    \"sso_server_url\": \"\"\n  },\n  \"conditional_access\": {\n    \"microsoft_entra_tenant_id\": \"\",\n    \"microsoft_entra_connection_configured\": false,\n    \"okta_idp_id\": \"0ogmbinlfy9hvGs7cx492\",\n    \"okta_assertion_consumer_service_url\": \"https://example.okta.com/sso/saml2/0ogmbinlfy9hvGs7cx492\",\n    \"okta_audience_uri\": \"https://www.okta.com/saml2/service-provider/asdhjlksoewpoasn\",\n    \"okta_certificate\": \"-----BEGIN CERTIFICATE-----\\nMIIC...\\n-----END CERTIFICATE-----\",\n    \"bypass_disabled\": false\n  },\n  \"host_expiry_settings\": {\n    \"host_expiry_enabled\": false,\n    \"host_expiry_window\": 0\n  },\n  \"activity_expiry_settings\": {\n    \"activity_expiry_enabled\": false,\n    \"activity_expiry_window\": 0,\n    \"preserve_host_activity_on_reenrollment\": false,\n  },\n  \"features\": {\n    \"enable_host_users\": true,\n    \"enable_software_inventory\": true,\n    \"additional_queries\": null\n  },\n  \"mdm\": {\n    \"android_enabled_and_configured\": true,\n    \"windows_enabled_and_configured\": true,\n    \"windows_entra_tenant_ids\": [\n      \"fec37e96-3615-4e37-8fac-445d5328af3c\"\n    ],\n    \"windows_entra_client_ids\": [\n      \"8c8e3fd4-9b2c-4d3e-8f10-2233445566aa\"\n    ],\n    \"enable_turn_on_windows_mdm_manually\": false,\n    \"enable_disk_encryption\": true,\n    \"windows_require_bitlocker_pin\": false,\n    \"apple_require_hardware_attestation\": false,\n    \"macos_updates\": {\n      \"minimum_version\": \"12.3.1\",\n      \"deadline\": \"2022-01-01\",\n      \"update_new_hosts\": true\n    },\n    \"ios_updates\": {\n      \"minimum_version\": \"17.0.1\",\n      \"deadline\": \"2024-08-01\"\n    },\n    \"ipados_updates\": {\n      \"minimum_version\": \"17.0.1\",\n      \"deadline\": \"2024-08-01\"\n    },\n    \"windows_updates\": {\n      \"deadline_days\": 5,\n      \"grace_period_days\": 1\n    },\n    \"macos_settings\": {\n      \"custom_settings\": [\n        {\n          \"path\": \"path/to/profile1.mobileconfig\",\n          \"labels\": [\"Label 1\", \"Label 2\"]\n        }\n      ]\n    },\n    \"apple_settings\": {\n      \"configuration_profiles\": [\n        {\n          \"path\": \"path/to/profile1.mobileconfig\",\n          \"labels\": [\"Label 1\", \"Label 2\"]\n        }\n      ]\n    },\n    \"windows_settings\": {\n      \"custom_settings\": [\n        {\n         \"path\": \"path/to/profile2.xml\",\n         \"labels\": [\"Label 3\", \"Label 4\"]\n        }\n      ],\n      \"configuration_profiles\": [\n        {\n         \"path\": \"path/to/profile2.xml\",\n         \"labels\": [\"Label 3\", \"Label 4\"]\n        }\n      ],\n    },\n    \"scripts\": [\"path/to/script.sh\"],\n    \"end_user_authentication\": {\n      \"entity_id\": \"\",\n      \"metadata\": \"\",\n      \"metadata_url\": \"\",\n      \"idp_name\": \"\"\n    },\n    \"macos_migration\": {\n      \"enable\": false,\n      \"mode\": \"voluntary\",\n      \"webhook_url\": \"https://webhook.example.com\"\n    },\n    \"macos_setup\": {\n      \"bootstrap_package\": \"\",\n      \"enable_end_user_authentication\": false,\n      \"macos_setup_assistant\": \"path/to/config.json\",\n      \"enable_release_device_manually\": false,\n      \"manual_agent_install\": false,\n      \"enable_managed_local_account\": false,\n      \"end_user_local_account_type\": \"admin\",\n    },\n    \"setup_experience\": {\n      \"bootstrap_package\": \"\",\n      \"enable_end_user_authentication\": false,\n      \"apple_setup_assistant\": \"path/to/config.json\",\n      \"enable_release_device_manually\": false,\n      \"manual_agent_install\": false\n    },\n    \"client_url\": \"https://instance.fleet.com\"\n  },\n  \"agent_options\": {\n    \"spec\": {\n      \"config\": {\n        \"options\": {\n          \"pack_delimiter\": \"/\",\n          \"logger_tls_period\": 10,\n          \"distributed_plugin\": \"tls\",\n          \"disable_distributed\": false,\n          \"logger_tls_endpoint\": \"/api/v1/osquery/log\",\n          \"distributed_interval\": 10,\n          \"distributed_tls_max_attempts\": 3\n        },\n        \"decorators\": {\n          \"load\": [\n            \"SELECT uuid AS host_uuid FROM system_info;\",\n            \"SELECT hostname AS hostname FROM system_info;\"\n          ]\n        }\n      },\n      \"overrides\": {},\n      \"command_line_flags\": {}\n    }\n  },\n  \"license\": {\n    \"tier\": \"premium\",\n    \"organization\": \"fleet\",\n    \"device_count\": 500000,\n    \"managed_cloud\": false,\n    \"expiration\": \"2031-10-16T00:00:00Z\",\n    \"note\": \"\"\n  },\n  \"logging\": {\n    \"debug\": false,\n    \"json\": false,\n    \"result\": {\n      \"plugin\": \"firehose\",\n      \"config\": {\n        \"region\": \"us-east-1\",\n        \"status_stream\": \"\",\n        \"result_stream\": \"result-topic\"\n      }\n    },\n    \"status\": {\n      \"plugin\": \"filesystem\",\n      \"config\": {\n        \"status_log_file\": \"foo_status\",\n        \"result_log_file\": \"\",\n        \"enable_log_rotation\": false,\n        \"enable_log_compression\": false\n      }\n    }\n  },\n  \"vulnerability_settings\": {\n    \"databases_path\": \"\"\n  },\n  \"gitops\": {\n    \"gitops_mode_enabled\": false,\n    \"repository_url\": \"\",\n  },\n  \"webhook_settings\": {\n    \"host_status_webhook\": {\n      \"enable_host_status_webhook\": true,\n      \"destination_url\": \"https://server.com\",\n      \"host_percentage\": 5,\n      \"days_count\": 7\n    },\n    \"failing_policies_webhook\":{\n      \"enable_failing_policies_webhook\":true,\n      \"destination_url\": \"https://server.com\",\n      \"policy_ids\": [1, 2, 3],\n      \"host_batch_size\": 1000\n    },\n    \"vulnerabilities_webhook\":{\n      \"enable_vulnerabilities_webhook\":true,\n      \"destination_url\": \"https://server.com\",\n      \"host_batch_size\": 1000\n    },\n    \"activities_webhook\":{\n      \"enable_activities_webhook\":true,\n      \"destination_url\": \"https://server.com\"\n    }\n  },\n  \"integrations\": {\n    \"google_calendar\": [\n      {\n        \"domain\": \"example.com\",\n        \"api_key_json\": {\n           \"type\": \"service_account\",\n           \"project_id\": \"fleet-in-your-calendar\",\n           \"private_key_id\": \"<private key id>\",\n           \"private_key\": \"-----BEGIN PRIVATE KEY-----\\n<private key>\\n-----END PRIVATE KEY-----\\n\",\n           \"client_email\": \"fleet-calendar-events@fleet-in-your-calendar.iam.gserviceaccount.com\",\n           \"client_id\": \"<client id>\",\n           \"auth_uri\": \"https://accounts.google.com/o/oauth2/auth\",\n           \"token_uri\": \"https://oauth2.googleapis.com/token\",\n           \"auth_provider_x509_cert_url\": \"https://www.googleapis.com/oauth2/v1/certs\",\n           \"client_x509_cert_url\": \"https://www.googleapis.com/robot/v1/metadata/x509/fleet-calendar-events%40fleet-in-your-calendar.iam.gserviceaccount.com\",\n           \"universe_domain\": \"googleapis.com\"\n         }\n      }\n    ],\n    \"jira\": [],\n    \"zendesk\": []\n  },\n  \"logging\": {\n    \"debug\": false,\n    \"json\": false,\n    \"result\": {\n        \"plugin\": \"filesystem\",\n        \"config\": {\n          \"status_log_file\": \"/var/folders/xh/bxm1d2615tv3vrg4zrxq540h0000gn/T/osquery_status\",\n          \"result_log_file\": \"/var/folders/xh/bxm1d2615tv3vrg4zrxq540h0000gn/T/osquery_result\",\n          \"enable_log_rotation\": false,\n          \"enable_log_compression\": false\n        }\n      },\n    \"status\": {\n      \"plugin\": \"filesystem\",\n      \"config\": {\n        \"status_log_file\": \"/var/folders/xh/bxm1d2615tv3vrg4zrxq540h0000gn/T/osquery_status\",\n        \"result_log_file\": \"/var/folders/xh/bxm1d2615tv3vrg4zrxq540h0000gn/T/osquery_result\",\n        \"enable_log_rotation\": false,\n        \"enable_log_compression\": false\n      }\n    }\n  },\n  \"update_interval\": {\n    \"osquery_detail\": 3600000000000,\n    \"osquery_policy\": 3600000000000\n  },\n  \"vulnerabilities\": {\n    \"cpe_database_url\": \"\",\n    \"disable_schedule\": false,\n    \"cve_feed_prefix_url\": \"\",\n    \"databases_path\": \"\",\n    \"disable_data_sync\": false,\n    \"periodicity\": 3600000000000,\n    \"recent_vulnerability_max_age\": 2592000000000000\n  }\n}"
       }
      ]
     },
@@ -1606,7 +1605,7 @@
         }
        ]
       },
-      "description": "Modifies the Fleet's configuration with the supplied information.\n\n\n\n\n\n| Name                              | Type    | Description   |\n| ---------------------             | ------- | ----------------------------------------------------------------------------------- |\n| org_name                          | string  | The organization name.                                                              |\n| org_logo_url_dark_mode                      | string  | The URL for the organization logo displayed on top of dark backgrounds. |\n| org_logo_url_light_mode     | string  | The URL for the organization logo displayed in Fleet on top of light backgrounds.   |\n| contact_url                       | string  | A URL or file URI that can be used by end users to contact the organization.                    |\n\n> `org_logo_url` and `org_logo_url_light_background` are deprecated. They are maintained for backwards compatibility. Please use `org_logo_url_dark_mode` and `org_logo_url_light_mode` instead.\n\n \n\n\n```json\n{\n  \"org_info\": {\n    \"org_name\": \"Fleet Device Management\",\n    \"org_logo_url_dark_mode\": \"https://fleetdm.com/logo.png\",\n    \"org_logo_url_light_mode\": \"https://fleetdm.com/logo-light.png\",\n    \"org_logo_url\": \"https://fleetdm.com/logo.png\",\n    \"org_logo_url_light_background\": \"https://fleetdm.com/logo-light.png\",\n    \"contact_url\": \"https://fleetdm.com/company/contact\"\n  }\n}\n```\n\n\n| Name                              | Type    | Description   |\n| ---------------------             | ------- | ------------------------------------------------------------------------------------------- |\n| server_url                        | string  | The Fleet server URL.                                                                       |\n| enable_analytics                  | boolean | Whether to send anonymous usage statistics. Always enabled for Fleet Premium customers.     |\n| live_reporting_disabled           | boolean | Whether the live reporting capabilities are disabled.                                       |\n| discard_reports_data              | boolean | Whether storing report results are disabled.                                                |\n| ai_features_disabled              | boolean | Whether AI features are disabled.                                                           |\n| report_cap                        | integer | The maximum number of results to store per report before the report is clipped. If increasing this cap, we recommend enabling reports for one report at time and monitoring your infrastructure. (Default: `1000`) |\n\n> Note: If `server_url` changes, hosts that enrolled to the old URL will need to re-enroll, or they will no longer communicate with Fleet. Before re-enrolling Android hosts, you'll need to turn Android MDM off and back on to point Google to the new `server_url`.\n\n \n\n\n```json\n{\n  \"server_settings\": {\n    \"server_url\": \"https://localhost:8080\",\n    \"enable_analytics\": true,\n    \"live_reporting_disabled\": false,\n    \"discard_reports_data\": false,\n    \"ai_features_disabled\": false\n  }\n}\n```\n\n\n| Name                              | Type    | Description   |\n| ---------------------             | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| enable_smtp                       | boolean | Whether SMTP is enabled for the Fleet app.                                                                                                                            |\n| sender_address                    | string  | The sender email address for the Fleet app. An invitation email is an example of the emails that may use this sender address                                          |\n| server                            | string  | The SMTP server for the Fleet app.                                                                                                                                    |\n| port                              | integer | The SMTP port for the Fleet app.                                                                                                                                      |\n| authentication_type               | string  | The authentication type used by the SMTP server. Options include `\"authtype_username_and_password\"` or `\"none\"`                                                       |\n| user_name                         | string  | The username used to authenticate requests made to the SMTP server.                                                                                                   |\n| password                          | string  | The password used to authenticate requests made to the SMTP server.                                                                                                   |\n| enable_ssl_tls                    | boolean | Whether or not SSL and TLS are enabled for the SMTP server.                         ",
+      "description": "Modifies the Fleet's configuration with the supplied information.\n\n\n\n\n\n| Name                              | Type    | Description   |\n| ---------------------             | ------- | ----------------------------------------------------------------------------------- |\n| org_name                          | string  | The organization name.                                                              |\n| org_logo_url_dark_mode                      | string  | The URL for the organization logo displayed on top of dark backgrounds. |\n| org_logo_url_light_mode     | string  | The URL for the organization logo displayed in Fleet on top of light backgrounds.   |\n| contact_url                       | string  | A URL or file URI that can be used by end users to contact the organization.                    |\n\n> `org_logo_url` and `org_logo_url_light_background` are deprecated. They are maintained for backwards compatibility. Please use `org_logo_url_dark_mode` and `org_logo_url_light_mode` instead.\n\n \n\n\n```json\n{\n  \"org_info\": {\n    \"org_name\": \"Fleet Device Management\",\n    \"org_logo_url_dark_mode\": \"https://fleetdm.com/logo.png\",\n    \"org_logo_url_light_mode\": \"https://fleetdm.com/logo-light.png\",\n    \"org_logo_url\": \"https://fleetdm.com/logo.png\",\n    \"org_logo_url_light_background\": \"https://fleetdm.com/logo-light.png\",\n    \"contact_url\": \"https://fleetdm.com/company/contact\"\n  }\n}\n```\n\n\n| Name                              | Type    | Description   |\n| ---------------------             | ------- | ------------------------------------------------------------------------------------------- |\n| server_url                        | string  | The Fleet server URL.                                                                       |\n| enable_analytics                  | boolean | Whether to send anonymous usage statistics. Always enabled for Fleet Premium customers.     |\n| live_reporting_disabled           | boolean | Whether the live reporting capabilities are disabled.                                       |\n| discard_reports_data              | boolean | Whether storing report results are disabled.                                                |\n| ai_features_disabled              | boolean | Whether AI features are disabled.                                                           |\n| report_cap                        | integer | The maximum number of results to store per report before the report is clipped. If increasing this cap, we recommend enabling reports for one report at time and monitoring your infrastructure. (Default: `1000`) |\n\n> Note: If `server_url` changes, hosts that enrolled to the old URL will need to re-enroll, or they will no longer communicate with Fleet. Before re-enrolling Android hosts, you'll need to turn Android MDM off and back on to point Google to the new `server_url`.\n\n \n\n\n```json\n{\n  \"server_settings\": {\n    \"server_url\": \"https://localhost:8080\",\n    \"enable_analytics\": true,\n    \"live_reporting_disabled\": false,\n    \"discard_reports_data\": false,\n    \"ai_features_disabled\": false\n  }\n}\n```\n\n\n| Name                              | Type    | Description   |\n| ---------------------             | ------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------- |\n| enable_smtp                       | boolean | Whether SMTP is enabled for the Fleet app.                                                                                                                            |\n| sender_address                    | string  | The sender email address for the Fleet app. An invitation email is an example of the emails that may use this sender address                                          |\n| server                            | string  | The SMTP server for the Fleet app.                                                                                                                                    |\n| port                              | integer | The SMTP port for the Fleet app.                                                                                                                                      |\n| authentication_type               | string  | The authentication type used by the SMTP server. Options include `\"authtype_username_password\"` or `\"none\"`                                                       |\n| user_name                         | string  | The username used to authenticate requests made to the SMTP server.                                                                                                   |\n| password                          | string  | The password used to authenticate requests made to the SMTP server.                                                                                                   |\n| enable_ssl_tls                    | boolean | Whether or not SSL and TLS are enabled for the SMTP server.                             ",
       "body": {
        "mode": "raw",
        "raw": "{\n  \"scripts\": []\n}",
@@ -1632,7 +1631,7 @@
        "_postman_previewlanguage": "json",
        "header": [],
        "cookie": [],
-       "body": "{\n  \"org_info\": {\n    \"org_name\": \"Fleet Device Management\",\n    \"org_logo_url_dark_mode\": \"https://fleetdm.com/logo.png\",\n    \"org_logo_url_light_mode\": \"https://fleetdm.com/logo-light.png\",\n    \"org_logo_url\": \"https://fleetdm.com/logo.png\",\n    \"org_logo_url_light_background\": \"https://fleetdm.com/logo-light.png\",\n    \"contact_url\": \"https://fleetdm.com/company/contact\"\n  },\n  \"server_settings\": {\n    \"server_url\": \"https://instance.fleet.com\",\n    \"enable_analytics\": true,\n    \"live_query_disabled\": false,\n    \"query_reports_disabled\": false,\n    \"ai_features_disabled\": false\n  },\n  \"smtp_settings\": {\n    \"enable_smtp\": true,\n    \"configured\": true,\n    \"sender_address\": \"\",\n    \"server\": \"localhost\",\n    \"port\": 1025,\n    \"authentication_type\": \"authtype_username_none\",\n    \"user_name\": \"\",\n    \"password\": \"********\",\n    \"enable_ssl_tls\": true,\n    \"authentication_method\": \"authmethod_plain\",\n    \"domain\": \"\",\n    \"verify_ssl_certs\": true,\n    \"enable_start_tls\": true\n  },\n  \"sso_settings\": {\n    \"entity_id\": \"\",\n    \"issuer_uri\": \"\",\n    \"idp_image_url\": \"\",\n    \"metadata\": \"\",\n    \"metadata_url\": \"\",\n    \"idp_name\": \"\",\n    \"enable_sso\": false,\n    \"enable_sso_idp_login\": false,\n    \"enable_jit_provisioning\": false,\n    \"sso_server_url\": \"https://instance.fleet.com\"\n  },\n  \"conditional_access\": {\n    \"microsoft_entra_tenant_id\": \"<TENANT ID>\",\n    \"microsoft_entra_connection_configured\": true,\n    \"okta_idp_id\": \"0ogmbinlfy9hvGs7cx492\",\n    \"okta_assertion_consumer_service_url\": \"https://example.okta.com/sso/saml2/0ogmbinlfy9hvGs7cx492\",\n    \"okta_audience_uri\": \"https://www.okta.com/saml2/service-provider/asdhjlksoewpoasn\",\n    \"okta_certificate\": \"-----BEGIN CERTIFICATE-----\\nMIIC...\\n-----END CERTIFICATE-----\",\n    \"bypass_disabled\": false\n  },\n  \"host_expiry_settings\": {\n    \"host_expiry_enabled\": false,\n    \"host_expiry_window\": 0\n  },\n  \"activity_expiry_settings\": {\n    \"activity_expiry_enabled\": false,\n    \"activity_expiry_window\": 0,\n    \"preserve_host_activity_on_reenrollment\": false,\n  },\n  \"features\": {\n    \"enable_host_users\": true,\n    \"enable_software_inventory\": true,\n    \"additional_queries\": null\n  },\n  \"license\": {\n    \"tier\": \"free\",\n    \"expiration\": \"0001-01-01T00:00:00Z\"\n  },\n  \"mdm\": {\n    \"enabled_and_configured\": false,\n    \"android_enabled_and_configured\": false,\n    \"windows_enabled_and_configured\": false,\n    \"windows_entra_tenant_ids\": [\n      \"26ac824d-0d5e-4f0c-a202-1c29d5a48e43\"\n    ],\n    \"enable_turn_on_windows_mdm_manually\": false,\n    \"enable_disk_encryption\": true,\n    \"windows_require_bitlocker_pin\": false,\n    \"apple_require_hardware_attestation\": false,\n    \"enable_recovery_lock_password\": true,\n    \"macos_updates\": {\n      \"minimum_version\": \"12.3.1\",\n      \"deadline\": \"2022-01-01\",\n      \"update_new_hosts\": true\n    },\n    \"ios_updates\": {\n      \"minimum_version\": \"17.0.1\",\n      \"deadline\": \"2024-08-01\"\n    },\n    \"ipados_updates\": {\n      \"minimum_version\": \"17.0.1\",\n      \"deadline\": \"2024-08-01\"\n    },\n    \"windows_updates\": {\n      \"deadline_days\": 5,\n      \"grace_period_days\": 1\n    },\n    \"macos_settings\": {\n      \"custom_settings\": [\n        {\n          \"path\": \"path/to/profile1.mobileconfig\",\n          \"labels_exclude_any\": [\"Label 1\", \"Label 2\"]\n        },\n        {\n          \"path\": \"path/to/profile2.json\",\n          \"labels_include_all\": [\"Label 3\", \"Label 4\"]\n        },\n        {\n          \"path\": \"path/to/profile3.json\",\n          \"labels_include_any\": [\"Label 5\", \"Label 6\"]\n        },\n      ]\n    },\n    \"apple_settings\": {\n      \"configuration_profiles\": [\n        {\n          \"path\": \"path/to/profile1.mobileconfig\",\n          \"labels_exclude_any\": [\"Label 1\", \"Label 2\"]\n        },\n        {\n          \"path\": \"path/to/profile2.json\",\n          \"labels_include_all\": [\"Label 3\", \"Label 4\"]\n        },\n        {\n          \"path\": \"path/to/profile3.json\",\n          \"labels_include_any\": [\"Label 5\", \"Label 6\"]\n        },\n      ]\n    },\n    \"windows_settings\": {\n      \"custom_settings\": [\n        {\n          \"path\": \"path/to/profile3.xml\",\n          \"labels_exclude_any\": [\"Label 1\", \"Label 2\"]\n        }\n      ],\n      \"configuration_profiles\": [\n        {\n          \"path\": \"path/to/profile3.xml\",\n          \"labels_exclude_any\": [\"Label 1\", \"Label 2\"]\n        }\n      ]\n    },\n    \"end_user_authentication\": {\n      \"entity_id\": \"\",\n      \"metadata\": \"\",\n      \"metadata_url\": \"\",\n      \"idp_name\": \"\"\n    },\n    \"macos_migration\": {\n      \"enable\": false,\n      \"mode\": \"voluntary\",\n      \"webhook_url\": \"https://webhook.example.com\"\n    },\n    \"macos_setup\": {\n      \"bootstrap_package\": \"\",\n      \"enable_end_user_authentication\": false,\n      \"enable_managed_local_account\": false,\n      \"end_user_local_account_type\": \"admin\",\n      \"lock_end_user_info\": true,\n      \"macos_setup_assistant\": \"path/to/config.json\"\n    },\n    \"setup_experience\": {\n      \"bootstrap_package\": \"\",\n      \"enable_end_user_authentication\": false,\n      \"lock_end_user_info\": true,\n      \"apple_setup_assistant\": \"path/to/config.json\"\n    },\n    \"apple_server_url\": \"https://instance.fleet.com\"\n  },\n  \"agent_options\": {\n    \"config\": {\n      \"options\": {\n        \"pack_delimiter\": \"/\",\n        \"logger_tls_period\": 10,\n        \"distributed_plugin\": \"tls\",\n        \"disable_distributed\": false,\n        \"logger_tls_endpoint\": \"/api/v1/osquery/log\",\n        \"distributed_interval\": 10,\n        \"distributed_tls_max_attempts\": 3\n      },\n      \"decorators\": {\n        \"load\": [\n          \"SELECT uuid AS host_uuid FROM system_info;\",\n          \"SELECT hostname AS hostname FROM system_info;\"\n        ]\n      }\n    },\n    \"overrides\": {},\n    \"command_line_flags\": {}\n  },\n  \"vulnerability_settings\": {\n    \"databases_path\": \"\"\n  },\n  \"fleet_desktop\": {\n    \"transparency_url\": \"https://fleetdm.com/better\",\n    \"alternative_browser_host\": \"fleet-desktop.example.com\"\n  },\n  \"gitops\": {\n    \"gitops_mode_enabled\": false,\n    \"repository_url\": \"\",\n  },\n  \"webhook_settings\": {\n    \"host_status_webhook\": {\n      \"enable_host_status_webhook\": true,\n      \"destination_url\": \"https://server.com\",\n      \"host_percentage\": 5,\n      \"days_count\": 7\n    },\n    \"failing_policies_webhook\":{\n      \"enable_failing_policies_webhook\":true,\n      \"destination_url\": \"https://server.com\",\n      \"policy_ids\": [1, 2, 3],\n      \"host_batch_size\": 1000\n    },\n    \"vulnerabilities_webhook\":{\n      \"enable_vulnerabilities_webhook\":true,\n      \"destination_url\": \"https://server.com\",\n      \"host_batch_size\": 1000\n    },\n    \"activities_webhook\":{\n      \"enable_activities_webhook\":true,\n      \"destination_url\": \"https://server.com\"\n    }\n  },\n  \"integrations\": {\n    \"google_calendar\": [\n      {\n        \"domain\": \"\",\n        \"api_key_json\": null\n      }\n    ],\n    \"jira\": [\n      {\n        \"url\": \"https://jiraserver.com\",\n        \"username\": \"some_user\",\n        \"password\": \"sec4et!\",\n        \"project_key\": \"jira_project\",\n        \"enable_software_vulnerabilities\": false\n      }\n    ],\n    \"zendesk\": []\n  },\n  \"logging\": {\n      \"debug\": false,\n      \"json\": false,\n      \"result\": {\n          \"plugin\": \"firehose\",\n          \"config\": {\n            \"region\": \"us-east-1\",\n            \"status_stream\": \"\",\n            \"result_stream\": \"result-topic\"\n          }\n      },\n      \"status\": {\n          \"plugin\": \"filesystem\",\n          \"config\": {\n            \"status_log_file\": \"foo_status\",\n            \"result_log_file\": \"\",\n            \"enable_log_rotation\": false,\n            \"enable_log_compression\": false\n          }\n      }\n  },\n  \"scripts\": []\n}"
+       "body": "{\n  \"org_info\": {\n    \"org_name\": \"Fleet Device Management\",\n    \"org_logo_url_dark_mode\": \"https://fleetdm.com/logo.png\",\n    \"org_logo_url_light_mode\": \"https://fleetdm.com/logo-light.png\",\n    \"org_logo_url\": \"https://fleetdm.com/logo.png\",\n    \"org_logo_url_light_background\": \"https://fleetdm.com/logo-light.png\",\n    \"contact_url\": \"https://fleetdm.com/company/contact\"\n  },\n  \"server_settings\": {\n    \"server_url\": \"https://instance.fleet.com\",\n    \"enable_analytics\": true,\n    \"live_query_disabled\": false,\n    \"query_reports_disabled\": false,\n    \"ai_features_disabled\": false\n  },\n  \"smtp_settings\": {\n    \"enable_smtp\": true,\n    \"configured\": true,\n    \"sender_address\": \"\",\n    \"server\": \"localhost\",\n    \"port\": 1025,\n    \"authentication_type\": \"authtype_username_none\",\n    \"user_name\": \"\",\n    \"password\": \"********\",\n    \"enable_ssl_tls\": true,\n    \"authentication_method\": \"authmethod_plain\",\n    \"domain\": \"\",\n    \"verify_ssl_certs\": true,\n    \"enable_start_tls\": true\n  },\n  \"sso_settings\": {\n    \"entity_id\": \"\",\n    \"issuer_uri\": \"\",\n    \"idp_image_url\": \"\",\n    \"metadata\": \"\",\n    \"metadata_url\": \"\",\n    \"idp_name\": \"\",\n    \"enable_sso\": false,\n    \"enable_sso_idp_login\": false,\n    \"enable_jit_provisioning\": false,\n    \"sso_server_url\": \"https://instance.fleet.com\"\n  },\n  \"conditional_access\": {\n    \"microsoft_entra_tenant_id\": \"<TENANT ID>\",\n    \"microsoft_entra_connection_configured\": true,\n    \"okta_idp_id\": \"0ogmbinlfy9hvGs7cx492\",\n    \"okta_assertion_consumer_service_url\": \"https://example.okta.com/sso/saml2/0ogmbinlfy9hvGs7cx492\",\n    \"okta_audience_uri\": \"https://www.okta.com/saml2/service-provider/asdhjlksoewpoasn\",\n    \"okta_certificate\": \"-----BEGIN CERTIFICATE-----\\nMIIC...\\n-----END CERTIFICATE-----\",\n    \"bypass_disabled\": false\n  },\n  \"host_expiry_settings\": {\n    \"host_expiry_enabled\": false,\n    \"host_expiry_window\": 0\n  },\n  \"activity_expiry_settings\": {\n    \"activity_expiry_enabled\": false,\n    \"activity_expiry_window\": 0,\n    \"preserve_host_activity_on_reenrollment\": false,\n  },\n  \"features\": {\n    \"enable_host_users\": true,\n    \"enable_software_inventory\": true,\n    \"additional_queries\": null\n  },\n  \"license\": {\n    \"tier\": \"free\",\n    \"expiration\": \"0001-01-01T00:00:00Z\"\n  },\n  \"mdm\": {\n    \"enabled_and_configured\": false,\n    \"android_enabled_and_configured\": false,\n    \"windows_enabled_and_configured\": false,\n    \"windows_entra_tenant_ids\": [\n      \"26ac824d-0d5e-4f0c-a202-1c29d5a48e43\"\n    ],\n    \"windows_entra_client_ids\": [\n      \"8c8e3fd4-9b2c-4d3e-8f10-2233445566aa\"\n    ],\n    \"enable_turn_on_windows_mdm_manually\": false,\n    \"enable_disk_encryption\": true,\n    \"windows_require_bitlocker_pin\": false,\n    \"apple_require_hardware_attestation\": false,\n    \"enable_recovery_lock_password\": true,\n    \"macos_updates\": {\n      \"minimum_version\": \"12.3.1\",\n      \"deadline\": \"2022-01-01\",\n      \"update_new_hosts\": true\n    },\n    \"ios_updates\": {\n      \"minimum_version\": \"17.0.1\",\n      \"deadline\": \"2024-08-01\"\n    },\n    \"ipados_updates\": {\n      \"minimum_version\": \"17.0.1\",\n      \"deadline\": \"2024-08-01\"\n    },\n    \"windows_updates\": {\n      \"deadline_days\": 5,\n      \"grace_period_days\": 1\n    },\n    \"macos_settings\": {\n      \"custom_settings\": [\n        {\n          \"path\": \"path/to/profile1.mobileconfig\",\n          \"labels_exclude_any\": [\"Label 1\", \"Label 2\"]\n        },\n        {\n          \"path\": \"path/to/profile2.json\",\n          \"labels_include_all\": [\"Label 3\", \"Label 4\"]\n        },\n        {\n          \"path\": \"path/to/profile3.json\",\n          \"labels_include_any\": [\"Label 5\", \"Label 6\"]\n        },\n      ]\n    },\n    \"apple_settings\": {\n      \"configuration_profiles\": [\n        {\n          \"path\": \"path/to/profile1.mobileconfig\",\n          \"labels_exclude_any\": [\"Label 1\", \"Label 2\"]\n        },\n        {\n          \"path\": \"path/to/profile2.json\",\n          \"labels_include_all\": [\"Label 3\", \"Label 4\"]\n        },\n        {\n          \"path\": \"path/to/profile3.json\",\n          \"labels_include_any\": [\"Label 5\", \"Label 6\"]\n        },\n      ]\n    },\n    \"windows_settings\": {\n      \"custom_settings\": [\n        {\n          \"path\": \"path/to/profile3.xml\",\n          \"labels_exclude_any\": [\"Label 1\", \"Label 2\"]\n        }\n      ],\n      \"configuration_profiles\": [\n        {\n          \"path\": \"path/to/profile3.xml\",\n          \"labels_exclude_any\": [\"Label 1\", \"Label 2\"]\n        }\n      ]\n    },\n    \"end_user_authentication\": {\n      \"entity_id\": \"\",\n      \"metadata\": \"\",\n      \"metadata_url\": \"\",\n      \"idp_name\": \"\"\n    },\n    \"macos_migration\": {\n      \"enable\": false,\n      \"mode\": \"voluntary\",\n      \"webhook_url\": \"https://webhook.example.com\"\n    },\n    \"macos_setup\": {\n      \"bootstrap_package\": \"\",\n      \"enable_end_user_authentication\": false,\n      \"enable_managed_local_account\": false,\n      \"end_user_local_account_type\": \"admin\",\n      \"lock_end_user_info\": true,\n      \"macos_setup_assistant\": \"path/to/config.json\"\n    },\n    \"setup_experience\": {\n      \"bootstrap_package\": \"\",\n      \"enable_end_user_authentication\": false,\n      \"lock_end_user_info\": true,\n      \"apple_setup_assistant\": \"path/to/config.json\"\n    },\n    \"apple_server_url\": \"https://instance.fleet.com\"\n  },\n  \"agent_options\": {\n    \"config\": {\n      \"options\": {\n        \"pack_delimiter\": \"/\",\n        \"logger_tls_period\": 10,\n        \"distributed_plugin\": \"tls\",\n        \"disable_distributed\": false,\n        \"logger_tls_endpoint\": \"/api/v1/osquery/log\",\n        \"distributed_interval\": 10,\n        \"distributed_tls_max_attempts\": 3\n      },\n      \"decorators\": {\n        \"load\": [\n          \"SELECT uuid AS host_uuid FROM system_info;\",\n          \"SELECT hostname AS hostname FROM system_info;\"\n        ]\n      }\n    },\n    \"overrides\": {},\n    \"command_line_flags\": {}\n  },\n  \"vulnerability_settings\": {\n    \"databases_path\": \"\"\n  },\n  \"fleet_desktop\": {\n    \"transparency_url\": \"https://fleetdm.com/better\",\n    \"alternative_browser_host\": \"fleet-desktop.example.com\"\n  },\n  \"gitops\": {\n    \"gitops_mode_enabled\": false,\n    \"repository_url\": \"\",\n  },\n  \"webhook_settings\": {\n    \"host_status_webhook\": {\n      \"enable_host_status_webhook\": true,\n      \"destination_url\": \"https://server.com\",\n      \"host_percentage\": 5,\n      \"days_count\": 7\n    },\n    \"failing_policies_webhook\":{\n      \"enable_failing_policies_webhook\":true,\n      \"destination_url\": \"https://server.com\",\n      \"policy_ids\": [1, 2, 3],\n      \"host_batch_size\": 1000\n    },\n    \"vulnerabilities_webhook\":{\n      \"enable_vulnerabilities_webhook\":true,\n      \"destination_url\": \"https://server.com\",\n      \"host_batch_size\": 1000\n    },\n    \"activities_webhook\":{\n      \"enable_activities_webhook\":true,\n      \"destination_url\": \"https://server.com\"\n    }\n  },\n  \"integrations\": {\n    \"google_calendar\": [\n      {\n        \"domain\": \"\",\n        \"api_key_json\": null\n      }\n    ],\n    \"jira\": [\n      {\n        \"url\": \"https://jiraserver.com\",\n        \"username\": \"some_user\",\n        \"password\": \"sec4et!\",\n        \"project_key\": \"jira_project\",\n        \"enable_software_vulnerabilities\": false\n      }\n    ],\n    \"zendesk\": []\n  },\n  \"logging\": {\n      \"debug\": false,\n      \"json\": false,\n      \"result\": {\n          \"plugin\": \"firehose\",\n          \"config\": {\n            \"region\": \"us-east-1\",\n            \"status_stream\": \"\",\n            \"result_stream\": \"result-topic\"\n          }\n      },\n      \"status\": {\n          \"plugin\": \"filesystem\",\n          \"config\": {\n            \"status_log_file\": \"foo_status\",\n            \"result_log_file\": \"\",\n            \"enable_log_rotation\": false,\n            \"enable_log_compression\": false\n          }\n      }\n  },\n  \"scripts\": []\n}"
       }
      ]
     },
@@ -2105,13 +2104,13 @@
         {
          "key": "os_name",
          "value": "{{os_name}}",
-         "description": "The name of the operating system to filter hosts by. `os_version` must also be specified with `os_name`",
+         "description": "The name of the operating system to filter hosts by. `os_version` must also be specified with `os_name`. See note below for filtering Windows hosts.",
          "disabled": true
         },
         {
          "key": "os_version",
          "value": "{{os_version}}",
-         "description": "The version of the operating system to filter hosts by. `os_name` must also be specified with `os_version`",
+         "description": "The version of the operating system to filter hosts by. `os_name` must also be specified with `os_version`. See note below for filtering Windows hosts.",
          "disabled": true
         },
         {
@@ -2254,7 +2253,7 @@
         }
        ]
       },
-      "description": "> `software_id` is deprecated as of Fleet 4.42. It is maintained for backwards compatibility. Please use the `software_version_id` instead.\n\n> `populate_software` returns a lot of data per host when set, and drastically more data when set to `true` on Fleet Premium. If you need vulnerability details for a large number of hosts, consider setting `populate_software` to `without_vulnerability_details` and pulling vulnerability details from the Get vulnerability endpoint, as this returns details once per vulnerability rather than once per vulnerability per host.\n\nIf `software_title_id` is specified, an additional top-level key `\"software_title\"` is returned with the software title object corresponding to the `software_title_id`. See List software response payload for details about this object.\n\nIf `software_version_id` is specified, an additional top-level key `\"software\"` is returned with the software object corresponding to the `software_version_id`. See List software versions response payload for details about this object.\n\nIf `additional_info_filters` is not specified, no `additional` information will be returned.\n\nIf `mdm_id` is specified, an additional top-level key `\"mobile_device_management_solution\"` is returned with the information corresponding to the `mdm_id`.\n\nIf `mdm_id`, `mdm_name`, `mdm_enrollment_status`, `os_settings`, or `os_settings_disk_encryption` is specified, then Windows Servers are excluded from the results.\n\nIf `munki_issue_id` is specified, an additional top-level key `munki_issue` is returned with the information corresponding to the `munki_issue_id`.\n\nIf `after` is being used with `created_at` or `updated_at`, the table must be specified in `order_key`. Those columns become `h.created_at` and `h.updated_at`.\n\nIf `include_device_status` is set to `true`, `device_status` and `pending_action` are included in the MDM information for each host. `device_status` indicates the current lock/wipe state of the device with possible values: `unlocked`, `locked`, `locking`, `unlocking`, `wiped`, `wiping`. `pending_action` indicates if a lock, unlock, or wipe command is pending with possible values: `lock`, `unlock`, `wipe`, or an empty string (no pending action).\n\nTo filter hosts by platform (macOS, Windows, Linux), use the \"List label's hosts\" API endpoint. Find the label ID by filtering in the **Hosts** page of the Fleet UI and copying the ID from the URL (for example: `7` for `/hosts/manage/labels/7`)."
+      "description": "> `software_id` is deprecated as of Fleet 4.42. It is maintained for backwards compatibility. Please use the `software_version_id` instead.\n\n> `populate_software` returns a lot of data per host when set, and drastically more data when set to `true` on Fleet Premium. If you need vulnerability details for a large number of hosts, consider setting `populate_software` to `without_vulnerability_details` and pulling vulnerability details from the Get vulnerability endpoint, as this returns details once per vulnerability rather than once per vulnerability per host.\n\nIf `software_title_id` is specified, an additional top-level key `\"software_title\"` is returned with the software title object corresponding to the `software_title_id`. See List software response payload for details about this object.\n\nIf `software_version_id` is specified, an additional top-level key `\"software\"` is returned with the software object corresponding to the `software_version_id`. See List software versions response payload for details about this object.\n\nIf `additional_info_filters` is not specified, no `additional` information will be returned.\n\nIf `mdm_id` is specified, an additional top-level key `\"mobile_device_management_solution\"` is returned with the information corresponding to the `mdm_id`.\n\nIf `mdm_id`, `mdm_name`, `mdm_enrollment_status`, `os_settings`, or `os_settings_disk_encryption` is specified, then Windows Servers are excluded from the results.\n\nIf `munki_issue_id` is specified, an additional top-level key `munki_issue` is returned with the information corresponding to the `munki_issue_id`.\n\nIf `after` is being used with `created_at` or `updated_at`, the table must be specified in `order_key`. Those columns become `h.created_at` and `h.updated_at`.\n\nIf `include_device_status` is set to `true`, `device_status` and `pending_action` are included in the MDM information for each host. `device_status` indicates the current lock/wipe state of the device with possible values: `unlocked`, `locked`, `locking`, `unlocking`, `wiped`, `wiping`. `pending_action` indicates if a lock, unlock, or wipe command is pending with possible values: `lock`, `unlock`, `wipe`, or an empty string (no pending action).\n\nTo filter hosts by platform (macOS, Windows, Linux), use the \"List label's hosts\" API endpoint. Find the label ID by filtering in the **Hosts** page of the Fleet UI and copying the ID from the URL (for example: `7` for `/hosts/manage/labels/7`).\n\nTo filter Windows hosts using `os_name` and `os_version`, set `os_name` to the full operating system name without the build number, and set `os_version` to the build number. For example, if the **Operating system** field in host details shows `Windows 11 Home Single Language 23H2 10.0.22631.5335`, query with `os_name=Microsoft Windows 11 Home Single Language 23H2` and `os_version=10.0.22631.5335`. For macOS and Linux hosts, `os_name` is the OS name (for example, `macOS` or `Ubuntu`) and `os_version` is the version number (for example, `15.2` or `20.04.3 LTS`)."
      },
      "response": [
       {
@@ -2841,7 +2840,7 @@
       "description": "_Available in Fleet Premium_",
       "body": {
        "mode": "raw",
-       "raw": "{\n  \"team_id\": 1,\n  \"fleet_id\": 1,\n  \"hosts\": []\n}",
+       "raw": "{\n  \"team_id\": 1,\n  \"fleet_id\": 1,\n  \"hosts\": [3, 2, 4, 6, 1, 5, 7]\n}",
        "options": {
         "raw": {
          "language": "json"
@@ -2949,7 +2948,7 @@
         }
        ]
       },
-      "description": "Turns off MDM for the specified macOS, iOS, iPadOS, or Android host."
+      "description": "Turns off MDM for the specified macOS, iOS, iPadOS, or Android host.\n\n> On BYOD Android (work profile), Fleet sends a wipe command via the Android Management API. Unlike the delete device command in the Android Management API, the wipe command does not expire after 30 days. That way, Fleet makes sure that the work profile is wiped even if the host is offline for more than 30 days."
      },
      "response": [
       {
@@ -3056,7 +3055,7 @@
         }
        ]
       },
-      "description": "Updates the email for the data source in the human-device mapping. This source can only have one email.\n\n> If you're using the `$FLEET_VAR_HOST_END_USER_IDP_USERNAME` variable in Apple (macOS, iOS, iPadOS) and Windows configuration profiles, overriding the `idp` data source resends the configuraiton profile even if the value is unchanged. This causes performance issues. In the future, Fleet will only resend profiles if the value changes (coming soon). In the interim, please only update the `idp` data source when the value changes.\n\n| source     | string            | body | The data source to override. Either `\"custom\"` or `\"idp\"`. If `\"idp\"`, this will update the end user's `\"idp_username\"`. (Defaults to `\"custom\"`.)",
+      "description": "Updates the email for the data source in the human-device mapping. This source can only have one email.\n\n| source     | string            | body | The data source to override. Either `\"custom\"` or `\"idp\"`. If `\"idp\"`, this will update the end user's `\"idp_username\"`. (Defaults to `\"custom\"`.)",
       "body": {
        "mode": "raw",
        "raw": "{\n  \"email\": \"user@example.com\"\n}",
@@ -4169,7 +4168,7 @@
         }
        ]
       },
-      "description": "Sends a command to wipe the specified macOS, iOS, iPadOS, Linux, Windows, or Android host. The host is wiped once it comes online.\n\nTo wipe a macOS, iOS, iPadOS, or Windows host, the host must have MDM turned on. To wipe a Linux host, the host must have scripts enabled. To wipe an Android host, the host must be enrolled as a fully managed device.",
+      "description": "Sends a command to wipe the specified macOS, iOS, iPadOS, Linux, Windows, or Android host. The host is wiped once it comes online.\n\nWiping an Android host is available in Fleet Free and Fleet Premium. Wiping a macOS, iOS, iPadOS, Linux, or Windows host is available in Fleet Premium.\n\nTo wipe a macOS, iOS, iPadOS, or Windows host, the host must have MDM turned on. To wipe a Linux host, the host must have scripts enabled. To wipe an Android host, the host must be enrolled as a fully managed device.",
       "body": {
        "mode": "raw",
        "raw": "{\n  \"windows\": {}\n}",
@@ -4516,7 +4515,7 @@
      ]
     },
     {
-     "name": "Run live query on host (ad hoc)",
+     "name": "Run live report on host (ad hoc)",
      "request": {
       "method": "POST",
       "header": [
@@ -4547,7 +4546,7 @@
         }
        ]
       },
-      "description": "Runs an ad hoc live query against the specified host and responds with the results.\n\nThe live query will stop if the targeted host is offline, or if the query times out. Timeouts happen if the host hasn't responded after the configured `FLEET_LIVE_QUERY_REST_PERIOD` (default 25 seconds) or if the `distributed_interval` agent option (default 10 seconds) is higher than the `FLEET_LIVE_QUERY_REST_PERIOD`.",
+      "description": "Runs an ad hoc live report against the specified host and responds with the results.\n\nThe live report will stop if the targeted host is offline, or if the query times out. Timeouts happen if the host hasn't responded after the configured `FLEET_LIVE_QUERY_REST_PERIOD` (default 25 seconds) or if the `distributed_interval` agent option (default 10 seconds) is higher than the `FLEET_LIVE_QUERY_REST_PERIOD`.",
       "body": {
        "mode": "raw",
        "raw": "{\n  \"query\": \"SELECT model, vendor FROM usb_devices;\"\n}",
@@ -4578,7 +4577,7 @@
      ]
     },
     {
-     "name": "Run live query on host by identifier (ad hoc)",
+     "name": "Run live report on host by identifier (ad hoc)",
      "request": {
       "method": "POST",
       "header": [
@@ -4610,7 +4609,7 @@
         }
        ]
       },
-      "description": "Runs an ad hoc live query against a host identified using `uuid` and responds with the results.\n\nThe live query will stop if the targeted host is offline, or if the query times out. Timeouts happen if the host hasn't responded after the configured `FLEET_LIVE_QUERY_REST_PERIOD` (default 25 seconds) or if the `distributed_interval` agent option (default 10 seconds) is higher than the `FLEET_LIVE_QUERY_REST_PERIOD`.",
+      "description": "Runs an ad hoc live report against a host identified using `uuid` and responds with the results.\n\nThe live report will stop if the targeted host is offline, or if the query times out. Timeouts happen if the host hasn't responded after the configured `FLEET_LIVE_QUERY_REST_PERIOD` (default 25 seconds) or if the `distributed_interval` agent option (default 10 seconds) is higher than the `FLEET_LIVE_QUERY_REST_PERIOD`.",
       "body": {
        "mode": "raw",
        "raw": "{\n  \"query\": \"SELECT model, vendor FROM usb_devices;\"\n}",
@@ -4870,7 +4869,7 @@
       "description": "Updates the specified label. Note: Label queries, platforms, and fleets are immutable. To change these, you must delete the label and create a new label.\n\n\n| host_ids    | array   | body | If updating a manual label: the list of Fleet host IDs the label will apply to. The provided list fully replaces the previous list. Only one of either `hosts` or `host_ids` can be included in the request.\n\nThe `hostname` host identifier is deprecated. Please use `host_ids`, `hardware_serial`, or `uuid` instead.",
       "body": {
        "mode": "raw",
-       "raw": "{\n  \"host_ids\": []\n}",
+       "raw": "{\n  \"hosts\": [\"ABC1234\", \"XYZ5678\"]\n}",
        "options": {
         "raw": {
          "language": "json"
@@ -5332,7 +5331,7 @@
         "configuration_profiles"
        ]
       },
-      "description": "> **Experimental feature**. Deploying Windows SCEP profile is undergoing rapid improvement, which may result in breaking changes to the API or configuration surface. It is not recommended for use in automated workflows.\n\n> Add custom macOS setting (`POST /api/v1/fleet/mdm/apple/profiles`) API endpoint is deprecated as of Fleet 4.41. It is maintained for backwards compatibility. Please use the below API endpoint instead.\n\nAdd a configuration profile to enforce custom settings on macOS and Windows hosts.\n\n> You need to send a request of type `multipart/form-data`.\n\n> This endpoint accepts a maximum request body size of 1.5MiB.\n\n\n\nOnly one of `labels_include_all`, `labels_include_any`, or `labels_exclude_any` can be specified. If none are specified, all hosts are targeted.\n\nIf the response is `Status: 409 Conflict`, the body may include additional error details in the case\nof duplicate payload display name or duplicate payload identifier (macOS profiles).",
+      "description": "> Add custom macOS setting (`POST /api/v1/fleet/mdm/apple/profiles`) API endpoint is deprecated as of Fleet 4.41. It is maintained for backwards compatibility. Please use the below API endpoint instead.\n\nAdd a configuration profile to enforce custom settings on macOS and Windows hosts.\n\n> You need to send a request of type `multipart/form-data`.\n\n> This endpoint accepts a maximum request body size of 1.5MiB.\n\n\n\n`labels_exclude_any` can be combined with either `labels_include_all` or `labels_include_any`, but `labels_include_all` and `labels_include_any` cannot be combined with each other. If none are specified, all hosts are targeted.\n\nIf the response is `Status: 409 Conflict`, the body may include additional error details in the case\nof duplicate payload display name or duplicate payload identifier (macOS profiles).",
       "body": {
        "mode": "formdata",
        "formdata": [
@@ -5662,7 +5661,7 @@
         }
        ]
       },
-      "description": "Modify configuration profiles for a fleet. The provided list of profiles will be the active profiles for the specified fleet. If no fleet (`fleet_id` or `fleet_name`) is provided, the profiles are applied for all hosts (Fleet Free) or for hosts that are \"Unassigned\" (Fleet Premium).\n\nFor Apple (macOS, iOS, iPadOS) profiles, Fleet will send only an `InstallProfile` command (edit) for all existing profiles with the same `PayloadIdentifier` (specified in the .mobileconfig file). Fleet will send a `RemoveProfile` command to hosts for all existing profiles that are not part of the list.\n\nFor Windows profiles, Fleet applies new profiles or updates when content changes, and deletes profiles no longer in the list. It does not send commands to remove configuration profiles from Windows hosts.\n\nFor declaration (DDM) profiles, hosts with new, updated, or removed profiles are marked “Pending,” and Fleet sends a DeclarativeManagement command to tell Apple (macOS, iOS, iPadOS) hosts to sync profiles. If declarations are current, no command is sent and the host is not marked \"Pending.\"\n\nFor requests with 100+ profiles, requests will take 5+ seconds.\n\n> This endpoint accepts a maximum request body size of 25MiB.\n\n\n\n\n| Name                    | Type    | Description   |\n| -----------------------| ------- | ----------------------------------------------------------------------------------- |\n| profile                | string   | Base64 encoded configuration profile (.mobileconfig) or declaration (DDM) profile for Apple (macOS, iOS, iPadOS) hosts, JSON profile for Android hosts, or XML profile for Windows hosts. |\n| labels_include_all        | array     | _Available in Fleet Premium_. Target hosts that have all labels, specified by label name, in the array. |\n| labels_include_any      | array     | _Available in Fleet Premium_. Target hosts that have any label, specified by label name, in the array. |\n| labels_exclude_any | array  | _Available in Fleet Premium_. Target hosts that that don’t have any label, specified by label name, in the array. |\n| display_name                | string   | Required for Windows and declaration (DDM) profiles. It's not supported for .mobileconfig profiles. Instead, the profiles `PayloadDisplayName` is used. |\n\nFor each `profile`, only one of `labels_include_all`, `labels_include_any`, or `labels_exclude_any` can be specified. If neither is set, all hosts on the specified platform are targeted.",
+      "description": "Modify configuration profiles for a fleet. The provided list of profiles will be the active profiles for the specified fleet. If no fleet (`fleet_id` or `fleet_name`) is provided, the profiles are applied for all hosts (Fleet Free) or for hosts that are \"Unassigned\" (Fleet Premium).\n\nFor Apple (macOS, iOS, iPadOS) profiles, Fleet will send only an `InstallProfile` command (edit) for all existing profiles with the same `PayloadIdentifier` (specified in the .mobileconfig file). Fleet will send a `RemoveProfile` command to hosts for all existing profiles that are not part of the list.\n\nFor Windows profiles, Fleet applies new profiles or updates when content changes, and deletes profiles no longer in the list. It does not send commands to remove configuration profiles from Windows hosts.\n\nFor declaration (DDM) profiles, hosts with new, updated, or removed profiles are marked “Pending,” and Fleet sends a DeclarativeManagement command to tell Apple (macOS, iOS, iPadOS) hosts to sync profiles. If declarations are current, no command is sent and the host is not marked \"Pending.\"\n\nFor requests with 100+ profiles, requests will take 5+ seconds.\n\n> This endpoint accepts a maximum request body size of 25MiB.\n\n\n\n\n| Name                    | Type    | Description   |\n| -----------------------| ------- | ----------------------------------------------------------------------------------- |\n| profile                | string   | Base64 encoded configuration profile (.mobileconfig) or declaration (DDM) profile for Apple (macOS, iOS, iPadOS) hosts, JSON profile for Android hosts, or XML profile for Windows hosts. |\n| labels_include_all        | array     | _Available in Fleet Premium_. Target hosts that have all labels, specified by label name, in the array. |\n| labels_include_any      | array     | _Available in Fleet Premium_. Target hosts that have any label, specified by label name, in the array. |\n| labels_exclude_any | array  | _Available in Fleet Premium_. Target hosts that that don’t have any label, specified by label name, in the array. |\n| display_name                | string   | Required for Windows and declaration (DDM) profiles. It's not supported for .mobileconfig profiles. Instead, the profiles `PayloadDisplayName` is used. |\n\nFor each `profile`, `labels_exclude_any` can be combined with either `labels_include_all` or `labels_include_any`, but `labels_include_all` and `labels_include_any` cannot be combined with each other. If neither is set, all hosts on the specified platform are targeted.",
       "body": {
        "mode": "raw",
        "raw": "{\n  \"configuration_profiles\": [\n    {\n      \"profile\": \"PD94bWwgdmVyc2lvbj0iMS4wIiBlbmNvZGluZz0iVVRGLTgiPz4KPCFET0NUWVBFIHBsaXN0IFBVQkxJQyAiLS8vQXBwbGUvL0RURCBQTElTVCAxLjAvL0VOIiAiaHR0cDovL3d3dy5hcHBsZS5jb20vRFREcy9Qcm9wZXJ0eUxpc3QtMS4wLmR0ZCI+CjxwbGlzdCB2ZXJzaW9uPSIxLjAiPgo8ZGljdD4KCTxrZXk+UGF5bG9hZENvbnRlbnQ8L2tleT4KCTxhcnJheT4KCQk8ZGljdD4KCQkJPGtleT5BbGxvd1ByZVJlbGVhc2VJbnN0YWxsYXRpb248L2tleT4KCQkJPHRydWUvPgoJCQk8a2V5PkF1dG9tYXRpY0NoZWNrRW5hYmxlZDwva2V5PgoJCQk8dHJ1ZS8+CgkJCTxrZXk+QXV0b21hdGljRG93bmxvYWQ8L2tleT4KCQkJPHRydWUvPgoJCQk8a2V5PkF1dG9tYXRpY2FsbHlJbnN0YWxsQXBwVXBkYXRlczwva2V5PgoJCQk8dHJ1ZS8+CgkJCTxrZXk+QXV0b21hdGljYWxseUluc3RhbGxNYWNPU1VwZGF0ZXM8L2tleT4KCQkJPHRydWUvPgoJCQk8a2V5PkNvbmZpZ0RhdGFJbnN0YWxsPC9rZXk+CgkJCTx0cnVlLz4KCQkJPGtleT5Dcml0aWNhbFVwZGF0ZUluc3RhbGw8L2tleT4KCQkJPHRydWUvPgoJCQk8a2V5PlBheWxvYWREZXNjcmlwdGlvbjwva2V5PgoJCQk8c3RyaW5nPkNvbmZpZ3VyZXMgU29mdHdhcmUgVXBkYXRlIHNldHRpbmdzPC9zdHJpbmc+CgkJCTxrZXk+UGF5bG9hZERpc3BsYXlOYW1lPC9rZXk+CgkJCTxzdHJpbmc+U29mdHdhcmUgVXBkYXRlPC9zdHJpbmc+CgkJCTxrZXk+UGF5bG9hZElkZW50aWZpZXI8L2tleT4KCQkJPHN0cmluZz5jb20uZ2l0aHViLmVyaWtiZXJnbHVuZC5Qcm9maWxlQ3JlYXRvci5CRUJBMDc0MC00RERCLTRBQzQtODVEQy1CQTQ4Qjk2QzBEQzguY29tLmFwcGxlLlNvZnR3YXJlVXBkYXRlLkE4Qjk3MDMyLTc2NDUtNDA2OC1CNDU3LTAxREU1QzZCMzNGNzwvc3RyaW5nPgoJCQk8a2V5PlBheWxvYWRPcmdhbml6YXRpb248L2tleT4KCQkJPHN0cmluZz48L3N0cmluZz4KCQkJPGtleT5QYXlsb2FkVHlwZTwva2V5PgoJCQk8c3RyaW5nPmNvbS5hcHBsZS5Tb2Z0d2FyZVVwZGF0ZTwvc3RyaW5nPgoJCQk8a2V5PlBheWxvYWRVVUlEPC9rZXk+CgkJCTxzdHJpbmc+QThCOTcwMzItNzY0NS00MDY4LUI0NTctMDFERTVDNkIzM0Y3PC9zdHJpbmc+CgkJCTxrZXk+UGF5bG9hZFZlcnNpb248L2tleT4KCQkJPGludGVnZXI+MTwvaW50ZWdlcj4KCQk8L2RpY3Q+Cgk8L2FycmF5PgoJPGtleT5QYXlsb2FkRGVzY3JpcHRpb248L2tleT4KCTxzdHJpbmc+RW5hYmxlcyBhdXRvbWF0aWMgdXBkYXRlczwvc3RyaW5nPgoJPGtleT5QYXlsb2FkRGlzcGxheU5hbWU8L2tleT4KCTxzdHJpbmc+VHVybiBvbiBhdXRvbWF0aWMgdXBkYXRlczwvc3RyaW5nPgoJPGtleT5QYXlsb2FkSWRlbnRpZmllcjwva2V5PgoJPHN0cmluZz5jb20uZ2l0aHViLmVyaWtiZXJnbHVuZC5Qcm9maWxlQ3JlYXRvci5CRUJBMDc0MC00RERCLTRBQzQtODVEQy1CQTQ4Qjk2QzBEQzg8L3N0cmluZz4KCTxrZXk+UGF5bG9hZE9yZ2FuaXphdGlvbjwva2V5PgoJPHN0cmluZz5GbGVldERNPC9zdHJpbmc+Cgk8a2V5PlBheWxvYWRSZW1vdmFsRGlzYWxsb3dlZDwva2V5PgoJPHRydWUvPgoJPGtleT5QYXlsb2FkU2NvcGU8L2tleT4KCTxzdHJpbmc+U3lzdGVtPC9zdHJpbmc+Cgk8a2V5PlBheWxvYWRUeXBlPC9rZXk+Cgk8c3RyaW5nPkNvbmZpZ3VyYXRpb248L3N0cmluZz4KCTxrZXk+UGF5bG9hZFVVSUQ8L2tleT4KCTxzdHJpbmc+QkVCQTA3NDAtNEREQi00QUM0LTg1REMtQkE0OEI5NkMwREM4PC9zdHJpbmc+Cgk8a2V5PlBheWxvYWRWZXJzaW9uPC9rZXk+Cgk8aW50ZWdlcj4xPC9pbnRlZ2VyPgo8L2RpY3Q+CjwvcGxpc3Q+\",\n      \"labels_include_any\": [\n        \"Apple Silicon macOS hosts\"\n      ],\n    }\n  ]\n}",
@@ -6172,7 +6171,7 @@
         }
        ]
       },
-      "description": "The returned value is a signed `.mobileconfig` OTA enrollment profile (see Apple enrollment profile docs). Install this profile on macOS, iOS, or iPadOS hosts to enroll them to a specific fleet in Fleet and turn on MDM features.\n\nIf the fleet has end user authentication enabled, the OTA enrollment profile won't work. Use the manual enrollment profile instead.\n\nTo enroll macOS hosts, turn on MDM features, and add human-device mapping, use the manual enrollment profile instead."
+      "description": "The returned value is a signed `.mobileconfig` OTA enrollment profile (see Apple enrollment profile docs). Install this profile on macOS, iOS, or iPadOS hosts to enroll them to a specific fleet in Fleet and turn on MDM features.\n\nIf the fleet has Require IdP authentication enabled, the OTA enrollment profile won't work. Use the manual enrollment profile instead.\n\nTo enroll macOS hosts, turn on MDM features, and add human-device mapping, use the manual enrollment profile instead."
      },
      "response": [
       {
@@ -6493,7 +6492,7 @@
         "setup_experience"
        ]
       },
-      "description": "> **Experimental feature.** The `manual_agent_install` feature is undergoing rapid improvement, which may result in breaking changes to the API or configuration surface. It is not recommended for use in automated workflows.\n\n_Available in Fleet Premium_",
+      "description": "_Available in Fleet Premium_",
       "body": {
        "mode": "raw",
        "raw": "{\n  \"team_id\": 1,\n  \"fleet_id\": 1,\n  \"enable_end_user_authentication\": true,\n  \"enable_release_device_manually\": true\n}",
@@ -7096,7 +7095,7 @@
         }
        ]
       },
-      "description": "> `GET /api/v1/fleet/mdm/apple/commandresults` API endpoint is deprecated as of Fleet 4.40. It is maintained for backward compatibility. Please use the new API endpoint below. [Archived documentation is available for the deprecated endpoint.\n\nThis endpoint returns the results for a specific custom MDM command.\n\nIn the response, the possible `status` values for macOS, iOS, and iPadOS hosts are the following:\n\n* Pending: the command has yet to run on the host. The host will run the command the next time it comes online.\n* NotNow: the host acknowledged the MDM command but couldn’t run for one of Apple's documented reasons. Per Apple, the host retries automatically. Apple doesn’t specify when the retries happen, or whether they depend on clearing _all_ blocking reasons or just one.\n* Acknowledged: the host responded with \"Acknowledged\" status via the MDM protocol: the host processed the command successfully.\n* Error: the host responded with \"Error\" status via the MDM protocol: an error occurred. Run the `fleetctl get mdm-command-results --id=<insert-command-id` to view the error.\n* CommandFormatError: the host responded with \"CommandFormatError\" status via the MDM protocol: a protocol error occurred, which can result from a malformed command. Run the `fleetctl get mdm-command-results --id=<insert-command-id` to view the error.\n\nThe possible `status` values for Windows hosts are listed in Microsoft's OMA DM documentation."
+      "description": "> `GET /api/v1/fleet/mdm/apple/commandresults` API endpoint is deprecated as of Fleet 4.40. It is maintained for backward compatibility. Please use the new API endpoint below. Archived documentation is available for the deprecated endpoint.\n\nThis endpoint returns the results for a specific custom MDM command.\n\nIn the response, the possible `status` values for macOS, iOS, and iPadOS hosts are the following:\n\n* Pending: the command has yet to run on the host. The host will run the command the next time it comes online.\n* NotNow: the host acknowledged the MDM command but couldn’t run for one of Apple's documented reasons. Per Apple, the host retries automatically. Apple doesn’t specify when the retries happen, or whether they depend on clearing _all_ blocking reasons or just one.\n* Acknowledged: the host responded with \"Acknowledged\" status via the MDM protocol: the host processed the command successfully.\n* Error: the host responded with \"Error\" status via the MDM protocol: an error occurred. Run the `fleetctl get mdm-command-results --id=<insert-command-id` to view the error.\n* CommandFormatError: the host responded with \"CommandFormatError\" status via the MDM protocol: a protocol error occurred, which can result from a malformed command. Run the `fleetctl get mdm-command-results --id=<insert-command-id` to view the error.\n\nThe possible `status` values for Windows hosts are listed in Microsoft's OMA DM documentation."
      },
      "response": [
       {
@@ -7282,7 +7281,7 @@
        "_postman_previewlanguage": "json",
        "header": [],
        "cookie": [],
-       "body": "\"ab_tokens\": [\n  {\n    \"id\": 1,\n    \"apple_id\": \"apple@example.com\",\n    \"org_name\": \"Fleet Device Management Inc.\",\n    \"mdm_server_url\": \"https://example.com/mdm/apple/mdm\",\n    \"renew_date\": \"2023-11-29T00:00:00Z\",\n    \"terms_expired\": false,\n    \"macos_team\": {\n      \"name\": \"💻 Workstations\",\n      \"id\": 1\n    },\n    \"macos_fleet\": {\n      \"name\": \"💻 Workstations\",\n      \"id\": 1\n    },\n    \"ios_team\": {\n      \"name\": \"📱🏢 Company-owned iPhones\",\n      \"id\": 2\n    },\n    \"ios_fleet\": {\n      \"name\": \"📱🏢 Company-owned iPhones\",\n      \"id\": 2\n    },\n    \"ipados_team\": {\n      \"name\": \"🔳🏢 Company-owned iPads\",\n      \"id\": 3\n    },\n    \"ipados_fleet\": {\n      \"name\": \"🔳🏢 Company-owned iPads\",\n      \"id\": 3\n    }\n  }\n],\n\"abm_tokens\": [\n  {\n    \"id\": 1,\n    \"apple_id\": \"apple@example.com\",\n    \"org_name\": \"Fleet Device Management Inc.\",\n    \"mdm_server_url\": \"https://example.com/mdm/apple/mdm\",\n    \"renew_date\": \"2023-11-29T00:00:00Z\",\n    \"terms_expired\": false,\n    \"macos_team\": {\n      \"name\": \"💻 Workstations\",\n      \"id\": 1\n    },\n    \"macos_fleet\": {\n      \"name\": \"💻 Workstations\",\n      \"id\": 1\n    },\n    \"ios_team\": {\n      \"name\": \"📱🏢 Company-owned iPhones\",\n      \"id\": 2\n    },\n    \"ios_fleet\": {\n      \"name\": \"📱🏢 Company-owned iPhones\",\n      \"id\": 2\n    },\n    \"ipados_team\": {\n      \"name\": \"🔳🏢 Company-owned iPads\",\n      \"id\": 3\n    },\n    \"ipados_fleet\": {\n      \"name\": \"🔳🏢 Company-owned iPads\",\n      \"id\": 3\n    }\n  }\n]"
+       "body": "\"ab_tokens\": [\n  {\n    \"id\": 1,\n    \"apple_id\": \"apple@example.com\",\n    \"org_name\": \"Fleet Device Management Inc.\",\n    \"mdm_server_url\": \"https://example.com/mdm/apple/mdm\",\n    \"renew_date\": \"2023-11-29T00:00:00Z\",\n    \"terms_expired\": false,\n    \"macos_fleet\": {\n      \"name\": \"💻 Workstations\",\n      \"id\": 1\n    },\n    \"ios_fleet\": {\n      \"name\": \"📱🏢 Company-owned iPhones\",\n      \"id\": 2\n    },\n    \"ipados_fleet\": {\n      \"name\": \"🔳🏢 Company-owned iPads\",\n      \"id\": 3\n    }\n  }\n],\n\"abm_tokens\": [\n  {\n    \"id\": 1,\n    \"apple_id\": \"apple@example.com\",\n    \"org_name\": \"Fleet Device Management Inc.\",\n    \"mdm_server_url\": \"https://example.com/mdm/apple/mdm\",\n    \"renew_date\": \"2023-11-29T00:00:00Z\",\n    \"terms_expired\": false,\n    \"macos_team\": {\n      \"name\": \"💻 Workstations\",\n      \"id\": 1\n    },\n    \"macos_fleet\": {\n      \"name\": \"💻 Workstations\",\n      \"id\": 1\n    },\n    \"ios_team\": {\n      \"name\": \"📱🏢 Company-owned iPhones\",\n      \"id\": 2\n    },\n    \"ios_fleet\": {\n      \"name\": \"📱🏢 Company-owned iPhones\",\n      \"id\": 2\n    },\n    \"ipados_team\": {\n      \"name\": \"🔳🏢 Company-owned iPads\",\n      \"id\": 3\n    },\n    \"ipados_fleet\": {\n      \"name\": \"🔳🏢 Company-owned iPads\",\n      \"id\": 3\n    },\n    \"byod_team\": {\n      \"name\": \"📱 BYOD iPhones\",\n      \"id\": 4\n    },\n    \"byod_fleet\": {\n      \"name\": \"📱 BYOD iPhones\",\n      \"id\": 4\n    }\n  }\n]"
       }
      ]
     },
@@ -7325,45 +7324,6 @@
      ]
     },
     {
-     "name": "Get identity provider (IdP) details",
-     "request": {
-      "method": "GET",
-      "header": [],
-      "url": {
-       "raw": "{{baseUrl}}/api/v1/fleet/scim/details",
-       "host": [
-        "{{baseUrl}}"
-       ],
-       "path": [
-        "api",
-        "v1",
-        "fleet",
-        "scim",
-        "details"
-       ]
-      },
-      "description": "Get details about the most recent SCIM (System for Cross-domain Identity Management) request from your identity provider (IdP).\n\n\n\nNone."
-     },
-     "response": [
-      {
-       "name": "Default response (200)",
-       "originalRequest": {
-        "method": "GET",
-        "header": [],
-        "url": {
-         "raw": "{{baseUrl}}/api/v1/fleet/scim/details"
-        }
-       },
-       "status": "OK",
-       "code": 200,
-       "_postman_previewlanguage": "json",
-       "header": [],
-       "cookie": [],
-       "body": "{\n  \"last_request\": {\n    \"requested_at\": \"2025-03-11T02:02:17Z\",\n    \"status\": \"success\",\n    \"details\": \"\",\n  }\n}"
-      }
-     ]
-    },
-    {
      "name": "Get Android Enterprise",
      "request": {
       "method": "GET",
@@ -7380,7 +7340,7 @@
         "android_enterprise"
        ]
       },
-      "description": "> **Experimental feature.** This feature is undergoing rapid improvement, which may result in breaking changes to the API or configuration surface. It is not recommended for use in automated workflows.\n\nGet info about Android Enterprise that's connected to Fleet.\n\n\n\nNone."
+      "description": "Get info about Android Enterprise that's connected to Fleet.\n\n\n\nNone."
      },
      "response": [
       {
@@ -7398,6 +7358,843 @@
        "header": [],
        "cookie": [],
        "body": "{\n  \"android_enterprise_id\": \"LC0445szuv\"\n}"
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "SCIM",
+   "item": [
+    {
+     "name": "List SCIM users",
+     "request": {
+      "method": "GET",
+      "header": [],
+      "url": {
+       "raw": "{{baseUrl}}/api/v1/fleet/scim/Users",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "v1",
+        "fleet",
+        "scim",
+        "Users"
+       ],
+       "query": [
+        {
+         "key": "startIndex",
+         "value": "{{startIndex}}",
+         "description": "1-based index of the first result to return. Defaults to 1.",
+         "disabled": true
+        },
+        {
+         "key": "count",
+         "value": "{{count}}",
+         "description": "Number of results per page. Maximum 100. Defaults to 100.",
+         "disabled": true
+        },
+        {
+         "key": "filter",
+         "value": "{{filter}}",
+         "description": "SCIM filter expression. Only `userName eq \"<value>\"` and `emails[type eq \"<type>\"].value eq \"<value>\"` are supported.",
+         "disabled": true
+        }
+       ]
+      },
+      "description": "_Available in Fleet Premium_"
+     },
+     "response": [
+      {
+       "name": "Default response (200)",
+       "originalRequest": {
+        "method": "GET",
+        "header": [],
+        "url": {
+         "raw": "{{baseUrl}}/api/v1/fleet/scim/Users"
+        }
+       },
+       "status": "OK",
+       "code": 200,
+       "_postman_previewlanguage": "json",
+       "header": [],
+       "cookie": [],
+       "body": "{\n  \"schemas\": [\"urn:ietf:params:scim:api:messages:2.0:ListResponse\"],\n  \"totalResults\": 1,\n  \"startIndex\": 1,\n  \"itemsPerPage\": 100,\n  \"Resources\": [\n    {\n      \"schemas\": [\"urn:ietf:params:scim:schemas:core:2.0:User\"],\n      \"id\": \"1\",\n      \"externalId\": \"ext-123\",\n      \"userName\": \"user@example.com\",\n      \"name\": {\n        \"givenName\": \"Jane\",\n        \"familyName\": \"Doe\"\n      },\n      \"emails\": [\n        {\n          \"value\": \"user@example.com\",\n          \"type\": \"work\",\n          \"primary\": true\n        }\n      ],\n      \"active\": true,\n      \"groups\": [],\n      \"meta\": {\n        \"resourceType\": \"User\"\n      }\n    }\n  ]\n}"
+      }
+     ]
+    },
+    {
+     "name": "Create SCIM user",
+     "request": {
+      "method": "POST",
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json",
+        "type": "text"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/v1/fleet/scim/Users",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "v1",
+        "fleet",
+        "scim",
+        "Users"
+       ]
+      },
+      "description": "_Available in Fleet Premium_",
+      "body": {
+       "mode": "raw",
+       "raw": "{\n  \"schemas\": [\"urn:ietf:params:scim:schemas:core:2.0:User\"],\n  \"userName\": \"user@example.com\",\n  \"externalId\": \"ext-123\",\n  \"name\": {\n    \"givenName\": \"Jane\",\n    \"familyName\": \"Doe\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"user@example.com\",\n      \"type\": \"work\",\n      \"primary\": true\n    }\n  ],\n  \"active\": true\n}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": [
+      {
+       "name": "Default response (201)",
+       "originalRequest": {
+        "method": "POST",
+        "header": [],
+        "url": {
+         "raw": "{{baseUrl}}/api/v1/fleet/scim/Users"
+        }
+       },
+       "status": "",
+       "code": 201,
+       "_postman_previewlanguage": "json",
+       "header": [],
+       "cookie": [],
+       "body": "{\n  \"schemas\": [\"urn:ietf:params:scim:schemas:core:2.0:User\"],\n  \"id\": \"1\",\n  \"externalId\": \"ext-123\",\n  \"userName\": \"user@example.com\",\n  \"name\": {\n    \"givenName\": \"Jane\",\n    \"familyName\": \"Doe\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"user@example.com\",\n      \"type\": \"work\",\n      \"primary\": true\n    }\n  ],\n  \"active\": true,\n  \"groups\": [],\n  \"meta\": {\n    \"resourceType\": \"User\"\n  }\n}"
+      }
+     ]
+    },
+    {
+     "name": "Get SCIM user",
+     "request": {
+      "method": "GET",
+      "header": [],
+      "url": {
+       "raw": "{{baseUrl}}/api/v1/fleet/scim/Users/:id",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "v1",
+        "fleet",
+        "scim",
+        "Users",
+        ":id"
+       ],
+       "variable": [
+        {
+         "key": "id",
+         "value": "",
+         "description": "**Required**. The user's ID."
+        }
+       ]
+      },
+      "description": "_Available in Fleet Premium_"
+     },
+     "response": [
+      {
+       "name": "Default response (200)",
+       "originalRequest": {
+        "method": "GET",
+        "header": [],
+        "url": {
+         "raw": "{{baseUrl}}/api/v1/fleet/scim/Users/:id"
+        }
+       },
+       "status": "OK",
+       "code": 200,
+       "_postman_previewlanguage": "json",
+       "header": [],
+       "cookie": [],
+       "body": "{\n  \"schemas\": [\"urn:ietf:params:scim:schemas:core:2.0:User\"],\n  \"id\": \"1\",\n  \"externalId\": \"ext-123\",\n  \"userName\": \"user@example.com\",\n  \"name\": {\n    \"givenName\": \"Jane\",\n    \"familyName\": \"Doe\"\n  },\n  \"emails\": [\n    {\n      \"value\": \"user@example.com\",\n      \"type\": \"work\",\n      \"primary\": true\n    }\n  ],\n  \"active\": true,\n  \"groups\": [\n    {\n      \"value\": \"group-1\",\n      \"$ref\": \"Groups/group-1\",\n      \"display\": \"Engineering\"\n    }\n  ],\n  \"meta\": {\n    \"resourceType\": \"User\"\n  }\n}"
+      }
+     ]
+    },
+    {
+     "name": "Replace SCIM user",
+     "request": {
+      "method": "PUT",
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json",
+        "type": "text"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/v1/fleet/scim/Users/:id",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "v1",
+        "fleet",
+        "scim",
+        "Users",
+        ":id"
+       ],
+       "variable": [
+        {
+         "key": "id",
+         "value": "",
+         "description": "**Required**. The user's ID."
+        }
+       ]
+      },
+      "description": "_Available in Fleet Premium_\n\nReplaces all attributes of an existing user. Any attributes not included in the request body are cleared.",
+      "body": {
+       "mode": "raw",
+       "raw": "{\n  \"schemas\": [\"urn:ietf:params:scim:schemas:core:2.0:User\"],\n  \"userName\": \"user@example.com\",\n  \"name\": {\n    \"givenName\": \"Jane\",\n    \"familyName\": \"Smith\"\n  },\n  \"active\": true\n}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": [
+      {
+       "name": "Default response (200)",
+       "originalRequest": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+         "raw": "{{baseUrl}}/api/v1/fleet/scim/Users/:id"
+        }
+       },
+       "status": "OK",
+       "code": 200,
+       "_postman_previewlanguage": "json",
+       "header": [],
+       "cookie": [],
+       "body": "{\n  \"schemas\": [\"urn:ietf:params:scim:schemas:core:2.0:User\"],\n  \"id\": \"1\",\n  \"userName\": \"user@example.com\",\n  \"name\": {\n    \"givenName\": \"Jane\",\n    \"familyName\": \"Smith\"\n  },\n  \"active\": true,\n  \"groups\": [],\n  \"meta\": {\n    \"resourceType\": \"User\"\n  }\n}"
+      }
+     ]
+    },
+    {
+     "name": "Update SCIM user",
+     "request": {
+      "method": "PATCH",
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json",
+        "type": "text"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/v1/fleet/scim/Users/:id",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "v1",
+        "fleet",
+        "scim",
+        "Users",
+        ":id"
+       ],
+       "variable": [
+        {
+         "key": "id",
+         "value": "",
+         "description": "**Required**. The user's ID."
+        }
+       ]
+      },
+      "description": "_Available in Fleet Premium_\n\nPartially updates a user using SCIM patch operations. Supports `add`, `replace`, and `remove` operations on `userName`, `externalId`, `active`, `name.givenName`, `name.familyName`, `emails`, and `urn:ietf:params:scim:schemas:extension:enterprise:2.0:User:department`.",
+      "body": {
+       "mode": "raw",
+       "raw": "{\n  \"schemas\": [\"urn:ietf:params:scim:api:messages:2.0:PatchOp\"],\n  \"Operations\": [\n    {\n      \"op\": \"replace\",\n      \"path\": \"active\",\n      \"value\": false\n    }\n  ]\n}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": [
+      {
+       "name": "Default response (200)",
+       "originalRequest": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+         "raw": "{{baseUrl}}/api/v1/fleet/scim/Users/:id"
+        }
+       },
+       "status": "OK",
+       "code": 200,
+       "_postman_previewlanguage": "json",
+       "header": [],
+       "cookie": [],
+       "body": "{\n  \"schemas\": [\"urn:ietf:params:scim:schemas:core:2.0:User\"],\n  \"id\": \"1\",\n  \"userName\": \"user@example.com\",\n  \"name\": {\n    \"givenName\": \"Jane\",\n    \"familyName\": \"Doe\"\n  },\n  \"active\": false,\n  \"groups\": [],\n  \"meta\": {\n    \"resourceType\": \"User\"\n  }\n}"
+      }
+     ]
+    },
+    {
+     "name": "Delete SCIM user",
+     "request": {
+      "method": "DELETE",
+      "header": [],
+      "url": {
+       "raw": "{{baseUrl}}/api/v1/fleet/scim/Users/:id",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "v1",
+        "fleet",
+        "scim",
+        "Users",
+        ":id"
+       ],
+       "variable": [
+        {
+         "key": "id",
+         "value": "",
+         "description": "**Required**. The user's ID."
+        }
+       ]
+      },
+      "description": "_Available in Fleet Premium_"
+     },
+     "response": [
+      {
+       "name": "Default response (204)",
+       "originalRequest": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+         "raw": "{{baseUrl}}/api/v1/fleet/scim/Users/:id"
+        }
+       },
+       "status": "",
+       "code": 204,
+       "_postman_previewlanguage": "json",
+       "header": [],
+       "cookie": [],
+       "body": ""
+      }
+     ]
+    },
+    {
+     "name": "List SCIM groups",
+     "request": {
+      "method": "GET",
+      "header": [],
+      "url": {
+       "raw": "{{baseUrl}}/api/v1/fleet/scim/Groups",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "v1",
+        "fleet",
+        "scim",
+        "Groups"
+       ],
+       "query": [
+        {
+         "key": "startIndex",
+         "value": "{{startIndex}}",
+         "description": "1-based index of the first result to return. Defaults to 1.",
+         "disabled": true
+        },
+        {
+         "key": "count",
+         "value": "{{count}}",
+         "description": "Number of results per page. Maximum 100. Defaults to 100.",
+         "disabled": true
+        },
+        {
+         "key": "filter",
+         "value": "{{filter}}",
+         "description": "SCIM filter expression. Only `displayName eq \"<value>\"` is supported.",
+         "disabled": true
+        },
+        {
+         "key": "excludedAttributes",
+         "value": "{{excludedAttributes}}",
+         "description": "Comma-separated list of attributes to exclude. Use `members` to omit group member lists.",
+         "disabled": true
+        }
+       ]
+      },
+      "description": "_Available in Fleet Premium_"
+     },
+     "response": [
+      {
+       "name": "Default response (200)",
+       "originalRequest": {
+        "method": "GET",
+        "header": [],
+        "url": {
+         "raw": "{{baseUrl}}/api/v1/fleet/scim/Groups"
+        }
+       },
+       "status": "OK",
+       "code": 200,
+       "_postman_previewlanguage": "json",
+       "header": [],
+       "cookie": [],
+       "body": "{\n  \"schemas\": [\"urn:ietf:params:scim:api:messages:2.0:ListResponse\"],\n  \"totalResults\": 1,\n  \"startIndex\": 1,\n  \"itemsPerPage\": 100,\n  \"Resources\": [\n    {\n      \"schemas\": [\"urn:ietf:params:scim:schemas:core:2.0:Group\"],\n      \"id\": \"group-1\",\n      \"externalId\": \"ext-group-123\",\n      \"displayName\": \"Engineering\",\n      \"members\": [\n        {\n          \"value\": \"1\",\n          \"type\": \"User\"\n        }\n      ],\n      \"meta\": {\n        \"resourceType\": \"Group\"\n      }\n    }\n  ]\n}"
+      }
+     ]
+    },
+    {
+     "name": "Create SCIM group",
+     "request": {
+      "method": "POST",
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json",
+        "type": "text"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/v1/fleet/scim/Groups",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "v1",
+        "fleet",
+        "scim",
+        "Groups"
+       ]
+      },
+      "description": "_Available in Fleet Premium_",
+      "body": {
+       "mode": "raw",
+       "raw": "{\n  \"schemas\": [\"urn:ietf:params:scim:schemas:core:2.0:Group\"],\n  \"displayName\": \"Engineering\",\n  \"members\": [\n    {\n      \"value\": \"1\"\n    }\n  ]\n}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": [
+      {
+       "name": "Default response (201)",
+       "originalRequest": {
+        "method": "POST",
+        "header": [],
+        "url": {
+         "raw": "{{baseUrl}}/api/v1/fleet/scim/Groups"
+        }
+       },
+       "status": "",
+       "code": 201,
+       "_postman_previewlanguage": "json",
+       "header": [],
+       "cookie": [],
+       "body": "{\n  \"schemas\": [\"urn:ietf:params:scim:schemas:core:2.0:Group\"],\n  \"id\": \"group-1\",\n  \"displayName\": \"Engineering\",\n  \"members\": [\n    {\n      \"value\": \"1\",\n      \"type\": \"User\"\n    }\n  ],\n  \"meta\": {\n    \"resourceType\": \"Group\"\n  }\n}"
+      }
+     ]
+    },
+    {
+     "name": "Get SCIM group",
+     "request": {
+      "method": "GET",
+      "header": [],
+      "url": {
+       "raw": "{{baseUrl}}/api/v1/fleet/scim/Groups/:id",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "v1",
+        "fleet",
+        "scim",
+        "Groups",
+        ":id"
+       ],
+       "variable": [
+        {
+         "key": "id",
+         "value": "",
+         "description": "**Required**. The group's ID (format: `group-<number>`)."
+        }
+       ],
+       "query": [
+        {
+         "key": "excludedAttributes",
+         "value": "{{excludedAttributes}}",
+         "description": "Comma-separated list of attributes to exclude. Use `members` to omit the member list.",
+         "disabled": true
+        }
+       ]
+      },
+      "description": "_Available in Fleet Premium_"
+     },
+     "response": [
+      {
+       "name": "Default response (200)",
+       "originalRequest": {
+        "method": "GET",
+        "header": [],
+        "url": {
+         "raw": "{{baseUrl}}/api/v1/fleet/scim/Groups/:id"
+        }
+       },
+       "status": "OK",
+       "code": 200,
+       "_postman_previewlanguage": "json",
+       "header": [],
+       "cookie": [],
+       "body": "{\n  \"schemas\": [\"urn:ietf:params:scim:schemas:core:2.0:Group\"],\n  \"id\": \"group-1\",\n  \"externalId\": \"ext-group-123\",\n  \"displayName\": \"Engineering\",\n  \"members\": [\n    {\n      \"value\": \"1\",\n      \"type\": \"User\"\n    }\n  ],\n  \"meta\": {\n    \"resourceType\": \"Group\"\n  }\n}"
+      }
+     ]
+    },
+    {
+     "name": "Replace SCIM group",
+     "request": {
+      "method": "PUT",
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json",
+        "type": "text"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/v1/fleet/scim/Groups/:id",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "v1",
+        "fleet",
+        "scim",
+        "Groups",
+        ":id"
+       ],
+       "variable": [
+        {
+         "key": "id",
+         "value": "",
+         "description": "**Required**. The group's ID (format: `group-<number>`)."
+        }
+       ]
+      },
+      "description": "_Available in Fleet Premium_\n\nReplaces all attributes of an existing group. Any attributes not included in the request body are cleared.",
+      "body": {
+       "mode": "raw",
+       "raw": "{\n  \"schemas\": [\"urn:ietf:params:scim:schemas:core:2.0:Group\"],\n  \"displayName\": \"Engineering\",\n  \"members\": [\n    {\n      \"value\": \"1\"\n    },\n    {\n      \"value\": \"2\"\n    }\n  ]\n}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": [
+      {
+       "name": "Default response (200)",
+       "originalRequest": {
+        "method": "PUT",
+        "header": [],
+        "url": {
+         "raw": "{{baseUrl}}/api/v1/fleet/scim/Groups/:id"
+        }
+       },
+       "status": "OK",
+       "code": 200,
+       "_postman_previewlanguage": "json",
+       "header": [],
+       "cookie": [],
+       "body": "{\n  \"schemas\": [\"urn:ietf:params:scim:schemas:core:2.0:Group\"],\n  \"id\": \"group-1\",\n  \"displayName\": \"Engineering\",\n  \"members\": [\n    {\n      \"value\": \"1\",\n      \"type\": \"User\"\n    },\n    {\n      \"value\": \"2\",\n      \"type\": \"User\"\n    }\n  ],\n  \"meta\": {\n    \"resourceType\": \"Group\"\n  }\n}"
+      }
+     ]
+    },
+    {
+     "name": "Update SCIM group",
+     "request": {
+      "method": "PATCH",
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json",
+        "type": "text"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/v1/fleet/scim/Groups/:id",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "v1",
+        "fleet",
+        "scim",
+        "Groups",
+        ":id"
+       ],
+       "variable": [
+        {
+         "key": "id",
+         "value": "",
+         "description": "**Required**. The group's ID (format: `group-<number>`)."
+        }
+       ]
+      },
+      "description": "_Available in Fleet Premium_\n\nPartially updates a group using SCIM patch operations. Supports `add`, `replace`, and `remove` operations on `displayName`, `externalId`, and `members`.",
+      "body": {
+       "mode": "raw",
+       "raw": "{\n  \"schemas\": [\"urn:ietf:params:scim:api:messages:2.0:PatchOp\"],\n  \"Operations\": [\n    {\n      \"op\": \"add\",\n      \"path\": \"members\",\n      \"value\": [\n        {\n          \"value\": \"3\"\n        }\n      ]\n    }\n  ]\n}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": [
+      {
+       "name": "Default response (200)",
+       "originalRequest": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+         "raw": "{{baseUrl}}/api/v1/fleet/scim/Groups/:id"
+        }
+       },
+       "status": "OK",
+       "code": 200,
+       "_postman_previewlanguage": "json",
+       "header": [],
+       "cookie": [],
+       "body": "{\n  \"schemas\": [\"urn:ietf:params:scim:schemas:core:2.0:Group\"],\n  \"id\": \"group-1\",\n  \"displayName\": \"Engineering\",\n  \"members\": [\n    {\n      \"value\": \"1\",\n      \"type\": \"User\"\n    },\n    {\n      \"value\": \"3\",\n      \"type\": \"User\"\n    }\n  ],\n  \"meta\": {\n    \"resourceType\": \"Group\"\n  }\n}"
+      }
+     ]
+    },
+    {
+     "name": "Delete SCIM group",
+     "request": {
+      "method": "DELETE",
+      "header": [],
+      "url": {
+       "raw": "{{baseUrl}}/api/v1/fleet/scim/Groups/:id",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "v1",
+        "fleet",
+        "scim",
+        "Groups",
+        ":id"
+       ],
+       "variable": [
+        {
+         "key": "id",
+         "value": "",
+         "description": "**Required**. The group's ID (format: `group-<number>`)."
+        }
+       ]
+      },
+      "description": "_Available in Fleet Premium_"
+     },
+     "response": [
+      {
+       "name": "Default response (204)",
+       "originalRequest": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+         "raw": "{{baseUrl}}/api/v1/fleet/scim/Groups/:id"
+        }
+       },
+       "status": "",
+       "code": 204,
+       "_postman_previewlanguage": "json",
+       "header": [],
+       "cookie": [],
+       "body": ""
+      }
+     ]
+    },
+    {
+     "name": "Get SCIM schemas",
+     "request": {
+      "method": "GET",
+      "header": [],
+      "url": {
+       "raw": "{{baseUrl}}/api/v1/fleet/scim/Schemas",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "v1",
+        "fleet",
+        "scim",
+        "Schemas"
+       ]
+      },
+      "description": "_Available in Fleet Premium_\n\nReturns the SCIM schemas supported by Fleet: the core User schema and Group schema.\n\n\nNone."
+     },
+     "response": [
+      {
+       "name": "Default response (200)",
+       "originalRequest": {
+        "method": "GET",
+        "header": [],
+        "url": {
+         "raw": "{{baseUrl}}/api/v1/fleet/scim/Schemas"
+        }
+       },
+       "status": "OK",
+       "code": 200,
+       "_postman_previewlanguage": "json",
+       "header": [],
+       "cookie": [],
+       "body": "{\n  \"schemas\": [\"urn:ietf:params:scim:api:messages:2.0:ListResponse\"],\n  \"totalResults\": 2,\n  \"Resources\": [\n    {\n      \"id\": \"urn:ietf:params:scim:schemas:core:2.0:User\",\n      \"name\": \"User\",\n      \"description\": \"SCIM User\",\n      \"attributes\": [...]\n    },\n    {\n      \"id\": \"urn:ietf:params:scim:schemas:core:2.0:Group\",\n      \"name\": \"Group\",\n      \"description\": \"SCIM Group\",\n      \"attributes\": [...]\n    }\n  ]\n}"
+      }
+     ]
+    },
+    {
+     "name": "Get SCIM service provider config",
+     "request": {
+      "method": "GET",
+      "header": [],
+      "url": {
+       "raw": "{{baseUrl}}/api/v1/fleet/scim/ServiceProviderConfig",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "v1",
+        "fleet",
+        "scim",
+        "ServiceProviderConfig"
+       ]
+      },
+      "description": "_Available in Fleet Premium_\n\nReturns Fleet's SCIM service provider configuration, including supported features.\n\n\nNone."
+     },
+     "response": [
+      {
+       "name": "Default response (200)",
+       "originalRequest": {
+        "method": "GET",
+        "header": [],
+        "url": {
+         "raw": "{{baseUrl}}/api/v1/fleet/scim/ServiceProviderConfig"
+        }
+       },
+       "status": "OK",
+       "code": 200,
+       "_postman_previewlanguage": "json",
+       "header": [],
+       "cookie": [],
+       "body": "{\n  \"schemas\": [\"urn:ietf:params:scim:schemas:core:2.0:ServiceProviderConfig\"],\n  \"documentationUri\": \"https://fleetdm.com/docs/get-started/why-fleet\",\n  \"patch\": {\n    \"supported\": true\n  },\n  \"filter\": {\n    \"supported\": true,\n    \"maxResults\": 100\n  },\n  \"bulk\": {\n    \"supported\": false\n  },\n  \"changePassword\": {\n    \"supported\": false\n  },\n  \"sort\": {\n    \"supported\": false\n  },\n  \"etag\": {\n    \"supported\": false\n  }\n}"
+      }
+     ]
+    },
+    {
+     "name": "Get SCIM resource types",
+     "request": {
+      "method": "GET",
+      "header": [],
+      "url": {
+       "raw": "{{baseUrl}}/api/v1/fleet/scim/ResourceTypes",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "v1",
+        "fleet",
+        "scim",
+        "ResourceTypes"
+       ]
+      },
+      "description": "_Available in Fleet Premium_\n\nReturns the resource types supported by Fleet's SCIM implementation (`User` and `Group`).\n\n\nNone."
+     },
+     "response": [
+      {
+       "name": "Default response (200)",
+       "originalRequest": {
+        "method": "GET",
+        "header": [],
+        "url": {
+         "raw": "{{baseUrl}}/api/v1/fleet/scim/ResourceTypes"
+        }
+       },
+       "status": "OK",
+       "code": 200,
+       "_postman_previewlanguage": "json",
+       "header": [],
+       "cookie": [],
+       "body": "{\n  \"schemas\": [\"urn:ietf:params:scim:api:messages:2.0:ListResponse\"],\n  \"totalResults\": 2,\n  \"Resources\": [\n    {\n      \"id\": \"User\",\n      \"name\": \"User\",\n      \"description\": \"User Account\",\n      \"endpoint\": \"/Users\",\n      \"schema\": \"urn:ietf:params:scim:schemas:core:2.0:User\"\n    },\n    {\n      \"id\": \"Group\",\n      \"name\": \"Group\",\n      \"description\": \"Group\",\n      \"endpoint\": \"/Groups\",\n      \"schema\": \"urn:ietf:params:scim:schemas:core:2.0:Group\"\n    }\n  ]\n}"
+      }
+     ]
+    },
+    {
+     "name": "Get identity provider (IdP) details",
+     "request": {
+      "method": "GET",
+      "header": [],
+      "url": {
+       "raw": "{{baseUrl}}/api/v1/fleet/scim/details",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "v1",
+        "fleet",
+        "scim",
+        "details"
+       ]
+      },
+      "description": "_Available in Fleet Premium_\n\nGet details about the most recent SCIM request from your identity provider (IdP). Useful for diagnosing SCIM integration issues.\n\n\nNone."
+     },
+     "response": [
+      {
+       "name": "Default response (200)",
+       "originalRequest": {
+        "method": "GET",
+        "header": [],
+        "url": {
+         "raw": "{{baseUrl}}/api/v1/fleet/scim/details"
+        }
+       },
+       "status": "OK",
+       "code": 200,
+       "_postman_previewlanguage": "json",
+       "header": [],
+       "cookie": [],
+       "body": "{\n  \"last_request\": {\n    \"requested_at\": \"2025-03-11T02:02:17Z\",\n    \"status\": \"success\",\n    \"details\": \"\"\n  }\n}"
       }
      ]
     }
@@ -7835,7 +8632,7 @@
         }
        ]
       },
-      "description": "_Available in Fleet Premium_\n\n> **Experimental feature**. Software related features (like install software policy automation) are undergoing rapid improvement, which may result in breaking changes to the API or configuration surface. It is not recommended for use in automated workflows.\n\nThe semantics for creating a fleet policy are the same as for global policies, see Create policy.\n\n\n\nEither `query` or `query_id` must be provided.\n\nOnly one of `labels_include_any`, `labels_include_all`, or `labels_exclude_any` can be specified. If none is set, all hosts on the specified `platform` are targeted.",
+      "description": "_Available in Fleet Premium_\n\nThe semantics for creating a fleet policy are the same as for global policies, see Create policy.\n\n\n\nEither `query` or `query_id` must be provided.\n\nOnly one of `labels_include_any`, `labels_include_all`, or `labels_exclude_any` can be specified. If none is set, all hosts on the specified `platform` are targeted.",
       "body": {
        "mode": "raw",
        "raw": "{\n  \"name\": \"Gatekeeper enabled\",\n  \"query\": \"SELECT 1 FROM gatekeeper WHERE assessments_enabled = 1;\",\n  \"description\": \"Checks if gatekeeper is enabled on macOS devices\",\n  \"critical\": true,\n  \"resolution\": \"Resolution steps\",\n  \"platform\": \"darwin\"\n}",
@@ -8066,7 +8863,7 @@
         }
        ]
       },
-      "description": "_Available in Fleet Premium_\n\n> **Experimental feature.** Software related features (like install software policy automation) are undergoing rapid improvement, which may result in breaking changes to the API or configuration surface. It is not recommended for use in automated workflows.\n\n\n\nEither `query` or `query_id` must be provided.\n\nOnly one of `labels_include_any`, `labels_include_all`, or `labels_exclude_any` can be specified. If none is set, all hosts on the specified `platform` are targeted.",
+      "description": "_Available in Fleet Premium_\n\n\n\nEither `query` or `query_id` must be provided.\n\nOnly one of `labels_include_any`, `labels_include_all`, or `labels_exclude_any` can be specified. If none is set, all hosts on the specified `platform` are targeted.",
       "body": {
        "mode": "raw",
        "raw": "{\n  \"name\": \"Gatekeeper enabled\",\n  \"query\": \"SELECT 1 FROM gatekeeper WHERE assessments_enabled = 1;\",\n  \"description\": \"Checks if gatekeeper is enabled on macOS devices\",\n  \"critical\": true,\n  \"resolution\": \"Resolution steps\",\n  \"platform\": \"darwin\",\n  \"script_id\": 1337\n}",
@@ -8804,7 +9601,7 @@
       "description": "> This updated API endpoint replaced `GET /api/v1/fleet/queries/run` in Fleet 4.43.0, for improved compatibility with many HTTP clients. The deprecated endpoint is maintained for backwards compatibility.\n\nRuns a live report against the specified hosts and responds with the results.\n\nThe live report will stop if the request times out. Timeouts happen if targeted hosts haven't responded after the configured `FLEET_LIVE_QUERY_REST_PERIOD` (default 25 seconds) or if the `distributed_interval` agent option (default 10 seconds) is higher than the `FLEET_LIVE_QUERY_REST_PERIOD`.",
       "body": {
        "mode": "raw",
-       "raw": "{\n  \"host_ids\": []\n}",
+       "raw": "{\n  \"host_ids\": [ 1, 4, 34, 27 ]\n}",
        "options": {
         "raw": {
          "language": "json"
@@ -9169,7 +9966,24 @@
        ]
       }
      },
-     "response": []
+     "response": [
+      {
+       "name": "Default response (200)",
+       "originalRequest": {
+        "method": "POST",
+        "header": [],
+        "url": {
+         "raw": "{{baseUrl}}/api/v1/fleet/scripts/batch/:batch_execution_id/cancel"
+        }
+       },
+       "status": "OK",
+       "code": 200,
+       "_postman_previewlanguage": "json",
+       "header": [],
+       "cookie": [],
+       "body": ""
+      }
+     ]
     },
     {
      "name": "Create script",
@@ -9925,7 +10739,7 @@
         {
          "key": "platform",
          "value": "{{platform}}",
-         "description": "Filters the hosts to the specified platform",
+         "description": "Filters the hosts to the specified platform. One of: `\"darwin\"` (macOS), `\"windows\"`, `\"linux\"`, `\"chrome\"`, `\"ios\"`, `\"ipados\"`,` or `\"android\"`.",
          "disabled": true
         },
         {
@@ -10153,7 +10967,7 @@
         "package"
        ]
       },
-      "description": "> **Experimental feature**. This feature is undergoing rapid improvement, which may result in breaking changes to the API or configuration surface. It is not recommended for use in automated workflows.\n\n_Available in Fleet Premium._\n\nAdd a package (.pkg, .msi, .exe, .deb, .rpm, .tar.gz, .ipa) to install on Apple (macOS/iOS/iPadOS), Windows, or Linux hosts. Also supports adding a custom script (.sh, .ps1) to run on Windows or Linux hosts.\n\n> You need to send a request of type `multipart/form-data`.\n\n> This endpoint accepts a maximum request body size of 10GB.\n\n\n\nOnly one of `labels_include_all`, `labels_include_any` or `labels_exclude_any` can be specified. If none are specified, all hosts are targeted.\n\nAdd the `X-Fleet-Scripts-Encoded: base64` header line to parse `install_script`, `uninstall_script`, `post_install_script`, and `pre_install_query` fields as bas64-encoded rather than as-is.",
+      "description": "_Available in Fleet Premium._\n\nAdd a package (.pkg, .msi, .exe, .deb, .rpm, .tar.gz, .ipa) to install on Apple (macOS/iOS/iPadOS), Windows, or Linux hosts. Also supports adding a custom script (.sh, .ps1) to run on Windows or Linux hosts.\n\n> You need to send a request of type `multipart/form-data`.\n\n> This endpoint accepts a maximum request body size of 10GB.\n\n\n\nOnly one of `labels_include_all`, `labels_include_any` or `labels_exclude_any` can be specified. If none are specified, all hosts are targeted.\n\nAdd the `X-Fleet-Scripts-Encoded: base64` header line to parse `install_script`, `uninstall_script`, `post_install_script`, and `pre_install_query` fields as bas64-encoded rather than as-is.",
       "body": {
        "mode": "formdata",
        "formdata": [
@@ -10272,7 +11086,7 @@
         }
        ]
       },
-      "description": "> **Experimental feature**. This feature is undergoing rapid improvement, which may result in breaking changes to the API or configuration surface. It is not recommended for use in automated workflows.\n\n_Available in Fleet Premium._\n\nUpdate a package to install on macOS, Windows, Linux, iOS, or iPadOS hosts.\n\n> You need to send a request of type `multipart/form-data`.\n\n> This endpoint accepts a maximum request body size of 10GB.\n\n\n\nOnly one of `labels_include_all`, `labels_include_any` or `labels_exclude_any` can be specified. If none are specified, all hosts are targeted.\n\n> Changes to the installer package will reset installation counts. Changes to any field other than `self_service` will cancel pending installs for the old package.\n\nAdd the `X-Fleet-Scripts-Encoded: base64` header line to parse `install_script`, `uninstall_script`, `post_install_script`, and `pre_install_query` fields as bas64-encoded rather than as-is.",
+      "description": "_Available in Fleet Premium._\n\nUpdate a package to install on macOS, Windows, Linux, iOS, or iPadOS hosts.\n\n> You need to send a request of type `multipart/form-data`.\n\n> This endpoint accepts a maximum request body size of 10GB.\n\n\n\nOnly one of `labels_include_all`, `labels_include_any` or `labels_exclude_any` can be specified. If none are specified, all hosts are targeted.\n\n> Changes to the installer package will reset installation counts. Changes to any field other than `self_service` will cancel pending installs for the old package.\n\nAdd the `X-Fleet-Scripts-Encoded: base64` header line to parse `install_script`, `uninstall_script`, `post_install_script`, and `pre_install_query` fields as bas64-encoded rather than as-is.",
       "body": {
        "mode": "formdata",
        "formdata": [
@@ -10298,7 +11112,7 @@
          "key": "categories",
          "value": "",
          "type": "text",
-         "description": "Zero or more of the supported categories, used to group self-service software on your end users' **Fleet Desktop > My device** page. Software with no categories will be still be shown under **All**."
+         "description": "Zero or more self-service category names defined on the fleet, used to group self-service software on your end users' **Fleet Desktop > My device** page. Each value must match a category that exists on the fleet. Software with no categories will still be shown under **All**."
         },
         {
          "key": "install_script",
@@ -10399,7 +11213,7 @@
         }
        ]
       },
-      "description": "> **Experimental feature**. This feature is undergoing rapid improvement, which may result in breaking changes to the API or configuration surface. It is not recommended for use in automated workflows.\n\n_Available in Fleet Premium._\n\nIcon will be displayed in Fleet and on **Fleet Desktop > Self-service**. In the UI for the specified team, overriding the default icon built into Fleet, as well as the Apple-sourced icon if the software has an associated VPP app.\n\n> You need to send a request of type `multipart/form-data`.",
+      "description": "_Available in Fleet Premium._\n\nIcon will be displayed in Fleet and on **Fleet Desktop > Self-service**. In the UI for the specified team, overriding the default icon built into Fleet, as well as the Apple-sourced icon if the software has an associated VPP app.\n\n> You need to send a request of type `multipart/form-data`.",
       "body": {
        "mode": "formdata",
        "formdata": [
@@ -10478,7 +11292,7 @@
         }
        ]
       },
-      "description": "> **Experimental feature**. This feature is undergoing rapid improvement, which may result in breaking changes to the API or configuration surface. It is not recommended for use in automated workflows.\n\n_Available in Fleet Premium._\n\nDownload the icon added via Update software icon or icon from the Apple App Store (VPP). **This endpoint requires authentication.**\n\n\n\nThis endpoint will redirect (302) to the Apple-hosted URL of an icon if an icon override isn't set and a VPP app is added for the title on the host's team."
+      "description": "_Available in Fleet Premium._\n\nDownload the icon added via Update software icon or icon from the Apple App Store (VPP). **This endpoint requires authentication.**\n\n\n\nThis endpoint will redirect (302) to the Apple-hosted URL of an icon if an icon override isn't set and a VPP app is added for the title on the host's team."
      },
      "response": [
       {
@@ -10534,7 +11348,7 @@
         }
        ]
       },
-      "description": "> **Experimental feature**. This feature is undergoing rapid improvement, which may result in breaking changes to the API or configuration surface. It is not recommended for use in automated workflows.\n\n_Available in Fleet Premium._\n\nDelete a custom icon added via Update software icon. This will revert to using the software title's built-in icon."
+      "description": "_Available in Fleet Premium._\n\nDelete a custom icon added via Update software icon. This will revert to using the software title's built-in icon."
      },
      "response": [
       {
@@ -10581,7 +11395,7 @@
         }
        ]
       },
-      "description": "> **Experimental feature**. This feature is undergoing rapid improvement, which may result in breaking changes to the API or configuration surface. It is not recommended for use in automated workflows.\n\nReturns the list of Apple App Store (VPP) apps that can be added to the specified fleet. If an app is already added to the fleet, it's excluded from the list."
+      "description": "Returns the list of Apple App Store (VPP) apps that can be added to the specified fleet. If an app is already added to the fleet, it's excluded from the list."
      },
      "response": [
       {
@@ -10626,7 +11440,7 @@
         "app_store_apps"
        ]
       },
-      "description": "> **Experimental feature**. This feature is undergoing rapid improvement, which may result in breaking changes to the API or configuration surface. It is not recommended for use in automated workflows.\n\n_Available in Fleet Premium._\n\nAdd Apple App Store or Google Play store app. Apple apps must be added in Apple Business (AB) before adding them to Fleet.\n\n\n\nOnly one of `labels_include_all`, `labels_include_any` or `labels_exclude_any` can be specified. If none are specified, all hosts are targeted.",
+      "description": "_Available in Fleet Premium._\n\nAdd Apple App Store or Google Play store app. Apple apps must be added in Apple Business (AB) before adding them to Fleet.\n\n\n\nOnly one of `labels_include_all`, `labels_include_any` or `labels_exclude_any` can be specified. If none are specified, all hosts are targeted.",
       "body": {
        "mode": "raw",
        "raw": "{\n  \"app_store_id\": \"497799835\",\n  \"categories\": [\"Productivity\"],\n  \"team_id\": 2,\n  \"platform\": \"ipados\",\n  \"self_service\": true\n}",
@@ -10689,7 +11503,7 @@
         }
        ]
       },
-      "description": "> **Experimental feature**. This feature is undergoing rapid improvement, which may result in breaking changes to the API or configuration surface. It is not recommended for use in automated workflows.\n\n_Available in Fleet Premium._\n\nModify an Apple App Store (VPP) or a Google Play app's options.\n\n\n\n\nOnly one of `labels_include_all`, `labels_include_any` or `labels_exclude_any` can be specified. If none are specified, all hosts are targeted.\n\n`configuration` only supports `managedConfiguration` and `workProfileWidgets` from Android application policy. Configuration keys vary by app. Refer to the app vendor's documentation for available managed configuration options. For example, see Zoom's Android managed configuration or GlobalProtect's Android configuration.",
+      "description": "_Available in Fleet Premium._\n\nModify an Apple App Store (VPP) or a Google Play app's options.\n\n\n\n\nOnly one of `labels_include_all`, `labels_include_any` or `labels_exclude_any` can be specified. If none are specified, all hosts are targeted.\n\n`configuration` only supports `managedConfiguration` and `workProfileWidgets` from Android application policy. Configuration keys vary by app. Refer to the app vendor's documentation for available managed configuration options. For example, see Zoom's Android managed configuration or GlobalProtect's Android configuration.",
       "body": {
        "mode": "raw",
        "raw": "{\n  \"team_id\": 2,\n  \"self_service\": true,\n  \"categories\": [\"Browser\"],\n  \"labels_include_any\": [\n    \"Product\",\n    \"Marketing\"\n  ]\n}",
@@ -10744,20 +11558,50 @@
          "disabled": true
         },
         {
+         "key": "query",
+         "value": "{{query}}",
+         "description": "Search query keywords. Searches app name.",
+         "disabled": true
+        },
+        {
+         "key": "order_key",
+         "value": "{{order_key}}",
+         "description": "What to order results by. Currently only `name` is supported.",
+         "disabled": true
+        },
+        {
+         "key": "order_direction",
+         "value": "{{order_direction}}",
+         "description": "**Requires `order_key`**. The direction of the order. Options are `\"asc\"` and `\"desc\"`. Default is `\"asc\"`.",
+         "disabled": true
+        },
+        {
          "key": "page",
          "value": "{{page}}",
-         "description": "Page number of the results to fetch.",
+         "description": "Page number of the results to fetch. Pagination is by app: an app's macOS and Windows entries are counted as one result and always returned on the same page.",
          "disabled": true
         },
         {
          "key": "per_page",
          "value": "{{per_page}}",
-         "description": "Results per page.",
+         "description": "Results (apps) per page.",
+         "disabled": true
+        },
+        {
+         "key": "platform",
+         "value": "{{platform}}",
+         "description": "Filter to apps available on a platform. Options are `\"darwin\"` (macOS) and `\"windows\"`.",
+         "disabled": true
+        },
+        {
+         "key": "available",
+         "value": "{{available}}",
+         "description": "If `true`, only return apps that have not yet been added to the fleet. Requires `fleet_id`.",
          "disabled": true
         }
        ]
       },
-      "description": "> **Experimental feature**. This feature is undergoing rapid improvement, which may result in breaking changes to the API or configuration surface. It is not recommended for use in automated workflows.\n\nList available Fleet-maintained apps."
+      "description": "List available Fleet-maintained apps."
      },
      "response": [
       {
@@ -10774,7 +11618,7 @@
        "_postman_previewlanguage": "json",
        "header": [],
        "cookie": [],
-       "body": "{\n  \"fleet_maintained_apps\": [\n    {\n      \"id\": 1,\n      \"name\": \"1Password\",\n      \"slug\": \"1password/darwin\",\n      \"platform\": \"darwin\",\n      \"version\": \"8.10.40\",\n      \"software_title_id\": 1\n    },\n    {\n      \"id\": 2,\n      \"name\": \"Adobe Acrobat Reader\",\n      \"slug\": \"adobe-acrobat-reader/darwin\",\n      \"platform\": \"darwin\",\n      \"version\": \"24.002.21005\",\n      \"software_title_id\": null\n    },\n    {\n      \"id\": 3,\n      \"name\": \"Box Drive\",\n      \"slug\": \"box-drive/darwin\",\n      \"platform\": \"darwin\",\n      \"version\": \"2.39.179\",\n      \"software_title_id\": 3\n    },\n    ...\n  ],\n  \"meta\": {\n    \"has_next_results\": false,\n    \"has_previous_results\": false\n  }\n}"
+       "body": "{\n  \"fleet_maintained_apps\": [\n    {\n      \"id\": 1,\n      \"name\": \"1Password\",\n      \"slug\": \"1password/darwin\",\n      \"platform\": \"darwin\",\n      \"version\": \"8.10.40\",\n      \"software_title_id\": 1\n    },\n    {\n      \"id\": 2,\n      \"name\": \"Adobe Acrobat Reader\",\n      \"slug\": \"adobe-acrobat-reader/darwin\",\n      \"platform\": \"darwin\",\n      \"version\": \"24.002.21005\",\n      \"software_title_id\": null\n    },\n    {\n      \"id\": 3,\n      \"name\": \"Box Drive\",\n      \"slug\": \"box-drive/darwin\",\n      \"platform\": \"darwin\",\n      \"version\": \"2.39.179\",\n      \"software_title_id\": 3\n    },\n    ...\n  ],\n  \"count\": 250,\n  \"meta\": {\n    \"has_next_results\": false,\n    \"has_previous_results\": false\n  }\n}"
       }
      ]
     },
@@ -10812,7 +11656,7 @@
         }
        ]
       },
-      "description": "> **Experimental feature**. This feature is undergoing rapid improvement, which may result in breaking changes to the API or configuration surface. It is not recommended for use in automated workflows.\n\nReturns information about the specified Fleet-maintained app."
+      "description": "Returns information about the specified Fleet-maintained app."
      },
      "response": [
       {
@@ -10834,7 +11678,7 @@
      ]
     },
     {
-     "name": "Create Fleet-maintained app",
+     "name": "Add Fleet-maintained app",
      "request": {
       "method": "POST",
       "header": [
@@ -10857,7 +11701,7 @@
         "fleet_maintained_apps"
        ]
       },
-      "description": "> **Experimental feature**. This feature is undergoing rapid improvement, which may result in breaking changes to the API or configuration surface. It is not recommended for use in automated workflows.\n\n_Available in Fleet Premium._\n\nAdd Fleet-maintained app so it's available for install.\n\n\n\nOnly one of `labels_include_all`, `labels_include_any` or `labels_exclude_any` can be specified. If none are specified, all hosts are targeted.\n\nAdd the `X-Fleet-Scripts-Encoded: base64` header line to parse `install_script`, `uninstall_script`, `post_install_script`, and `pre_install_query` fields as bas64-encoded rather than as-is.",
+      "description": "_Available in Fleet Premium._\n\nAdd Fleet-maintained app so it's available for install.\n\n\n\nOnly one of `labels_include_all`, `labels_include_any` or `labels_exclude_any` can be specified. If none are specified, all hosts are targeted.\n\nAdd the `X-Fleet-Scripts-Encoded: base64` header line to parse `install_script`, `uninstall_script`, `post_install_script`, and `pre_install_query` fields as bas64-encoded rather than as-is.",
       "body": {
        "mode": "raw",
        "raw": "{\n  \"fleet_maintained_app_id\": 3,\n  \"team_id\": 2,\n  \"automatic_install\": true\n}",
@@ -10905,7 +11749,7 @@
         "web_apps"
        ]
       },
-      "description": "> **Experimental feature**. This feature is undergoing rapid improvement, which may result in breaking changes to the API or configuration surface. It is not recommended for use in automated workflows.\n\n_Available in Fleet Premium._\n\nCreates web app (web clip). This endpoint returns the application ID that can be used to add an Android app to Fleet.\n\n> You need to send a request of type `multipart/form-data`.",
+      "description": "_Available in Fleet Premium._\n\nCreates web app (web clip). This endpoint returns the application ID that can be used to add an Android app to Fleet.\n\n> You need to send a request of type `multipart/form-data`.",
       "body": {
        "mode": "formdata",
        "formdata": [
@@ -10990,7 +11834,7 @@
         }
        ]
       },
-      "description": "> **Experimental feature**. This feature is undergoing rapid improvement, which may result in breaking changes to the API or configuration surface. It is not recommended for use in automated workflows.\n\n_Available in Fleet Premium._"
+      "description": "_Available in Fleet Premium._"
      },
      "response": [
       {
@@ -11098,7 +11942,7 @@
         }
        ]
       },
-      "description": "> **Experimental feature**. This feature is undergoing rapid improvement, which may result in breaking changes to the API or configuration surface. It is not recommended for use in automated workflows.\n_Available in Fleet Premium._\n\nUninstalls software from a host."
+      "description": "_Available in Fleet Premium._\n\nUninstalls software from a host."
      },
      "response": [
       {
@@ -11146,7 +11990,7 @@
         }
        ]
       },
-      "description": "> **Experimental feature**. This feature is undergoing rapid improvement, which may result in breaking changes to the API or configuration surface. It is not recommended for use in automated workflows.\n\n_Available in Fleet Premium._\n\n\nGet the results of a Fleet-maintained app or custom package install. To get uninstall results, use the List activities and Get script result API endpoints.\n\nTo get the results of an Apple App Store app install, use the List MDM commands and Get MDM command results API endpoints. Fleet uses an MDM command to install Apple App Store apps.\n\n| Name            | Type    | In   | Description                                      |\n| ----            | ------- | ---- | --------------------------------------------     |\n| install_uuid | string | path | **Required**. The software installation UUID.|"
+      "description": "_Available in Fleet Premium._\n\n\nGet the results of a Fleet-maintained app or custom package install. To get uninstall results, use the List activities and Get script result API endpoints.\n\nTo get the results of an Apple App Store app install, use the List MDM commands and Get MDM command results API endpoints. Fleet uses an MDM command to install Apple App Store apps.\n\n| Name            | Type    | In   | Description                                      |\n| ----            | ------- | ---- | --------------------------------------------     |\n| install_uuid | string | path | **Required**. The software installation UUID.|"
      },
      "response": [
       {
@@ -11164,68 +12008,6 @@
        "header": [],
        "cookie": [],
        "body": " {\n   \"install_uuid\": \"b15ce221-e22e-4c6a-afe7-5b3400a017da\",\n   \"software_title\": \"Falcon.app\",\n   \"software_title_id\": 8353,\n   \"software_package\": \"FalconSensor-6.44.pkg\",\n   \"host_id\": 123,\n   \"host_display_name\": \"Marko's MacBook Pro\",\n   \"status\": \"failed_install\",\n   \"output\": \"Installing software...\\nError: The operation can’t be completed because the item “Falcon” is in use.\",\n   \"pre_install_query_output\": \"Query returned result\\nSuccess\",\n   \"post_install_script_output\": \"Running script...\\nExit code: 1 (Failed)\\nRolling back software install...\\nSuccess\"\n }"
-      }
-     ]
-    },
-    {
-     "name": "Download package",
-     "request": {
-      "method": "GET",
-      "header": [],
-      "url": {
-       "raw": "{{baseUrl}}/api/v1/fleet/software/titles/:software_title_id/package",
-       "host": [
-        "{{baseUrl}}"
-       ],
-       "path": [
-        "api",
-        "v1",
-        "fleet",
-        "software",
-        "titles",
-        ":software_title_id",
-        "package"
-       ],
-       "variable": [
-        {
-         "key": "software_title_id",
-         "value": "",
-         "description": "**Required**. The ID of the software title to download software package."
-        }
-       ],
-       "query": [
-        {
-         "key": "fleet_id",
-         "value": "{{fleet_id}}",
-         "description": "**Required**. The fleet ID. Downloads a software package added to the specified fleet.",
-         "disabled": true
-        },
-        {
-         "key": "alt",
-         "value": "{{alt}}",
-         "description": "**Required**. If specified and set to \"media\", downloads the specified software package.",
-         "disabled": true
-        }
-       ]
-      },
-      "description": "> **Experimental feature**. This feature is undergoing rapid improvement, which may result in breaking changes to the API or configuration surface. It is not recommended for use in automated workflows.\n\n_Available in Fleet Premium._"
-     },
-     "response": [
-      {
-       "name": "Default response (200)",
-       "originalRequest": {
-        "method": "GET",
-        "header": [],
-        "url": {
-         "raw": "{{baseUrl}}/api/v1/fleet/software/titles/:software_title_id/package"
-        }
-       },
-       "status": "OK",
-       "code": 200,
-       "_postman_previewlanguage": "json",
-       "header": [],
-       "cookie": [],
-       "body": "Status: 200\nContent-Type: application/octet-stream\nContent-Disposition: attachment\nContent-Length: <length>\nBody: <blob>"
       }
      ]
     },
@@ -11264,7 +12046,7 @@
         }
        ]
       },
-      "description": "> **Experimental feature**. This feature is undergoing rapid improvement, which may result in breaking changes to the API or configuration surface. It is not recommended for use in automated workflows.\n\n_Available in Fleet Premium._\n\nDeletes software that's available for install. This won't uninstall the software from hosts."
+      "description": "_Available in Fleet Premium._\n\nDeletes software that's available for install. This won't uninstall the software from hosts."
      },
      "response": [
       {
@@ -11274,6 +12056,221 @@
         "header": [],
         "url": {
          "raw": "{{baseUrl}}/api/v1/fleet/software/titles/:software_title_id/available_for_install"
+        }
+       },
+       "status": "",
+       "code": 204,
+       "_postman_previewlanguage": "json",
+       "header": [],
+       "cookie": [],
+       "body": ""
+      }
+     ]
+    }
+   ]
+  },
+  {
+   "name": "Self-service categories",
+   "item": [
+    {
+     "name": "List self-service categories",
+     "request": {
+      "method": "GET",
+      "header": [],
+      "url": {
+       "raw": "{{baseUrl}}/api/v1/fleet/software/self_service_categories",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "v1",
+        "fleet",
+        "software",
+        "self_service_categories"
+       ],
+       "query": [
+        {
+         "key": "fleet_id",
+         "value": "{{fleet_id}}",
+         "description": "**Required**. The fleet ID. Use `0` to list categories for \"Unassigned\" hosts.",
+         "disabled": true
+        }
+       ]
+      },
+      "description": "Lists all self-service categories on the specified fleet."
+     },
+     "response": [
+      {
+       "name": "Default response (200)",
+       "originalRequest": {
+        "method": "GET",
+        "header": [],
+        "url": {
+         "raw": "{{baseUrl}}/api/v1/fleet/software/self_service_categories"
+        }
+       },
+       "status": "OK",
+       "code": 200,
+       "_postman_previewlanguage": "json",
+       "header": [],
+       "cookie": [],
+       "body": "{\n  \"self_service_categories\": [\n    {\n      \"id\": 12,\n      \"name\": \"🌎 Browsers\",\n      \"fleet_id\": 3,\n      \"created_at\": \"2026-05-01T14:22:58Z\",\n      \"updated_at\": \"2026-05-01T14:22:58Z\"\n    },\n    {\n      \"id\": 13,\n      \"name\": \"🧰 Developer tools\",\n      \"fleet_id\": 3,\n      \"created_at\": \"2026-05-01T14:22:58Z\",\n      \"updated_at\": \"2026-05-01T14:22:58Z\"\n    }\n  ]\n}"
+      }
+     ]
+    },
+    {
+     "name": "Add self-service category",
+     "request": {
+      "method": "POST",
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json",
+        "type": "text"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/v1/fleet/software/self_service_categories",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "v1",
+        "fleet",
+        "software",
+        "self_service_categories"
+       ]
+      },
+      "description": "Creates a new self-service category on the specified fleet. Only global and fleet admins and maintainers can call this endpoint.",
+      "body": {
+       "mode": "raw",
+       "raw": "{\n  \"fleet_id\": 3,\n  \"name\": \"💼 Engineering\"\n}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": [
+      {
+       "name": "Default response (200)",
+       "originalRequest": {
+        "method": "POST",
+        "header": [],
+        "url": {
+         "raw": "{{baseUrl}}/api/v1/fleet/software/self_service_categories"
+        }
+       },
+       "status": "OK",
+       "code": 200,
+       "_postman_previewlanguage": "json",
+       "header": [],
+       "cookie": [],
+       "body": "{\n  \"self_service_category\": {\n    \"id\": 42,\n    \"name\": \"💼 Engineering\",\n    \"fleet_id\": 3,\n    \"created_at\": \"2026-05-12T18:45:00Z\",\n    \"updated_at\": \"2026-05-12T18:45:00Z\"\n  }\n}"
+      }
+     ]
+    },
+    {
+     "name": "Update self-service category",
+     "request": {
+      "method": "PATCH",
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json",
+        "type": "text"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/api/v1/fleet/software/self_service_categories/:id",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "v1",
+        "fleet",
+        "software",
+        "self_service_categories",
+        ":id"
+       ],
+       "variable": [
+        {
+         "key": "id",
+         "value": "",
+         "description": "**Required**. The self-service category ID."
+        }
+       ]
+      },
+      "description": "Renames an existing self-service category. Only global and fleet admins and maintainers can call this endpoint.",
+      "body": {
+       "mode": "raw",
+       "raw": "{\n  \"name\": \"💼 Engineering tools\"\n}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": [
+      {
+       "name": "Default response (200)",
+       "originalRequest": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+         "raw": "{{baseUrl}}/api/v1/fleet/software/self_service_categories/:id"
+        }
+       },
+       "status": "OK",
+       "code": 200,
+       "_postman_previewlanguage": "json",
+       "header": [],
+       "cookie": [],
+       "body": "{\n  \"self_service_category\": {\n    \"id\": 42,\n    \"name\": \"💼 Engineering tools\",\n    \"fleet_id\": 3,\n    \"created_at\": \"2026-05-12T18:45:00Z\",\n    \"updated_at\": \"2026-05-12T19:01:00Z\"\n  }\n}"
+      }
+     ]
+    },
+    {
+     "name": "Delete self-service category",
+     "request": {
+      "method": "DELETE",
+      "header": [],
+      "url": {
+       "raw": "{{baseUrl}}/api/v1/fleet/software/self_service_categories/:id",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "api",
+        "v1",
+        "fleet",
+        "software",
+        "self_service_categories",
+        ":id"
+       ],
+       "variable": [
+        {
+         "key": "id",
+         "value": "",
+         "description": "**Required**. The self-service category ID."
+        }
+       ]
+      },
+      "description": "Deletes the specified self-service category. Software assigned to the deleted category is removed from that category but otherwise unaffected. Only global and fleet admins and maintainers can call this endpoint."
+     },
+     "response": [
+      {
+       "name": "Default response (204)",
+       "originalRequest": {
+        "method": "DELETE",
+        "header": [],
+        "url": {
+         "raw": "{{baseUrl}}/api/v1/fleet/software/self_service_categories/:id"
         }
        },
        "status": "",
@@ -11394,7 +12391,7 @@
         }
        ]
       },
-      "description": "Retrieve details about a vulnerability and its affected software and OS versions.\n\nIf no vulnerable OS versions or software were found, but Fleet is aware of the vulnerability, a 204 status code is returned."
+      "description": "Retrieve details about a vulnerability and its affected software and OS versions.\n\nIf no vulnerable OS versions or software were found, but Fleet is aware of the vulnerability, a `204` status code is returned."
      },
      "response": [
       {
@@ -11670,7 +12667,7 @@
       "description": "_Available in Fleet Premium_\n\n\n\n\nSub-keys mirror the global `features.historical_data` shape and default to\n`true`. A dataset is collected for a host in this fleet only when both the\nglobal sub-key AND this fleet's sub-key are `true`. Sub-keys omitted from\nthe PATCH body retain their current stored value.\n\n| Name              | Type    | Description                                                                                                |\n| ----------------- | ------- | ---------------------------------------------------------------------------------------------------------- |\n| uptime            | boolean | Whether to collect host-uptime samples for hosts in this fleet. (Default: `true`)                          |\n| vulnerabilities   | boolean | Whether to collect CVE samples for hosts in this fleet. (Default: `true`)                                  |\n\n\n```json\n{\n  \"features\": {\n    \"historical_data\": {\n      \"vulnerabilities\": false\n    }\n  }\n}\n```\n\n\n| Name                              | Type  | Description   |\n| ---------------------             | ----- | ---------------------------------------------------------------------------------------------- |\n| failing_policies_webhook          | array | See `webhook_settings.failing_policies_webhook`. |\n| host_status_webhook               | array | See `webhook_settings.host_status_webhook`.           |\n\n \n\n\n`webhook_settings.failing_policies_webhook` is an object with the following structure:\n\n| Name                              | Type    | Description   |\n| ---------------------             | ------- | ------------------------------------------------------------------------------------------------------------------------------------------- |\n| enable_failing_policies_webhook | boolean | Whether or not the failing policies webhook is enabled.                                                                                                                                                   |\n| destination_url                 | string  | The URL to deliver the webhook requests to.                                                                                                                                                               |\n| policy_ids                      | array   | List of policy IDs to enable failing policies webhook.                                                                                                                                                    |\n| host_batch_size                 | integer | Maximum number of hosts to batch on failing policy webhook requests. The default, `0`, means no batching (all hosts failing a policy are sent on one request).                                              |\n\n \n\n\n`webhook_settings.host_status_webhook` is an object with the following structure:\n\n| Name                              | Type    | Description   |\n| ---------------------             | ------- | ------------------------------------------------------------------------------------------------------------------------------------------- |\n| enable_host_status_webhook | boolean | Whether or not the host status webhook is enabled. |\n| destination_url            | string | The URL to deliver the webhook request to. |\n| host_percentage            | integer | The minimum percentage of hosts that must fail to check in to Fleet in order to trigger the webhook request. |\n| days_count | integer | body | The minimum number of days that the configured `host_percentage` must fail to check in to Fleet in order to trigger the webhook request. |\n\n \n\n\n```json\n{\n  \"webhook_settings\": {\n    \"failing_policies_webhook\":{\n      \"enable_failing_policies_webhook\": true,\n      \"destination_url\": \"https://server.com\",\n      \"policy_ids\": [1, 2, 3],\n      \"host_batch_size\": 1000\n    },\n    \"host_status_webhook\": {\n      \"enable_host_status_webhook\": true,\n      \"destination_url\": \"https://server.com\",\n      \"host_percentage\": 5,\n      \"days_count\": 7\n    }\n  }\n}\n```\n\n\n\n| Name            | Type   | Description                                                          |\n|-----------------|--------|----------------------------------------------------------------------|\n| jira            | array  | See `integrations.jira`.                       |\n| zendesk         | array  | See `integrations.zendesk`.                 |\n| google_calendar | array  | See `integrations.google_calendar`. |\n| conditional_access_enabled | boolean | **Available in Fleet Premium.** Whether to block third party app sign-ins on hosts failing policies. Must have Microsoft Entra or Okta connected and configured in global config. |\n\n \n\n\n`integrations.jira` is an array of objects with the following structure:\n\n| Name                                                    | Type    | Description                                                                                                                                                                                               |\n| ------------",
       "body": {
        "mode": "raw",
-       "raw": "{\n  \"host_ids\": []\n}",
+       "raw": "{\n  \"host_ids\": [3, 6, 7, 8, 9, 20, 32, 44]\n}",
        "options": {
         "raw": {
          "language": "json"
@@ -12904,6 +13901,93 @@
       "description": "Returns runtime profiling data of the server in the format expected by `go tools pprof`. The responses are equivalent to those returned by the Go `http/pprof` package.\n\nValid keys are: `cmdline`, `profile`, `symbol` and `trace`.\n\n\nNone."
      },
      "response": []
+    },
+    {
+     "name": "Get trace sampling settings",
+     "request": {
+      "method": "GET",
+      "header": [],
+      "url": {
+       "raw": "{{baseUrl}}/debug/trace_sampler",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "debug",
+        "trace_sampler"
+       ]
+      },
+      "description": "Returns the current trace sampling settings. Only has effect when tracing is enabled (see logging_tracing_enabled). Requires a global admin.\n\n\nNone."
+     },
+     "response": [
+      {
+       "name": "Default response (200)",
+       "originalRequest": {
+        "method": "GET",
+        "header": [],
+        "url": {
+         "raw": "{{baseUrl}}/debug/trace_sampler"
+        }
+       },
+       "status": "OK",
+       "code": 200,
+       "_postman_previewlanguage": "json",
+       "header": [],
+       "cookie": [],
+       "body": "{\n  \"high_volume_ratio\": 0.001,\n  \"standard_ratio\": 0.02,\n  \"force_full\": false,\n  \"updated_at\": \"2026-06-01T00:00:00Z\"\n}"
+      }
+     ]
+    },
+    {
+     "name": "Adjust trace sampling",
+     "request": {
+      "method": "PATCH",
+      "header": [
+       {
+        "key": "Content-Type",
+        "value": "application/json",
+        "type": "text"
+       }
+      ],
+      "url": {
+       "raw": "{{baseUrl}}/debug/trace_sampler",
+       "host": [
+        "{{baseUrl}}"
+       ],
+       "path": [
+        "debug",
+        "trace_sampler"
+       ]
+      },
+      "description": "Updates one or more trace sampling settings at runtime, without restarting the server. Only the fields included in the request body are changed. Each Fleet server polls for changes about once a minute, so an update applies across all servers within roughly a minute. Requires a global admin.\n\n\n\nAt least one field is required. Ratios outside the `[0, 1]` range are rejected.",
+      "body": {
+       "mode": "raw",
+       "raw": "{\n  \"force_full\": true\n}",
+       "options": {
+        "raw": {
+         "language": "json"
+        }
+       }
+      }
+     },
+     "response": [
+      {
+       "name": "Default response (200)",
+       "originalRequest": {
+        "method": "PATCH",
+        "header": [],
+        "url": {
+         "raw": "{{baseUrl}}/debug/trace_sampler"
+        }
+       },
+       "status": "OK",
+       "code": 200,
+       "_postman_previewlanguage": "json",
+       "header": [],
+       "cookie": [],
+       "body": "{\n  \"high_volume_ratio\": 0.001,\n  \"standard_ratio\": 0.02,\n  \"force_full\": true\n}"
+      }
+     ]
     }
    ]
   },
