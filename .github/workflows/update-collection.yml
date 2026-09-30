@@ -20,7 +20,9 @@ jobs:
   update:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
+        with:
+          fetch-depth: 0
 
       - name: Determine target Fleet release
         id: release
@@ -55,7 +57,7 @@ jobs:
 
       - name: Open pull request
         if: steps.release.outputs.update == 'true'
-        uses: peter-evans/create-pull-request@v7
+        uses: peter-evans/create-pull-request@v8
         with:
           branch: update/fleet-v${{ steps.release.outputs.version }}
           commit-message: "Update collection to Fleet v${{ steps.release.outputs.version }}"
@@ -67,3 +69,7 @@ jobs:
 
             Review the diff for added/removed/changed endpoints, then merge.
           delete-branch: true
+          add-paths: |
+            VERSION
+            fleet.postman_collection.json
+            fleet.postman_environment.json
