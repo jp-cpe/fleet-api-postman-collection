@@ -1,10 +1,10 @@
 {
  "info": {
-  "_postman_id": "e8408b6e-b53b-5628-a393-232debadd406",
-  "name": "Fleet API v4.92.1",
-  "description": "Postman collection for the Fleet REST API, version 4.92.1.\n\n**Note: this collection is a community resource and is not officially supported by Fleet.** For authoritative reference, use the official API documentation: https://fleetdm.com/docs/rest-api/rest-api\n\nGenerated from `docs/REST API/rest-api.md` at tag `fleet-v4.92.1` in the fleetdm/fleet repo by `scripts/generate_collection.py`.\n\nSetup: import the accompanying `fleet.postman_environment.json`, then set `baseUrl` to your Fleet server and `token` to your API token (Fleet UI > My account > Get API token). All requests inherit `Bearer {{token}}` auth from the collection.\n\nQuery parameters are included on each request but disabled by default — enable the ones you need and replace the placeholder values.",
+  "_postman_id": "e7d7622e-3c6f-5788-8650-7f5d584bfbc1",
+  "name": "Fleet API v4.92.2",
+  "description": "Postman collection for the Fleet REST API, version 4.92.2.\n\n**Note: this collection is a community resource and is not officially supported by Fleet.** For authoritative reference, use the official API documentation: https://fleetdm.com/docs/rest-api/rest-api\n\nGenerated from `docs/REST API/rest-api.md` at tag `fleet-v4.92.2` in the fleetdm/fleet repo by `scripts/generate_collection.py`.\n\nSetup: import the accompanying `fleet.postman_environment.json`, then set `baseUrl` to your Fleet server and `token` to your API token (Fleet UI > My account > Get API token). All requests inherit `Bearer {{token}}` auth from the collection.\n\nQuery parameters are included on each request but disabled by default — enable the ones you need and replace the placeholder values.",
   "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-  "version": "4.92.1"
+  "version": "4.92.2"
  },
  "auth": {
   "type": "bearer",
